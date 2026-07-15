@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local datasets, weights, training runs, and generated media
+datasets/
+runs/
+outputs/
+archive/
+models/**/*.pt
+assets/media/
+assets/calibration_data/*.npy
+
+# Calibration source images and generated corner previews
+calibration/archive/
+calibration/debug_*/
+calibration/images*/
+calibration/outputs/
+
+# Temporary captures and logs
+*.log
+*.tmp
+*.mp4
+*.avi

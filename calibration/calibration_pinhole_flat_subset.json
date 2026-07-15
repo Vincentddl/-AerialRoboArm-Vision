@@ -1,0 +1,171 @@
+{
+  "model": "pinhole",
+  "image_size": [
+    640,
+    480
+  ],
+  "checkerboard_inner_corners": [
+    9,
+    6
+  ],
+  "square_size": 20.0,
+  "square_size_unit": "mm",
+  "valid_image_count": 31,
+  "rms": 1.4775109389717502,
+  "reprojection_error_px": 1.477510964768955,
+  "per_image_reprojection_error_px": [
+    {
+      "image": "images_flat_subset\\frame_0019.png",
+      "error_px": 2.228424978413992
+    },
+    {
+      "image": "images_flat_subset\\frame_0018.png",
+      "error_px": 2.183843582923859
+    },
+    {
+      "image": "images_flat_subset\\frame_0011.png",
+      "error_px": 2.181407336965973
+    },
+    {
+      "image": "images_flat_subset\\frame_0010.png",
+      "error_px": 2.1011063519130704
+    },
+    {
+      "image": "images_flat_subset\\frame_0009.png",
+      "error_px": 2.048771896818032
+    },
+    {
+      "image": "images_flat_subset\\frame_0031.png",
+      "error_px": 1.728181210064455
+    },
+    {
+      "image": "images_flat_subset\\frame_0032.png",
+      "error_px": 1.7047504312166422
+    },
+    {
+      "image": "images_flat_subset\\frame_0027.png",
+      "error_px": 1.5876310686382706
+    },
+    {
+      "image": "images_flat_subset\\frame_0026.png",
+      "error_px": 1.5582764735244363
+    },
+    {
+      "image": "images_flat_subset\\frame_0023.png",
+      "error_px": 1.5266750644120903
+    },
+    {
+      "image": "images_flat_subset\\frame_0012.png",
+      "error_px": 1.5073997192772575
+    },
+    {
+      "image": "images_flat_subset\\frame_0021.png",
+      "error_px": 1.5068968783464936
+    },
+    {
+      "image": "images_flat_subset\\frame_0013.png",
+      "error_px": 1.481511007064664
+    },
+    {
+      "image": "images_flat_subset\\frame_0006.png",
+      "error_px": 1.4764127503874986
+    },
+    {
+      "image": "images_flat_subset\\frame_0005.png",
+      "error_px": 1.459677180648018
+    },
+    {
+      "image": "images_flat_subset\\frame_0016.png",
+      "error_px": 1.452385580750025
+    },
+    {
+      "image": "images_flat_subset\\frame_0022.png",
+      "error_px": 1.4458780754656873
+    },
+    {
+      "image": "images_flat_subset\\frame_0017.png",
+      "error_px": 1.4096023819707306
+    },
+    {
+      "image": "images_flat_subset\\frame_0004.png",
+      "error_px": 1.3733681525721009
+    },
+    {
+      "image": "images_flat_subset\\frame_0003.png",
+      "error_px": 1.3248736599227322
+    },
+    {
+      "image": "images_flat_subset\\frame_0015.png",
+      "error_px": 1.171036226883381
+    },
+    {
+      "image": "images_flat_subset\\frame_0024.png",
+      "error_px": 1.1156363484340128
+    },
+    {
+      "image": "images_flat_subset\\frame_0014.png",
+      "error_px": 1.1095629504432891
+    },
+    {
+      "image": "images_flat_subset\\frame_0025.png",
+      "error_px": 1.0888402289424737
+    },
+    {
+      "image": "images_flat_subset\\frame_0008.png",
+      "error_px": 1.0289019145599412
+    },
+    {
+      "image": "images_flat_subset\\frame_0028.png",
+      "error_px": 0.9799718010945634
+    },
+    {
+      "image": "images_flat_subset\\frame_0007.png",
+      "error_px": 0.9769227762942684
+    },
+    {
+      "image": "images_flat_subset\\frame_0030.png",
+      "error_px": 0.9505233582227355
+    },
+    {
+      "image": "images_flat_subset\\frame_0029.png",
+      "error_px": 0.9336720734538726
+    },
+    {
+      "image": "images_flat_subset\\frame_0002.png",
+      "error_px": 0.6497057275530499
+    },
+    {
+      "image": "images_flat_subset\\frame_0001.png",
+      "error_px": 0.5622008170006784
+    }
+  ],
+  "camera_matrix": [
+    [
+      545.3389270780361,
+      0.0,
+      329.2681202652437
+    ],
+    [
+      0.0,
+      744.1258841057382,
+      249.4188690159081
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "dist_coeffs": [
+    0.2113827291680507,
+    0.7379636572260776,
+    -0.006009572268791902,
+    0.05837182640015966,
+    -1.619488781367078
+  ],
+  "notes": [
+    "Use the same resolution during runtime.",
+    "Recalibrate if camera position, lens, focus, or capture resolution changes.",
+    "For grab angle, undistort the detected target center before computing angle."
+  ]
+}

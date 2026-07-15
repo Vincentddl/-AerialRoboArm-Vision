@@ -1,0 +1,202 @@
+{
+  "model": "fisheye",
+  "image_size": [
+    640,
+    480
+  ],
+  "checkerboard_inner_corners": [
+    9,
+    6
+  ],
+  "square_size": 20.0,
+  "square_size_unit": "mm",
+  "valid_image_count": 39,
+  "rms": 0.2301896291047371,
+  "reprojection_error_px": 0.2301896291047371,
+  "per_image_reprojection_error_px": [
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0024.png",
+      "error_px": 0.3366953494582258
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0050.png",
+      "error_px": 0.3271362259828023
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0008.png",
+      "error_px": 0.2877382027220604
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0049.png",
+      "error_px": 0.28757383964633165
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0073.png",
+      "error_px": 0.2862419600783931
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0003.png",
+      "error_px": 0.2837110847837216
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0021.png",
+      "error_px": 0.27975414264473614
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0052.png",
+      "error_px": 0.27863811695753904
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0011.png",
+      "error_px": 0.27318485884246824
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0009.png",
+      "error_px": 0.27137291797402757
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0013.png",
+      "error_px": 0.25211494213742675
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0046.png",
+      "error_px": 0.24327774152609719
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0051.png",
+      "error_px": 0.24068553994688896
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0020.png",
+      "error_px": 0.23368622527515956
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0070.png",
+      "error_px": 0.22913145658613276
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0084.png",
+      "error_px": 0.2287868824649541
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0012.png",
+      "error_px": 0.22638979011329796
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0054.png",
+      "error_px": 0.22493264885907147
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0022.png",
+      "error_px": 0.22370534145057816
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0075.png",
+      "error_px": 0.21995518321135307
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0007.png",
+      "error_px": 0.21559131017260383
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0015.png",
+      "error_px": 0.21508231942180386
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0043.png",
+      "error_px": 0.21312582355702858
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0047.png",
+      "error_px": 0.21148032971178418
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0033.png",
+      "error_px": 0.21022845684604932
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0014.png",
+      "error_px": 0.2092893602970634
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0005.png",
+      "error_px": 0.20898511276997606
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0018.png",
+      "error_px": 0.20525793869398154
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0061.png",
+      "error_px": 0.20348737464701017
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0068.png",
+      "error_px": 0.20284470993145925
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0079.png",
+      "error_px": 0.18843947566415536
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0029.png",
+      "error_px": 0.1698286740812699
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0040.png",
+      "error_px": 0.16535178670606565
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0078.png",
+      "error_px": 0.16269921738461368
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0025.png",
+      "error_px": 0.1624077621769778
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0087.png",
+      "error_px": 0.16046771535276547
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0006.png",
+      "error_px": 0.15007038102667764
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0067.png",
+      "error_px": 0.14942667883841837
+    },
+    {
+      "image": "images_2p1mm_selected_v2\\frame_0017.png",
+      "error_px": 0.13872645229735447
+    }
+  ],
+  "camera_matrix": [
+    [
+      423.92258816281065,
+      0.0,
+      322.8040855303598
+    ],
+    [
+      0.0,
+      587.6830041854582,
+      239.24954798934553
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "dist_coeffs": [
+    -0.16682951293803822,
+    0.06198078128631947,
+    -0.11698075575354976,
+    0.08538613749575168
+  ],
+  "notes": [
+    "Use the same resolution during runtime.",
+    "Recalibrate if camera position, lens, focus, or capture resolution changes.",
+    "For grab angle, undistort the detected target center before computing angle."
+  ]
+}
