@@ -17,6 +17,10 @@ CRITICAL_PATHS = {
     "V7 model": ROOT / "models" / "foam_board_2p1mm_v7.pt",
     "tracking runtime": ROOT / "scripts" / "run_foam_board.py",
     "trajectory baseline": ROOT / "tracking" / "trajectory.py",
+    "bearing predictor": ROOT / "tracking" / "bearing.py",
+    "bearing evaluator": ROOT / "scripts" / "evaluate_bearing_prediction.py",
+    "bearing dataset builder": ROOT / "scripts" / "build_bearing_estimation_dataset.py",
+    "bearing trainer": ROOT / "scripts" / "train_bearing_estimator.py",
     "V7 dataset": ROOT / "datasets" / "foam_board_2p1mm" / "v7" / "foam_board_2p1mm.yaml",
     "Z-axis recording": ROOT
     / "datasets"

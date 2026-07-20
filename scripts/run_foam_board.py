@@ -39,7 +39,7 @@ def main():
         "--device",
         "0",
         "--predict-seconds",
-        "0.5",
+        "0.2",
         "--min-age",
         "8",
         "--max-match-distance",

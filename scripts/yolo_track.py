@@ -256,7 +256,7 @@ def main():
     parser.add_argument("--iou", type=float, default=0.5, help="NMS IoU threshold")
     parser.add_argument("--imgsz", type=int, default=512, help="YOLO inference image size")
     parser.add_argument("--device", default="", help="Device, e.g. cpu, 0, cuda:0. Empty means auto")
-    parser.add_argument("--predict-seconds", type=float, default=0.5, help="Lead time for robot pickup prediction")
+    parser.add_argument("--predict-seconds", type=float, default=0.2, help="Lead time for short-term prediction")
     parser.add_argument("--min-age", type=int, default=1, help="Frames required before a track is sent as an arm target")
     parser.add_argument("--max-match-distance", type=float, default=120.0, help="Max pixel distance for ID matching")
     parser.add_argument("--max-missed", type=int, default=15, help="Drop a track after this many missed frames")

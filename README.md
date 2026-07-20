@@ -9,8 +9,9 @@
 - 有效标定：`configs/camera_2p1mm_640x480_fisheye.json`。
 - 标定重投影误差：约0.229 px。
 - 当前检测模型：`models/foam_board_2p1mm_v7.pt`。
-- 当前轨迹模型：二维像素位置/速度/加速度Kalman，仅作为历史基线。
-- 下一阶段：实现去畸变方向角的400 ms鲁棒预测。
+- 历史轨迹模型：二维像素位置/速度/加速度Kalman，保留为基线。
+- 实验轨迹模型：去畸变方向角的保持、鲁棒匀角速度和鲁棒角加速度预测。
+- 当前结论：方向角转换已完成，但现有录像上的400 ms外推尚未超过保持角度基线，不能用于抓取控制。
 
 ## 目录
 
@@ -76,6 +77,39 @@ archive/      旧实验与无效采集归档
 ```powershell
 & "D:\app\miniconda\envs\python312\python.exe" .\scripts\run_foam_board.py --source ".\datasets\foam_board_2p1mm_zaxis\raw\20260714_223253\foam_board_2p1mm_zaxis_trajectory_20260714_223351_701282.mp4"
 ```
+
+## 方向角预测离线评估
+
+使用现有V7检测结果、真实帧时间戳和2.1 mm鱼眼标定参数运行：
+
+```powershell
+& "D:\app\miniconda\envs\python312\python.exe" .\scripts\evaluate_bearing_prediction.py
+```
+
+结果写入`outputs/bearing_prediction_eval_v7.json`。详细口径与当前结论见
+`docs/bearing_prediction_v7_evaluation.md`。该脚本只使用锚点之前的观测进行拟合，未来V7检测中心仅作为伪真值计算误差。
+
+运行几何与预测器单元测试：
+
+```powershell
+& "D:\app\miniconda\envs\python312\python.exe" -m unittest discover -s tests -v
+```
+
+## 短期方向角估计训练
+
+当前学习目标只包含100 ms和200 ms，400 ms默认关闭。先从已有V7检测和真实时间戳构建按完整轨迹分组的数据集：
+
+```powershell
+& "D:\app\miniconda\envs\python312\python.exe" .\scripts\build_bearing_estimation_dataset.py
+```
+
+训练轻量GRU估计器：
+
+```powershell
+& "D:\app\miniconda\envs\python312\python.exe" .\scripts\train_bearing_estimator.py --device cuda
+```
+
+生成的V1模型只是伪标签实验模型，不会自动接入实时抓取。必须在独立人工标注轨迹上超过保持角度基线后，才能进入运行时集成。
 
 ## 数据与Git
 
