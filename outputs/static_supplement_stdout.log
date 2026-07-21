@@ -1,0 +1,59 @@
+Camera: source=0, backend=dshow, size=640x480, fps=0.00
+Output: D:\Study_data\ultralytics-8.3.218\lab_tracking\datasets\foam_board_2p1mm\raw\20260713_214630
+Video FPS: 30.14
+Keys: s=save, r=automatic images on/off, v=video recording on/off, q/Esc=quit
+Static mode: move the target to a new pose, hold it still, and wait for one saved message.
+Static limits: settle=0.35s, motion<=1.00, change>=3.00, sharpness>=150.0
+automatic capture: on
+saved foam_board_2p1mm_000001.jpg
+saved foam_board_2p1mm_000002.jpg
+saved foam_board_2p1mm_000003.jpg
+saved foam_board_2p1mm_000004.jpg
+saved foam_board_2p1mm_000005.jpg
+saved foam_board_2p1mm_000006.jpg
+saved foam_board_2p1mm_000007.jpg
+saved foam_board_2p1mm_000008.jpg
+saved foam_board_2p1mm_000009.jpg
+saved foam_board_2p1mm_000010.jpg
+saved foam_board_2p1mm_000011.jpg
+saved foam_board_2p1mm_000012.jpg
+saved foam_board_2p1mm_000013.jpg
+saved foam_board_2p1mm_000014.jpg
+saved foam_board_2p1mm_000015.jpg
+saved foam_board_2p1mm_000016.jpg
+saved foam_board_2p1mm_000017.jpg
+saved foam_board_2p1mm_000018.jpg
+saved foam_board_2p1mm_000019.jpg
+saved foam_board_2p1mm_000020.jpg
+saved foam_board_2p1mm_000021.jpg
+saved foam_board_2p1mm_000022.jpg
+saved foam_board_2p1mm_000023.jpg
+saved foam_board_2p1mm_000024.jpg
+saved foam_board_2p1mm_000025.jpg
+saved foam_board_2p1mm_000026.jpg
+saved foam_board_2p1mm_000027.jpg
+saved foam_board_2p1mm_000028.jpg
+saved foam_board_2p1mm_000029.jpg
+saved foam_board_2p1mm_000030.jpg
+saved foam_board_2p1mm_000031.jpg
+saved foam_board_2p1mm_000032.jpg
+saved foam_board_2p1mm_000033.jpg
+saved foam_board_2p1mm_000034.jpg
+saved foam_board_2p1mm_000035.jpg
+saved foam_board_2p1mm_000036.jpg
+saved foam_board_2p1mm_000037.jpg
+saved foam_board_2p1mm_000038.jpg
+saved foam_board_2p1mm_000039.jpg
+saved foam_board_2p1mm_000040.jpg
+saved foam_board_2p1mm_000041.jpg
+saved foam_board_2p1mm_000042.jpg
+saved foam_board_2p1mm_000043.jpg
+saved foam_board_2p1mm_000044.jpg
+saved foam_board_2p1mm_000045.jpg
+saved foam_board_2p1mm_000046.jpg
+saved foam_board_2p1mm_000047.jpg
+saved foam_board_2p1mm_000048.jpg
+saved foam_board_2p1mm_000049.jpg
+saved foam_board_2p1mm_000050.jpg
+COMPLETE 50/50
+Finished. Saved 50 images in D:\Study_data\ultralytics-8.3.218\lab_tracking\datasets\foam_board_2p1mm\raw\20260713_214630

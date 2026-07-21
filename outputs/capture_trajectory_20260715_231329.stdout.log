@@ -1,0 +1,8 @@
+Camera: source=0, backend=dshow, size=640x480, fps=0.00
+Output: D:\Study_data\AerialRoboArm-Vision\datasets\trajectory_validation\raw\session_20260715_231329
+Video FPS: 26.80 (measured camera rate)
+Keys: s=save, r=automatic images on/off, Space/v/V=start/stop video recording, q/Esc=quit
+video recording started: D:\Study_data\AerialRoboArm-Vision\datasets\trajectory_validation\raw\session_20260715_231329\foam_board_trajectory_test_trajectory_20260715_231338_841773.mp4
+saved foam_board_trajectory_test_000001.jpg
+video recording stopped: D:\Study_data\AerialRoboArm-Vision\datasets\trajectory_validation\raw\session_20260715_231329\foam_board_trajectory_test_trajectory_20260715_231338_841773.mp4 (3927 frames)
+Finished. Saved 1 images in D:\Study_data\AerialRoboArm-Vision\datasets\trajectory_validation\raw\session_20260715_231329

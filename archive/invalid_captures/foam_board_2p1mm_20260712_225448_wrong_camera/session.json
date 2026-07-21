@@ -1,0 +1,13 @@
+{
+  "created_at": "2026-07-12T22:54:51+08:00",
+  "object": "foam_board_2p1mm",
+  "filename_prefix": "foam_board_2p1mm",
+  "source": "0",
+  "backend": "dshow",
+  "width": 640,
+  "height": 480,
+  "reported_fps": 0.0,
+  "estimated_fps": 30.18359374213839,
+  "capture_interval_seconds": 0.25,
+  "requested_video_fps": 0.0
+}

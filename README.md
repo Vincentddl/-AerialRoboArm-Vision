@@ -25,11 +25,11 @@
 | `datasets/` | 已上传的关键训练集和 Z-axis 轨迹数据；详见 `datasets/README.md`。 |
 | `docs/` | 训练记录、评估结论、历史说明和协作背景文档。 |
 | `models/` | 已通过 Git LFS 上传的模型权重；详见 `models/README.md`。 |
-| `outputs/` | 已上传的方向角、轨迹和目标输出 JSON/JSONL；详见 `outputs/README.md`。 |
+| `outputs/` | 已上传的方向角、轨迹、目标输出和轻量日志；详见 `outputs/README.md`。 |
 | `scripts/` | 数据集构建、离线评估、模型训练和实时运行入口脚本。 |
 | `tests/` | 几何映射、预测器和估计器的单元测试。 |
 | `tracking/` | 轨迹预测、方向角映射和坐标转换实现。 |
-| `runs/` | 本地 Ultralytics 训练输出，默认不上传。 |
+| `runs/` | 已上传 Ultralytics 训练参数、指标、曲线图和预览图；权重检查点仍不上传。 |
 | `archive/` | 旧实验和无效采集归档，默认不上传。 |
 
 ## 协作者最常用文件
@@ -149,11 +149,13 @@ docs/bearing_prediction_v7_evaluation.md
 - `datasets/foam_board_2p1mm/v7/`
 - `datasets/foam_board_2p1mm_zaxis/`
 - 方向角、轨迹和目标相关的 `outputs/*.json` / `outputs/*.jsonl`
+- `outputs/` 中少量日志和远程训练 bundle。
+- `runs/` 中训练参数、指标 CSV、曲线图、混淆矩阵和 batch 预览图。
 
 仍默认保留在本地：
 
 - 完整历史 `outputs/` 图片、视频和中间结果。
-- 完整 `runs/` 训练过程目录。
+- `runs/*/weights/*.pt` 训练检查点；当前关键权重已经单独整理到 `models/`。
 - `archive/` 旧实验归档。
 - 标定原始图片和大量调试角点图。
 
