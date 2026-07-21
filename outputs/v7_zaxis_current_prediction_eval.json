@@ -1,0 +1,110 @@
+{
+  "source": "V7 detections as pseudo-ground-truth within +/-50 ms; current detections only (missed_frames=0)",
+  "eligible_outputs": 152,
+  "horizons": {
+    "0.1": {
+      "matched": 136,
+      "coverage": 0.8947,
+      "errors_px": {
+        "hold": {
+          "median": 39.22,
+          "p90": 241.23,
+          "mean": 100.58
+        },
+        "cv": {
+          "median": 82.25,
+          "p90": 290.78,
+          "mean": 129.53
+        },
+        "ca": {
+          "median": 89.27,
+          "p90": 286.71,
+          "mean": 130.5
+        }
+      },
+      "in_frame_fraction": {
+        "hold": 0.9605,
+        "cv": 0.8684,
+        "ca": 0.8816
+      }
+    },
+    "0.2": {
+      "matched": 104,
+      "coverage": 0.6842,
+      "errors_px": {
+        "hold": {
+          "median": 47.37,
+          "p90": 386.46,
+          "mean": 127.15
+        },
+        "cv": {
+          "median": 132.43,
+          "p90": 484.13,
+          "mean": 202.65
+        },
+        "ca": {
+          "median": 159.0,
+          "p90": 439.58,
+          "mean": 209.48
+        }
+      },
+      "in_frame_fraction": {
+        "hold": 0.9605,
+        "cv": 0.7105,
+        "ca": 0.7368
+      }
+    },
+    "0.4": {
+      "matched": 70,
+      "coverage": 0.4605,
+      "errors_px": {
+        "hold": {
+          "median": 54.08,
+          "p90": 414.15,
+          "mean": 133.19
+        },
+        "cv": {
+          "median": 256.43,
+          "p90": 740.48,
+          "mean": 335.45
+        },
+        "ca": {
+          "median": 364.66,
+          "p90": 791.46,
+          "mean": 401.65
+        }
+      },
+      "in_frame_fraction": {
+        "hold": 0.9605,
+        "cv": 0.5987,
+        "ca": 0.5592
+      }
+    },
+    "0.5": {
+      "matched": 68,
+      "coverage": 0.4474,
+      "errors_px": {
+        "hold": {
+          "median": 90.12,
+          "p90": 461.34,
+          "mean": 164.12
+        },
+        "cv": {
+          "median": 321.87,
+          "p90": 722.22,
+          "mean": 398.84
+        },
+        "ca": {
+          "median": 504.42,
+          "p90": 848.96,
+          "mean": 551.97
+        }
+      },
+      "in_frame_fraction": {
+        "hold": 0.9605,
+        "cv": 0.5132,
+        "ca": 0.3224
+      }
+    }
+  }
+}

@@ -1,0 +1,5816 @@
+{
+  "source": {
+    "predictions": "D:\\Study_data\\AerialRoboArm-Vision\\datasets\\foam_board_2p1mm_zaxis\\raw\\20260714_223253\\v7_predictions.json",
+    "timestamps": "D:\\Study_data\\AerialRoboArm-Vision\\datasets\\foam_board_2p1mm_zaxis\\raw\\20260714_223253\\foam_board_2p1mm_zaxis_trajectory_20260714_223351_701282.timestamps.jsonl",
+    "calibration": "D:\\Study_data\\AerialRoboArm-Vision\\configs\\camera_2p1mm_640x480_fisheye.json",
+    "truth": "nearest future V7 detection center within tolerance (pseudo-ground-truth)"
+  },
+  "configuration": {
+    "confidence": 0.2,
+    "history_ms": 350.0,
+    "max_history_gap_ms": 120.0,
+    "future_tolerance_ms": 50.0,
+    "min_samples": 6,
+    "min_history_span_ms": 100.0,
+    "min_motion_deg": 2.0,
+    "exclude_clipped_history": true,
+    "recency_tau_ms": 200.0,
+    "huber_delta_deg": 0.75,
+    "max_angular_speed_deg_s": 600.0,
+    "max_angular_acceleration_deg_s2": 2500.0
+  },
+  "detection_stats": {
+    "frames_in_predictions": 2050,
+    "selected_detections": 494,
+    "clipped_selected_detections": 221,
+    "frames_with_multiple_candidates": 35,
+    "rejected_low_confidence_boxes": 350
+  },
+  "horizons": {
+    "100": {
+      "eligible": 96,
+      "matched": 86,
+      "future_detection_coverage": 0.8958,
+      "matched_truth_clipped": 26,
+      "matched_truth_clipped_fraction": 0.3023,
+      "metrics": {
+        "hold": {
+          "angular_error_deg": {
+            "count": 86,
+            "median": 6.9803,
+            "p90": 50.3183,
+            "mean": 15.1097
+          },
+          "yaw_absolute_error_deg": {
+            "count": 86,
+            "median": 3.5488,
+            "p90": 49.8627,
+            "mean": 11.5926
+          },
+          "pitch_absolute_error_deg": {
+            "count": 86,
+            "median": 2.96,
+            "p90": 16.0464,
+            "mean": 6.4075
+          },
+          "fit_residual_deg": {
+            "count": 86,
+            "median": 0.0,
+            "p90": 0.0,
+            "mean": 0.0
+          },
+          "predicted_visible_fraction": 0.8958,
+          "wins": 48
+        },
+        "angular_velocity": {
+          "angular_error_deg": {
+            "count": 86,
+            "median": 13.8785,
+            "p90": 47.2593,
+            "mean": 19.0652
+          },
+          "yaw_absolute_error_deg": {
+            "count": 86,
+            "median": 8.1186,
+            "p90": 38.2705,
+            "mean": 13.527
+          },
+          "pitch_absolute_error_deg": {
+            "count": 86,
+            "median": 8.4484,
+            "p90": 19.4381,
+            "mean": 10.059
+          },
+          "fit_residual_deg": {
+            "count": 86,
+            "median": 2.8846,
+            "p90": 7.6619,
+            "mean": 4.1408
+          },
+          "predicted_visible_fraction": 0.8229,
+          "wins": 16
+        },
+        "angular_acceleration": {
+          "angular_error_deg": {
+            "count": 86,
+            "median": 12.2265,
+            "p90": 70.404,
+            "mean": 23.0728
+          },
+          "yaw_absolute_error_deg": {
+            "count": 86,
+            "median": 6.5589,
+            "p90": 70.2237,
+            "mean": 17.4698
+          },
+          "pitch_absolute_error_deg": {
+            "count": 86,
+            "median": 7.6969,
+            "p90": 23.0691,
+            "mean": 10.8595
+          },
+          "fit_residual_deg": {
+            "count": 86,
+            "median": 1.4507,
+            "p90": 5.4164,
+            "mean": 2.4518
+          },
+          "predicted_visible_fraction": 0.6875,
+          "wins": 22
+        }
+      },
+      "comparisons": {
+        "angular_velocity_vs_hold_median_percent": -98.82,
+        "angular_acceleration_vs_hold_median_percent": -75.16
+      },
+      "records": [
+        {
+          "anchor_frame": 268,
+          "truth_frame": 271,
+          "actual_horizon_ms": 95.873,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -1.61564,
+              "pitch_deg": -5.1326,
+              "angular_error_deg": 16.8706,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 8.99506,
+              "pitch_deg": -13.20737,
+              "angular_error_deg": 6.41596,
+              "fit_residual_deg": 1.4731,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 11.93446,
+              "pitch_deg": -6.33544,
+              "angular_error_deg": 4.5775,
+              "fit_residual_deg": 0.90878,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 269,
+          "truth_frame": 272,
+          "actual_horizon_ms": 95.94,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 5.11113,
+              "pitch_deg": -7.07211,
+              "angular_error_deg": 10.55047,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 17.08442,
+              "pitch_deg": -14.73093,
+              "angular_error_deg": 5.66129,
+              "fit_residual_deg": 1.58737,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 23.41922,
+              "pitch_deg": -8.98056,
+              "angular_error_deg": 7.78909,
+              "fit_residual_deg": 0.97691,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 270,
+          "truth_frame": 273,
+          "actual_horizon_ms": 96.263,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 13.48554,
+              "pitch_deg": -9.87235,
+              "angular_error_deg": 4.79227,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 24.69541,
+              "pitch_deg": -17.06717,
+              "angular_error_deg": 11.10165,
+              "fit_residual_deg": 2.33695,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 37.8236,
+              "pitch_deg": -15.12742,
+              "angular_error_deg": 20.64453,
+              "fit_residual_deg": 1.29978,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 271,
+          "truth_frame": 274,
+          "actual_horizon_ms": 95.957,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 14.68012,
+              "pitch_deg": -10.0192,
+              "angular_error_deg": 4.28857,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 28.32642,
+              "pitch_deg": -17.44674,
+              "angular_error_deg": 13.28466,
+              "fit_residual_deg": 1.7893,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 34.42215,
+              "pitch_deg": -12.52519,
+              "angular_error_deg": 16.17679,
+              "fit_residual_deg": 1.35663,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 272,
+          "truth_frame": 275,
+          "actual_horizon_ms": 96.949,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 15.53573,
+              "pitch_deg": -9.2759,
+              "angular_error_deg": 3.57365,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 30.09177,
+              "pitch_deg": -17.17731,
+              "angular_error_deg": 14.0344,
+              "fit_residual_deg": 2.4752,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 30.11353,
+              "pitch_deg": -8.53218,
+              "angular_error_deg": 11.00505,
+              "fit_residual_deg": 2.09258,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 273,
+          "truth_frame": 276,
+          "actual_horizon_ms": 95.402,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 17.99082,
+              "pitch_deg": -8.09329,
+              "angular_error_deg": 2.87767,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 31.89996,
+              "pitch_deg": -14.92922,
+              "angular_error_deg": 16.17635,
+              "fit_residual_deg": 2.8492,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 25.3894,
+              "pitch_deg": -3.94704,
+              "angular_error_deg": 6.82253,
+              "fit_residual_deg": 2.06495,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 274,
+          "truth_frame": 277,
+          "actual_horizon_ms": 96.176,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 18.58684,
+              "pitch_deg": -8.14536,
+              "angular_error_deg": 3.49419,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 32.45473,
+              "pitch_deg": -13.46769,
+              "angular_error_deg": 15.65908,
+              "fit_residual_deg": 3.36088,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 20.82776,
+              "pitch_deg": -2.57558,
+              "angular_error_deg": 2.63986,
+              "fit_residual_deg": 1.80332,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 275,
+          "truth_frame": 278,
+          "actual_horizon_ms": 95.368,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 18.99346,
+              "pitch_deg": -8.23073,
+              "angular_error_deg": 5.92261,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 33.01492,
+              "pitch_deg": -10.57201,
+              "angular_error_deg": 12.88176,
+              "fit_residual_deg": 3.46402,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 15.84578,
+              "pitch_deg": -0.71933,
+              "angular_error_deg": 6.94259,
+              "fit_residual_deg": 1.37454,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 276,
+          "truth_frame": 279,
+          "actual_horizon_ms": 96.71,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 18.68,
+              "pitch_deg": -5.29819,
+              "angular_error_deg": 5.00823,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 28.31327,
+              "pitch_deg": -7.05073,
+              "angular_error_deg": 5.21152,
+              "fit_residual_deg": 3.3508,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 12.64945,
+              "pitch_deg": 3.86614,
+              "angular_error_deg": 13.9133,
+              "fit_residual_deg": 1.11788,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 277,
+          "truth_frame": 280,
+          "actual_horizon_ms": 112.075,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 19.28633,
+              "pitch_deg": -4.72098,
+              "angular_error_deg": 6.39238,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 23.23685,
+              "pitch_deg": -3.19033,
+              "angular_error_deg": 3.03311,
+              "fit_residual_deg": 1.80377,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 11.69603,
+              "pitch_deg": 3.60925,
+              "angular_error_deg": 16.41002,
+              "fit_residual_deg": 1.10871,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 278,
+          "truth_frame": 281,
+          "actual_horizon_ms": 111.928,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.29476,
+              "pitch_deg": -3.30167,
+              "angular_error_deg": 3.93328,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 25.34407,
+              "pitch_deg": -1.15313,
+              "angular_error_deg": 3.71651,
+              "fit_residual_deg": 1.61121,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 18.28147,
+              "pitch_deg": 4.50865,
+              "angular_error_deg": 12.06106,
+              "fit_residual_deg": 1.71049,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 279,
+          "truth_frame": 281,
+          "actual_horizon_ms": 79.873,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.66454,
+              "pitch_deg": -4.64719,
+              "angular_error_deg": 2.26568,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 26.7606,
+              "pitch_deg": -0.89082,
+              "angular_error_deg": 4.0186,
+              "fit_residual_deg": 1.25567,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 25.81771,
+              "pitch_deg": 1.80075,
+              "angular_error_deg": 6.62485,
+              "fit_residual_deg": 1.20042,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 280,
+          "truth_frame": 284,
+          "actual_horizon_ms": 127.893,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 25.69667,
+              "pitch_deg": -4.97365,
+              "angular_error_deg": 3.47886,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 28.75108,
+              "pitch_deg": -1.4995,
+              "angular_error_deg": 6.95488,
+              "fit_residual_deg": 1.1344,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 30.21823,
+              "pitch_deg": -6.05421,
+              "angular_error_deg": 8.10732,
+              "fit_residual_deg": 0.96661,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 281,
+          "truth_frame": 284,
+          "actual_horizon_ms": 95.784,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 25.93111,
+              "pitch_deg": -4.82313,
+              "angular_error_deg": 3.67562,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 29.6603,
+              "pitch_deg": -2.09722,
+              "angular_error_deg": 7.61943,
+              "fit_residual_deg": 1.20342,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 30.54134,
+              "pitch_deg": -7.29077,
+              "angular_error_deg": 8.77599,
+              "fit_residual_deg": 0.91392,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 284,
+          "truth_frame": 287,
+          "actual_horizon_ms": 95.888,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.30847,
+              "pitch_deg": -4.1398,
+              "angular_error_deg": 2.25745,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 26.07161,
+              "pitch_deg": -3.60508,
+              "angular_error_deg": 2.70823,
+              "fit_residual_deg": 2.07982,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 18.56732,
+              "pitch_deg": -6.09888,
+              "angular_error_deg": 5.56009,
+              "fit_residual_deg": 1.50484,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 285,
+          "truth_frame": 288,
+          "actual_horizon_ms": 95.606,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.4404,
+              "pitch_deg": -5.43112,
+              "angular_error_deg": 0.65366,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 24.79781,
+              "pitch_deg": -5.12551,
+              "angular_error_deg": 1.61504,
+              "fit_residual_deg": 1.92293,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 17.01953,
+              "pitch_deg": -6.65795,
+              "angular_error_deg": 6.42334,
+              "fit_residual_deg": 0.98803,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 286,
+          "truth_frame": 289,
+          "actual_horizon_ms": 95.931,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.4029,
+              "pitch_deg": -5.28157,
+              "angular_error_deg": 0.76241,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 24.00408,
+              "pitch_deg": -5.50584,
+              "angular_error_deg": 1.40154,
+              "fit_residual_deg": 1.43532,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 17.18004,
+              "pitch_deg": -6.36236,
+              "angular_error_deg": 5.63777,
+              "fit_residual_deg": 0.90135,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 287,
+          "truth_frame": 290,
+          "actual_horizon_ms": 96.117,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 24.12263,
+              "pitch_deg": -5.49193,
+              "angular_error_deg": 0.63126,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 24.12559,
+              "pitch_deg": -5.84201,
+              "angular_error_deg": 0.7604,
+              "fit_residual_deg": 1.07266,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 22.40573,
+              "pitch_deg": -6.10778,
+              "angular_error_deg": 1.28463,
+              "fit_residual_deg": 1.09974,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 290,
+          "truth_frame": 293,
+          "actual_horizon_ms": 111.765,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.4932,
+              "pitch_deg": -5.41523,
+              "angular_error_deg": 0.78373,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 22.46815,
+              "pitch_deg": -5.37359,
+              "angular_error_deg": 0.59527,
+              "fit_residual_deg": 0.64238,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 24.10615,
+              "pitch_deg": -5.45052,
+              "angular_error_deg": 1.32561,
+              "fit_residual_deg": 0.55556,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 291,
+          "truth_frame": 294,
+          "actual_horizon_ms": 112.105,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.81763,
+              "pitch_deg": -5.61446,
+              "angular_error_deg": 0.46038,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 22.59591,
+              "pitch_deg": -5.73839,
+              "angular_error_deg": 0.69951,
+              "fit_residual_deg": 0.533,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 22.9756,
+              "pitch_deg": -6.07708,
+              "angular_error_deg": 0.83912,
+              "fit_residual_deg": 0.52976,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 292,
+          "truth_frame": 295,
+          "actual_horizon_ms": 96.418,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.21799,
+              "pitch_deg": -6.02019,
+              "angular_error_deg": 0.99062,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 22.98471,
+              "pitch_deg": -6.28048,
+              "angular_error_deg": 1.24461,
+              "fit_residual_deg": 0.47613,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 23.00669,
+              "pitch_deg": -7.25579,
+              "angular_error_deg": 2.21757,
+              "fit_residual_deg": 0.449,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 300,
+          "truth_frame": 303,
+          "actual_horizon_ms": 96.026,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 21.01292,
+              "pitch_deg": -3.56061,
+              "angular_error_deg": 17.292,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 20.81845,
+              "pitch_deg": -3.3331,
+              "angular_error_deg": 17.00923,
+              "fit_residual_deg": 0.64537,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 18.3654,
+              "pitch_deg": -2.26975,
+              "angular_error_deg": 15.24567,
+              "fit_residual_deg": 0.43075,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 301,
+          "truth_frame": 304,
+          "actual_horizon_ms": 111.82,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 20.07629,
+              "pitch_deg": -2.39571,
+              "angular_error_deg": 20.44956,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 19.58727,
+              "pitch_deg": -2.00326,
+              "angular_error_deg": 19.88935,
+              "fit_residual_deg": 0.80138,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 16.39382,
+              "pitch_deg": -0.07857,
+              "angular_error_deg": 16.9549,
+              "fit_residual_deg": 0.42399,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 302,
+          "truth_frame": 304,
+          "actual_horizon_ms": 79.733,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 21.59091,
+              "pitch_deg": 4.83513,
+              "angular_error_deg": 15.16553,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 19.98399,
+              "pitch_deg": -0.64792,
+              "angular_error_deg": 18.83716,
+              "fit_residual_deg": 1.34995,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 18.9778,
+              "pitch_deg": 9.32572,
+              "angular_error_deg": 10.134,
+              "fit_residual_deg": 1.54874,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 373,
+          "truth_frame": 376,
+          "actual_horizon_ms": 112.446,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -1.38003,
+              "pitch_deg": -13.52966,
+              "angular_error_deg": 15.52603,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 13.10421,
+              "pitch_deg": -32.8137,
+              "angular_error_deg": 17.99081,
+              "fit_residual_deg": 1.88965,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 22.29008,
+              "pitch_deg": -20.0047,
+              "angular_error_deg": 8.96675,
+              "fit_residual_deg": 1.08204,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 607,
+          "truth_frame": 611,
+          "actual_horizon_ms": 128.349,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 2.67998,
+              "pitch_deg": -7.4834,
+              "angular_error_deg": 30.73696,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 13.58066,
+              "pitch_deg": -10.43677,
+              "angular_error_deg": 20.59004,
+              "fit_residual_deg": 2.82278,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 32.90173,
+              "pitch_deg": -2.5183,
+              "angular_error_deg": 1.9142,
+              "fit_residual_deg": 2.37235,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 608,
+          "truth_frame": 611,
+          "actual_horizon_ms": 96.308,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 17.58999,
+              "pitch_deg": -10.35443,
+              "angular_error_deg": 16.80686,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 25.66156,
+              "pitch_deg": -13.67119,
+              "angular_error_deg": 12.06011,
+              "fit_residual_deg": 4.62708,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 67.28606,
+              "pitch_deg": -12.76357,
+              "angular_error_deg": 34.4759,
+              "fit_residual_deg": 2.48959,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 614,
+          "truth_frame": 617,
+          "actual_horizon_ms": 111.637,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 34.27144,
+              "pitch_deg": 1.37465,
+              "angular_error_deg": 1.27752,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 49.32586,
+              "pitch_deg": 3.13903,
+              "angular_error_deg": 14.6521,
+              "fit_residual_deg": 3.09126,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 40.307,
+              "pitch_deg": 15.16381,
+              "angular_error_deg": 13.74902,
+              "fit_residual_deg": 2.92502,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 615,
+          "truth_frame": 618,
+          "actual_horizon_ms": 112.03,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 33.93698,
+              "pitch_deg": 3.28925,
+              "angular_error_deg": 2.06497,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 49.94185,
+              "pitch_deg": 6.22779,
+              "angular_error_deg": 16.28821,
+              "fit_residual_deg": 3.8733,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 25.21184,
+              "pitch_deg": 23.26887,
+              "angular_error_deg": 19.67963,
+              "fit_residual_deg": 1.57551,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 620,
+          "truth_frame": 623,
+          "actual_horizon_ms": 96.258,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 29.21515,
+              "pitch_deg": -4.23134,
+              "angular_error_deg": 23.61235,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 27.9925,
+              "pitch_deg": -3.34667,
+              "angular_error_deg": 22.11311,
+              "fit_residual_deg": 3.90444,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 17.32267,
+              "pitch_deg": -30.96977,
+              "angular_error_deg": 42.72509,
+              "fit_residual_deg": 1.78018,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 621,
+          "truth_frame": 623,
+          "actual_horizon_ms": 63.759,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 21.12769,
+              "pitch_deg": -3.49711,
+              "angular_error_deg": 17.7409,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 22.81431,
+              "pitch_deg": -7.11595,
+              "angular_error_deg": 21.69766,
+              "fit_residual_deg": 4.1216,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 0.04704,
+              "pitch_deg": -23.0149,
+              "angular_error_deg": 36.14436,
+              "fit_residual_deg": 2.18585,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 678,
+          "truth_frame": 681,
+          "actual_horizon_ms": 101.561,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -16.98296,
+              "pitch_deg": -8.34314,
+              "angular_error_deg": 17.04706,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -17.87225,
+              "pitch_deg": -18.72104,
+              "angular_error_deg": 20.49924,
+              "fit_residual_deg": 2.8244,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -8.35875,
+              "pitch_deg": -31.43177,
+              "angular_error_deg": 24.5877,
+              "fit_residual_deg": 1.4508,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 679,
+          "truth_frame": 682,
+          "actual_horizon_ms": 102.016,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -14.99823,
+              "pitch_deg": -4.94823,
+              "angular_error_deg": 6.872,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -13.10625,
+              "pitch_deg": -16.97257,
+              "angular_error_deg": 8.64766,
+              "fit_residual_deg": 2.4107,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -4.19404,
+              "pitch_deg": -12.14818,
+              "angular_error_deg": 6.0204,
+              "fit_residual_deg": 2.10711,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 680,
+          "truth_frame": 683,
+          "actual_horizon_ms": 95.456,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -9.20756,
+              "pitch_deg": -8.07133,
+              "angular_error_deg": 9.95746,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -9.376,
+              "pitch_deg": -18.76606,
+              "angular_error_deg": 15.65063,
+              "fit_residual_deg": 2.67795,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 7.8171,
+              "pitch_deg": -14.52007,
+              "angular_error_deg": 10.56119,
+              "fit_residual_deg": 1.83171,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 681,
+          "truth_frame": 684,
+          "actual_horizon_ms": 92.989,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 0.24365,
+              "pitch_deg": -8.18692,
+              "angular_error_deg": 15.78052,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 0.35244,
+              "pitch_deg": -19.61262,
+              "angular_error_deg": 21.05513,
+              "fit_residual_deg": 4.6763,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 25.77992,
+              "pitch_deg": -11.00182,
+              "angular_error_deg": 11.65766,
+              "fit_residual_deg": 2.13747,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 682,
+          "truth_frame": 685,
+          "actual_horizon_ms": 91.943,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -9.46712,
+              "pitch_deg": -9.08365,
+              "angular_error_deg": 29.65822,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -3.37159,
+              "pitch_deg": -17.96221,
+              "angular_error_deg": 26.64962,
+              "fit_residual_deg": 3.72001,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 2.90904,
+              "pitch_deg": -9.09631,
+              "angular_error_deg": 17.64931,
+              "fit_residual_deg": 3.11875,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 684,
+          "truth_frame": 687,
+          "actual_horizon_ms": 95.819,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 15.77223,
+              "pitch_deg": -4.8571,
+              "angular_error_deg": 18.95298,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 24.32115,
+              "pitch_deg": -11.84132,
+              "angular_error_deg": 15.30923,
+              "fit_residual_deg": 6.74673,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 45.25057,
+              "pitch_deg": 5.46075,
+              "angular_error_deg": 12.39194,
+              "fit_residual_deg": 2.69338,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 685,
+          "truth_frame": 687,
+          "actual_horizon_ms": 63.307,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 20.01724,
+              "pitch_deg": -4.30097,
+              "angular_error_deg": 14.72521,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 35.07662,
+              "pitch_deg": -8.0168,
+              "angular_error_deg": 8.05297,
+              "fit_residual_deg": 5.06071,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 50.33962,
+              "pitch_deg": 6.87427,
+              "angular_error_deg": 17.58832,
+              "fit_residual_deg": 2.92519,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 754,
+          "truth_frame": 757,
+          "actual_horizon_ms": 96.202,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 20.03581,
+              "pitch_deg": -11.21105,
+              "angular_error_deg": 11.00355,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 38.5237,
+              "pitch_deg": -21.41183,
+              "angular_error_deg": 13.61505,
+              "fit_residual_deg": 2.00099,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 42.27802,
+              "pitch_deg": -21.44572,
+              "angular_error_deg": 15.8235,
+              "fit_residual_deg": 2.03523,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 755,
+          "truth_frame": 758,
+          "actual_horizon_ms": 95.532,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 26.32399,
+              "pitch_deg": -9.44886,
+              "angular_error_deg": 6.70019,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 43.82339,
+              "pitch_deg": -17.91243,
+              "angular_error_deg": 12.89712,
+              "fit_residual_deg": 2.56553,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 46.27151,
+              "pitch_deg": -3.61839,
+              "angular_error_deg": 14.70908,
+              "fit_residual_deg": 1.97844,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 756,
+          "truth_frame": 759,
+          "actual_horizon_ms": 96.36,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 29.5272,
+              "pitch_deg": -10.23524,
+              "angular_error_deg": 4.09845,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 46.41489,
+              "pitch_deg": -16.78437,
+              "angular_error_deg": 14.99122,
+              "fit_residual_deg": 2.68508,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 40.33026,
+              "pitch_deg": -0.97455,
+              "angular_error_deg": 10.40599,
+              "fit_residual_deg": 1.58932,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 757,
+          "truth_frame": 760,
+          "actual_horizon_ms": 111.669,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 31.13475,
+              "pitch_deg": -9.79535,
+              "angular_error_deg": 3.38424,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 47.56174,
+              "pitch_deg": -14.4341,
+              "angular_error_deg": 14.1369,
+              "fit_residual_deg": 2.91997,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 35.75637,
+              "pitch_deg": -1.08643,
+              "angular_error_deg": 7.72016,
+              "fit_residual_deg": 1.56884,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 758,
+          "truth_frame": 761,
+          "actual_horizon_ms": 112.184,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 33.06846,
+              "pitch_deg": -10.31288,
+              "angular_error_deg": 3.9677,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 47.43151,
+              "pitch_deg": -11.85545,
+              "angular_error_deg": 11.66276,
+              "fit_residual_deg": 2.49073,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 32.17431,
+              "pitch_deg": -1.69994,
+              "angular_error_deg": 7.45177,
+              "fit_residual_deg": 1.33126,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 759,
+          "truth_frame": 762,
+          "actual_horizon_ms": 112.027,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 33.40902,
+              "pitch_deg": -8.77213,
+              "angular_error_deg": 2.59895,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 47.03343,
+              "pitch_deg": -10.2044,
+              "angular_error_deg": 11.19244,
+              "fit_residual_deg": 3.07052,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 29.24957,
+              "pitch_deg": -1.94229,
+              "angular_error_deg": 8.99056,
+              "fit_residual_deg": 1.09612,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 760,
+          "truth_frame": 763,
+          "actual_horizon_ms": 95.881,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 34.37293,
+              "pitch_deg": -8.68272,
+              "angular_error_deg": 1.54045,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 46.13796,
+              "pitch_deg": -8.89359,
+              "angular_error_deg": 10.15502,
+              "fit_residual_deg": 3.37187,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 27.92822,
+              "pitch_deg": -3.70403,
+              "angular_error_deg": 9.15296,
+              "fit_residual_deg": 1.05322,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 761,
+          "truth_frame": 764,
+          "actual_horizon_ms": 95.996,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 36.28097,
+              "pitch_deg": -7.9289,
+              "angular_error_deg": 0.9881,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 45.50105,
+              "pitch_deg": -7.33993,
+              "angular_error_deg": 9.59915,
+              "fit_residual_deg": 2.92139,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 30.13723,
+              "pitch_deg": -4.12007,
+              "angular_error_deg": 6.37691,
+              "fit_residual_deg": 1.19614,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 762,
+          "truth_frame": 765,
+          "actual_horizon_ms": 95.807,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 35.91844,
+              "pitch_deg": -8.00307,
+              "angular_error_deg": 4.1603,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 43.69129,
+              "pitch_deg": -7.00952,
+              "angular_error_deg": 11.68846,
+              "fit_residual_deg": 2.60385,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 30.38756,
+              "pitch_deg": -5.93481,
+              "angular_error_deg": 1.72423,
+              "fit_residual_deg": 1.08498,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 763,
+          "truth_frame": 766,
+          "actual_horizon_ms": 95.695,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 35.88407,
+              "pitch_deg": -8.30949,
+              "angular_error_deg": 6.55664,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 40.54127,
+              "pitch_deg": -6.96164,
+              "angular_error_deg": 10.79783,
+              "fit_residual_deg": 1.52538,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 30.94922,
+              "pitch_deg": -7.5928,
+              "angular_error_deg": 2.05429,
+              "fit_residual_deg": 0.91395,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 764,
+          "truth_frame": 768,
+          "actual_horizon_ms": 127.895,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 35.83003,
+              "pitch_deg": -7.04773,
+              "angular_error_deg": 73.13862,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 39.30809,
+              "pitch_deg": -6.32339,
+              "angular_error_deg": 76.38547,
+              "fit_residual_deg": 1.27811,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 32.44859,
+              "pitch_deg": -6.21808,
+              "angular_error_deg": 69.68111,
+              "fit_residual_deg": 0.70958,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 765,
+          "truth_frame": 768,
+          "actual_horizon_ms": 96.253,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 31.92096,
+              "pitch_deg": -6.74125,
+              "angular_error_deg": 69.2786,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 38.16059,
+              "pitch_deg": -5.90089,
+              "angular_error_deg": 75.18519,
+              "fit_residual_deg": 1.44018,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 25.12531,
+              "pitch_deg": -5.07233,
+              "angular_error_deg": 62.31799,
+              "fit_residual_deg": 0.87684,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 766,
+          "truth_frame": 769,
+          "actual_horizon_ms": 96.606,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 29.72324,
+              "pitch_deg": -5.9381,
+              "angular_error_deg": 67.36449,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 33.00528,
+              "pitch_deg": -5.04953,
+              "angular_error_deg": 70.41854,
+              "fit_residual_deg": 2.45641,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 19.61972,
+              "pitch_deg": -4.28933,
+              "angular_error_deg": 57.1741,
+              "fit_residual_deg": 0.79936,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 768,
+          "truth_frame": 771,
+          "actual_horizon_ms": 96.043,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -35.78286,
+              "pitch_deg": 8.98212,
+              "angular_error_deg": 52.11472,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 26.08697,
+              "pitch_deg": -3.2449,
+              "angular_error_deg": 14.9404,
+              "fit_residual_deg": 6.17159,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -84.89897,
+              "pitch_deg": 22.92892,
+              "angular_error_deg": 97.42672,
+              "fit_residual_deg": 8.46216,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 769,
+          "truth_frame": 772,
+          "actual_horizon_ms": 111.687,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -36.43229,
+              "pitch_deg": 7.6016,
+              "angular_error_deg": 49.46969,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -39.52121,
+              "pitch_deg": 8.85806,
+              "angular_error_deg": 52.27887,
+              "fit_residual_deg": 18.73876,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -109.39796,
+              "pitch_deg": 24.99817,
+              "angular_error_deg": 113.01149,
+              "fit_residual_deg": 6.95474,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 770,
+          "truth_frame": 772,
+          "actual_horizon_ms": 79.454,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.22956,
+              "pitch_deg": -3.16685,
+              "angular_error_deg": 18.33259,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 14.69778,
+              "pitch_deg": -0.37775,
+              "angular_error_deg": 12.9114,
+              "fit_residual_deg": 7.65017,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -24.60494,
+              "pitch_deg": 6.61686,
+              "angular_error_deg": 38.12254,
+              "fit_residual_deg": 4.95824,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 814,
+          "truth_frame": 816,
+          "actual_horizon_ms": 63.683,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 20.56486,
+              "pitch_deg": -2.1124,
+              "angular_error_deg": 13.52322,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 43.70929,
+              "pitch_deg": -11.83441,
+              "angular_error_deg": 13.96319,
+              "fit_residual_deg": 2.39124,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 57.37241,
+              "pitch_deg": -4.02471,
+              "angular_error_deg": 23.37659,
+              "fit_residual_deg": 2.30662,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 899,
+          "truth_frame": 902,
+          "actual_horizon_ms": 90.74,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 29.72592,
+              "pitch_deg": -0.86568,
+              "angular_error_deg": 5.7993,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 39.91134,
+              "pitch_deg": 4.44797,
+              "angular_error_deg": 10.42627,
+              "fit_residual_deg": 1.3376,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 41.60107,
+              "pitch_deg": -5.72128,
+              "angular_error_deg": 7.34817,
+              "fit_residual_deg": 0.83752,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1043,
+          "truth_frame": 1047,
+          "actual_horizon_ms": 128.112,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 1.19763,
+              "pitch_deg": -0.60142,
+              "angular_error_deg": 13.34814,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 10.0167,
+              "pitch_deg": -12.87811,
+              "angular_error_deg": 10.46128,
+              "fit_residual_deg": 1.08558,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 26.52649,
+              "pitch_deg": -13.64665,
+              "angular_error_deg": 15.91571,
+              "fit_residual_deg": 0.74158,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1044,
+          "truth_frame": 1047,
+          "actual_horizon_ms": 96.517,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -35.38381,
+              "pitch_deg": 9.77458,
+              "angular_error_deg": 51.16681,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 1.89159,
+              "pitch_deg": -11.45326,
+              "angular_error_deg": 14.73258,
+              "fit_residual_deg": 5.96295,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -95.10208,
+              "pitch_deg": 33.56348,
+              "angular_error_deg": 107.9332,
+              "fit_residual_deg": 5.87447,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1045,
+          "truth_frame": 1048,
+          "actual_horizon_ms": 111.633,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -35.47507,
+              "pitch_deg": 9.39158,
+              "angular_error_deg": 53.83825,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -40.87977,
+              "pitch_deg": 2.87211,
+              "angular_error_deg": 57.93383,
+              "fit_residual_deg": 10.55774,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -94.90616,
+              "pitch_deg": 31.42514,
+              "angular_error_deg": 110.92801,
+              "fit_residual_deg": 6.06948,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1047,
+          "truth_frame": 1050,
+          "actual_horizon_ms": 111.708,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 14.27834,
+              "pitch_deg": -3.3031,
+              "angular_error_deg": 52.56961,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 24.29635,
+              "pitch_deg": -8.30667,
+              "angular_error_deg": 63.45514,
+              "fit_residual_deg": 6.20391,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 36.92934,
+              "pitch_deg": -2.7004,
+              "angular_error_deg": 74.60326,
+              "fit_residual_deg": 9.54856,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1048,
+          "truth_frame": 1051,
+          "actual_horizon_ms": 95.891,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 16.56566,
+              "pitch_deg": -5.06854,
+              "angular_error_deg": 55.38583,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 28.07995,
+              "pitch_deg": -11.16067,
+              "angular_error_deg": 67.92789,
+              "fit_residual_deg": 5.73212,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 35.2682,
+              "pitch_deg": -6.23534,
+              "angular_error_deg": 73.81526,
+              "fit_residual_deg": 6.60926,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1049,
+          "truth_frame": 1052,
+          "actual_horizon_ms": 94.786,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.16605,
+              "pitch_deg": -5.31419,
+              "angular_error_deg": 60.74419,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 33.00299,
+              "pitch_deg": -11.42073,
+              "angular_error_deg": 72.5058,
+              "fit_residual_deg": 4.41778,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 35.91618,
+              "pitch_deg": -6.60208,
+              "angular_error_deg": 74.41486,
+              "fit_residual_deg": 4.21296,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1050,
+          "truth_frame": 1053,
+          "actual_horizon_ms": 96.369,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -37.02744,
+              "pitch_deg": 8.86245,
+              "angular_error_deg": 1.76022,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 30.42242,
+              "pitch_deg": -7.1028,
+              "angular_error_deg": 69.20761,
+              "fit_residual_deg": 12.86595,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -42.01077,
+              "pitch_deg": 13.64842,
+              "angular_error_deg": 7.87002,
+              "fit_residual_deg": 19.01903,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1051,
+          "truth_frame": 1054,
+          "actual_horizon_ms": 96.319,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -37.27603,
+              "pitch_deg": 8.54921,
+              "angular_error_deg": 1.56765,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -29.23859,
+              "pitch_deg": 5.2136,
+              "angular_error_deg": 8.04561,
+              "fit_residual_deg": 24.67313,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -109.34714,
+              "pitch_deg": 29.88152,
+              "angular_error_deg": 71.12698,
+              "fit_residual_deg": 17.98569,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1052,
+          "truth_frame": 1054,
+          "actual_horizon_ms": 64.085,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -37.30387,
+              "pitch_deg": 7.74564,
+              "angular_error_deg": 0.77661,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -42.29668,
+              "pitch_deg": 8.24907,
+              "angular_error_deg": 5.27277,
+              "fit_residual_deg": 22.63539,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -118.36343,
+              "pitch_deg": 29.0832,
+              "angular_error_deg": 78.9679,
+              "fit_residual_deg": 16.10517,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1125,
+          "truth_frame": 1129,
+          "actual_horizon_ms": 127.804,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 26.02467,
+              "pitch_deg": -2.32149,
+              "angular_error_deg": 8.87718,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 43.63519,
+              "pitch_deg": -8.02513,
+              "angular_error_deg": 13.59799,
+              "fit_residual_deg": 1.63957,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 26.86768,
+              "pitch_deg": 1.13052,
+              "angular_error_deg": 11.81136,
+              "fit_residual_deg": 0.76478,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1126,
+          "truth_frame": 1129,
+          "actual_horizon_ms": 95.898,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 27.15776,
+              "pitch_deg": -3.76568,
+              "angular_error_deg": 7.08862,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 43.98465,
+              "pitch_deg": -9.03549,
+              "angular_error_deg": 13.79381,
+              "fit_residual_deg": 2.19766,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 21.79433,
+              "pitch_deg": -3.29032,
+              "angular_error_deg": 10.74655,
+              "fit_residual_deg": 0.74665,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1290,
+          "truth_frame": 1293,
+          "actual_horizon_ms": 95.94,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -21.18796,
+              "pitch_deg": -2.54091,
+              "angular_error_deg": 21.71905,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -25.27593,
+              "pitch_deg": -13.18172,
+              "angular_error_deg": 32.9433,
+              "fit_residual_deg": 4.23792,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -19.26727,
+              "pitch_deg": 27.32977,
+              "angular_error_deg": 8.54237,
+              "fit_residual_deg": 0.68197,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1291,
+          "truth_frame": 1293,
+          "actual_horizon_ms": 62.085,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -20.74438,
+              "pitch_deg": 2.94947,
+              "angular_error_deg": 16.23125,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -24.08059,
+              "pitch_deg": -3.8098,
+              "angular_error_deg": 23.56627,
+              "fit_residual_deg": 5.45581,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -16.50864,
+              "pitch_deg": 40.32605,
+              "angular_error_deg": 21.44354,
+              "fit_residual_deg": 0.71305,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1382,
+          "truth_frame": 1384,
+          "actual_horizon_ms": 80.959,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -28.62115,
+              "pitch_deg": 7.39307,
+              "angular_error_deg": 12.8604,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -33.12677,
+              "pitch_deg": 3.26064,
+              "angular_error_deg": 17.51319,
+              "fit_residual_deg": 7.67372,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -32.03355,
+              "pitch_deg": 60.48961,
+              "angular_error_deg": 40.30318,
+              "fit_residual_deg": 0.58329,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1555,
+          "truth_frame": 1558,
+          "actual_horizon_ms": 95.119,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -18.81587,
+              "pitch_deg": 15.89362,
+              "angular_error_deg": 2.29495,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -16.30639,
+              "pitch_deg": 29.23595,
+              "angular_error_deg": 15.75154,
+              "fit_residual_deg": 3.20692,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -18.40013,
+              "pitch_deg": -5.1211,
+              "angular_error_deg": 19.00798,
+              "fit_residual_deg": 1.64935,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1556,
+          "truth_frame": 1559,
+          "actual_horizon_ms": 95.532,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -18.5459,
+              "pitch_deg": 14.54749,
+              "angular_error_deg": 1.73192,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -16.24359,
+              "pitch_deg": 25.69649,
+              "angular_error_deg": 11.51718,
+              "fit_residual_deg": 3.96029,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -18.82746,
+              "pitch_deg": -6.56011,
+              "angular_error_deg": 21.43824,
+              "fit_residual_deg": 1.33635,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1557,
+          "truth_frame": 1560,
+          "actual_horizon_ms": 96.169,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -19.40416,
+              "pitch_deg": 13.92669,
+              "angular_error_deg": 3.043,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -16.91496,
+              "pitch_deg": 21.72251,
+              "angular_error_deg": 6.4331,
+              "fit_residual_deg": 3.77742,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -21.67965,
+              "pitch_deg": -6.22876,
+              "angular_error_deg": 22.80074,
+              "fit_residual_deg": 1.45745,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1558,
+          "truth_frame": 1561,
+          "actual_horizon_ms": 96.08,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -19.85842,
+              "pitch_deg": 13.8317,
+              "angular_error_deg": 3.98396,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -18.02988,
+              "pitch_deg": 19.61968,
+              "angular_error_deg": 3.00173,
+              "fit_residual_deg": 3.81766,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -23.32288,
+              "pitch_deg": -2.8758,
+              "angular_error_deg": 20.82414,
+              "fit_residual_deg": 1.7713,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1559,
+          "truth_frame": 1562,
+          "actual_horizon_ms": 96.066,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -20.31278,
+              "pitch_deg": 14.82748,
+              "angular_error_deg": 5.7302,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -19.11034,
+              "pitch_deg": 18.13706,
+              "angular_error_deg": 3.43433,
+              "fit_residual_deg": 3.23837,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -24.26826,
+              "pitch_deg": 3.94021,
+              "angular_error_deg": 16.58152,
+              "fit_residual_deg": 1.9059,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1560,
+          "truth_frame": 1563,
+          "actual_horizon_ms": 95.483,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -20.98216,
+              "pitch_deg": 16.56154,
+              "angular_error_deg": 4.87045,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -20.32666,
+              "pitch_deg": 18.53643,
+              "angular_error_deg": 3.23356,
+              "fit_residual_deg": 2.35916,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -25.29358,
+              "pitch_deg": 10.15465,
+              "angular_error_deg": 11.58648,
+              "fit_residual_deg": 2.08116,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1561,
+          "truth_frame": 1564,
+          "actual_horizon_ms": 111.607,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -20.5211,
+              "pitch_deg": 17.76432,
+              "angular_error_deg": 4.89074,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -21.28226,
+              "pitch_deg": 19.05379,
+              "angular_error_deg": 3.41616,
+              "fit_residual_deg": 1.81846,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -24.26727,
+              "pitch_deg": 17.17579,
+              "angular_error_deg": 5.15549,
+              "fit_residual_deg": 1.84979,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1562,
+          "truth_frame": 1564,
+          "actual_horizon_ms": 79.486,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -21.88481,
+              "pitch_deg": 20.35849,
+              "angular_error_deg": 1.99417,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -22.47961,
+              "pitch_deg": 21.00075,
+              "angular_error_deg": 1.19301,
+              "fit_residual_deg": 1.79886,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -24.80111,
+              "pitch_deg": 30.60365,
+              "angular_error_deg": 8.6368,
+              "fit_residual_deg": 0.77481,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1647,
+          "truth_frame": 1650,
+          "actual_horizon_ms": 112.581,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -17.29655,
+              "pitch_deg": -15.32409,
+              "angular_error_deg": 18.92036,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -20.75283,
+              "pitch_deg": -32.99478,
+              "angular_error_deg": 36.63592,
+              "fit_residual_deg": 4.49285,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -23.10441,
+              "pitch_deg": 4.82465,
+              "angular_error_deg": 4.9299,
+              "fit_residual_deg": 1.10558,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1648,
+          "truth_frame": 1651,
+          "actual_horizon_ms": 95.886,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -17.55831,
+              "pitch_deg": -13.18459,
+              "angular_error_deg": 22.31821,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -21.1716,
+              "pitch_deg": -26.16944,
+              "angular_error_deg": 35.39088,
+              "fit_residual_deg": 5.42906,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -20.2683,
+              "pitch_deg": 9.723,
+              "angular_error_deg": 1.94648,
+              "fit_residual_deg": 1.34573,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1649,
+          "truth_frame": 1652,
+          "actual_horizon_ms": 96.091,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -17.61421,
+              "pitch_deg": -5.60579,
+              "angular_error_deg": 23.69401,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -20.95525,
+              "pitch_deg": -15.23684,
+              "angular_error_deg": 33.45492,
+              "fit_residual_deg": 6.51012,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -18.21959,
+              "pitch_deg": 27.05818,
+              "angular_error_deg": 8.97581,
+              "fit_residual_deg": 1.28268,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1650,
+          "truth_frame": 1653,
+          "actual_horizon_ms": 95.256,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -18.32421,
+              "pitch_deg": 3.56889,
+              "angular_error_deg": 19.32767,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -21.28338,
+              "pitch_deg": -3.669,
+              "angular_error_deg": 26.92586,
+              "fit_residual_deg": 8.01564,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -18.47858,
+              "pitch_deg": 46.10569,
+              "angular_error_deg": 23.41045,
+              "fit_residual_deg": 1.14617,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1651,
+          "truth_frame": 1653,
+          "actual_horizon_ms": 63.914,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -18.39285,
+              "pitch_deg": 9.11823,
+              "angular_error_deg": 13.83407,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -21.31684,
+              "pitch_deg": 7.19687,
+              "angular_error_deg": 16.36975,
+              "fit_residual_deg": 8.20716,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -18.05249,
+              "pitch_deg": 52.69397,
+              "angular_error_deg": 29.9562,
+              "fit_residual_deg": 1.50355,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1912,
+          "truth_frame": 1916,
+          "actual_horizon_ms": 128.141,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -32.08845,
+              "pitch_deg": -11.01102,
+              "angular_error_deg": 32.0783,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -38.57119,
+              "pitch_deg": -20.33065,
+              "angular_error_deg": 42.23977,
+              "fit_residual_deg": 6.15465,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -29.53734,
+              "pitch_deg": 13.57311,
+              "angular_error_deg": 7.3927,
+              "fit_residual_deg": 1.19944,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1913,
+          "truth_frame": 1916,
+          "actual_horizon_ms": 95.997,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -32.37588,
+              "pitch_deg": -0.49342,
+              "angular_error_deg": 21.64343,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -38.29057,
+              "pitch_deg": -7.89548,
+              "angular_error_deg": 30.1276,
+              "fit_residual_deg": 7.56868,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -29.00766,
+              "pitch_deg": 36.42443,
+              "angular_error_deg": 15.46453,
+              "fit_residual_deg": 1.58366,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1914,
+          "truth_frame": 1916,
+          "actual_horizon_ms": 63.805,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -32.02762,
+              "pitch_deg": 11.47502,
+              "angular_error_deg": 9.79688,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -38.27948,
+              "pitch_deg": 2.35004,
+              "angular_error_deg": 20.49023,
+              "fit_residual_deg": 9.6962,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -27.69101,
+              "pitch_deg": 59.5834,
+              "angular_error_deg": 38.63917,
+              "fit_residual_deg": 1.45062,
+              "predicted_visible": false
+            }
+          }
+        }
+      ]
+    },
+    "200": {
+      "eligible": 96,
+      "matched": 58,
+      "future_detection_coverage": 0.6042,
+      "matched_truth_clipped": 9,
+      "matched_truth_clipped_fraction": 0.1552,
+      "metrics": {
+        "hold": {
+          "angular_error_deg": {
+            "count": 58,
+            "median": 7.7807,
+            "p90": 46.8432,
+            "mean": 17.6161
+          },
+          "yaw_absolute_error_deg": {
+            "count": 58,
+            "median": 5.4341,
+            "p90": 46.0383,
+            "mean": 15.0144
+          },
+          "pitch_absolute_error_deg": {
+            "count": 58,
+            "median": 3.4268,
+            "p90": 15.5367,
+            "mean": 6.1922
+          },
+          "fit_residual_deg": {
+            "count": 58,
+            "median": 0.0,
+            "p90": 0.0,
+            "mean": 0.0
+          },
+          "predicted_visible_fraction": 0.6042,
+          "wins": 41
+        },
+        "angular_velocity": {
+          "angular_error_deg": {
+            "count": 58,
+            "median": 24.6619,
+            "p90": 71.5825,
+            "mean": 28.6508
+          },
+          "yaw_absolute_error_deg": {
+            "count": 58,
+            "median": 18.1324,
+            "p90": 53.4841,
+            "mean": 22.4333
+          },
+          "pitch_absolute_error_deg": {
+            "count": 58,
+            "median": 13.5071,
+            "p90": 26.8161,
+            "mean": 14.5292
+          },
+          "fit_residual_deg": {
+            "count": 58,
+            "median": 2.6815,
+            "p90": 4.6418,
+            "mean": 2.8756
+          },
+          "predicted_visible_fraction": 0.3333,
+          "wins": 4
+        },
+        "angular_acceleration": {
+          "angular_error_deg": {
+            "count": 58,
+            "median": 29.6426,
+            "p90": 74.8477,
+            "mean": 36.1131
+          },
+          "yaw_absolute_error_deg": {
+            "count": 58,
+            "median": 14.6812,
+            "p90": 67.3107,
+            "mean": 27.3817
+          },
+          "pitch_absolute_error_deg": {
+            "count": 58,
+            "median": 13.481,
+            "p90": 54.6185,
+            "mean": 19.5705
+          },
+          "fit_residual_deg": {
+            "count": 58,
+            "median": 1.3512,
+            "p90": 2.9831,
+            "mean": 1.8427
+          },
+          "predicted_visible_fraction": 0.3646,
+          "wins": 13
+        }
+      },
+      "comparisons": {
+        "angular_velocity_vs_hold_median_percent": -216.96,
+        "angular_acceleration_vs_hold_median_percent": -280.98
+      },
+      "records": [
+        {
+          "anchor_frame": 268,
+          "truth_frame": 274,
+          "actual_horizon_ms": 191.83,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -1.61564,
+              "pitch_deg": -5.1326,
+              "angular_error_deg": 20.28814,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 19.9483,
+              "pitch_deg": -20.98773,
+              "angular_error_deg": 12.90945,
+              "fit_residual_deg": 1.4731,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 27.44826,
+              "pitch_deg": -2.74155,
+              "angular_error_deg": 10.34207,
+              "fit_residual_deg": 0.90878,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 269,
+          "truth_frame": 275,
+          "actual_horizon_ms": 192.888,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 5.11113,
+              "pitch_deg": -7.07211,
+              "angular_error_deg": 13.80659,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 29.79566,
+              "pitch_deg": -22.13115,
+              "angular_error_deg": 17.35606,
+              "fit_residual_deg": 1.58737,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 46.28516,
+              "pitch_deg": -7.32603,
+              "angular_error_deg": 27.05063,
+              "fit_residual_deg": 0.97691,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 270,
+          "truth_frame": 276,
+          "actual_horizon_ms": 191.665,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 13.48554,
+              "pitch_deg": -9.87235,
+              "angular_error_deg": 6.88622,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 38.72977,
+              "pitch_deg": -24.41199,
+              "angular_error_deg": 27.1369,
+              "fit_residual_deg": 2.33695,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 69.92568,
+              "pitch_deg": -19.45333,
+              "angular_error_deg": 51.79495,
+              "fit_residual_deg": 1.29978,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 271,
+          "truth_frame": 277,
+          "actual_horizon_ms": 192.133,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 14.68012,
+              "pitch_deg": -10.0192,
+              "angular_error_deg": 6.99452,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 42.08405,
+              "pitch_deg": -23.95961,
+              "angular_error_deg": 29.19005,
+              "fit_residual_deg": 1.7893,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 56.62101,
+              "pitch_deg": -12.16089,
+              "angular_error_deg": 37.63047,
+              "fit_residual_deg": 1.35663,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 272,
+          "truth_frame": 278,
+          "actual_horizon_ms": 192.317,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 15.53573,
+              "pitch_deg": -9.2759,
+              "angular_error_deg": 8.98803,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 42.94867,
+              "pitch_deg": -22.86823,
+              "angular_error_deg": 27.97759,
+              "fit_residual_deg": 2.4752,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 42.99687,
+              "pitch_deg": -3.49697,
+              "angular_error_deg": 20.6662,
+              "fit_residual_deg": 2.09258,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 273,
+          "truth_frame": 279,
+          "actual_horizon_ms": 192.112,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 17.99082,
+              "pitch_deg": -8.09329,
+              "angular_error_deg": 6.60758,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 44.09679,
+              "pitch_deg": -19.10956,
+              "angular_error_deg": 24.62425,
+              "fit_residual_deg": 2.8492,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 29.12774,
+              "pitch_deg": 5.37258,
+              "angular_error_deg": 11.40899,
+              "fit_residual_deg": 2.06495,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 274,
+          "truth_frame": 280,
+          "actual_horizon_ms": 208.251,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 18.58684,
+              "pitch_deg": -8.14536,
+              "angular_error_deg": 7.74181,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 43.48755,
+              "pitch_deg": -16.60662,
+              "angular_error_deg": 20.96413,
+              "fit_residual_deg": 3.36088,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 17.70448,
+              "pitch_deg": 7.18546,
+              "angular_error_deg": 14.54149,
+              "fit_residual_deg": 1.80332,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 275,
+          "truth_frame": 281,
+          "actual_horizon_ms": 207.296,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 18.99346,
+              "pitch_deg": -8.23073,
+              "angular_error_deg": 7.68801,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 42.66815,
+              "pitch_deg": -11.79452,
+              "angular_error_deg": 17.95765,
+              "fit_residual_deg": 3.46402,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 6.08767,
+              "pitch_deg": 10.1999,
+              "angular_error_deg": 24.8255,
+              "fit_residual_deg": 1.37454,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 276,
+          "truth_frame": 281,
+          "actual_horizon_ms": 176.583,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 18.68,
+              "pitch_deg": -5.29819,
+              "angular_error_deg": 7.2384,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 34.60064,
+              "pitch_deg": -6.58574,
+              "angular_error_deg": 8.80441,
+              "fit_residual_deg": 3.3508,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -0.29182,
+              "pitch_deg": 18.05508,
+              "angular_error_deg": 34.53003,
+              "fit_residual_deg": 1.11788,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 277,
+          "truth_frame": 284,
+          "actual_horizon_ms": 239.968,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 19.28633,
+              "pitch_deg": -4.72098,
+              "angular_error_deg": 3.06864,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 26.20748,
+              "pitch_deg": -1.06101,
+              "angular_error_deg": 4.9645,
+              "fit_residual_deg": 1.80377,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -2.05964,
+              "pitch_deg": 15.29009,
+              "angular_error_deg": 30.98075,
+              "fit_residual_deg": 1.10871,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 278,
+          "truth_frame": 284,
+          "actual_horizon_ms": 207.712,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.29476,
+              "pitch_deg": -3.30167,
+              "angular_error_deg": 0.83824,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 28.72509,
+              "pitch_deg": 1.47196,
+              "angular_error_deg": 8.52113,
+              "fit_residual_deg": 1.61121,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 11.61999,
+              "pitch_deg": 15.21954,
+              "angular_error_deg": 22.06467,
+              "fit_residual_deg": 1.71049,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 279,
+          "truth_frame": 285,
+          "actual_horizon_ms": 207.789,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.66454,
+              "pitch_deg": -4.64719,
+              "angular_error_deg": 0.8151,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 30.17638,
+              "pitch_deg": 1.57062,
+              "angular_error_deg": 9.71028,
+              "fit_residual_deg": 1.25567,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 27.99831,
+              "pitch_deg": 7.37568,
+              "angular_error_deg": 13.59029,
+              "fit_residual_deg": 1.20042,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 280,
+          "truth_frame": 286,
+          "actual_horizon_ms": 191.722,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 25.69667,
+              "pitch_deg": -4.97365,
+              "angular_error_deg": 2.30524,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 32.23739,
+              "pitch_deg": 0.48259,
+              "angular_error_deg": 10.539,
+              "fit_residual_deg": 1.1344,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 35.42756,
+              "pitch_deg": -9.14056,
+              "angular_error_deg": 12.5356,
+              "fit_residual_deg": 0.96661,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 281,
+          "truth_frame": 287,
+          "actual_horizon_ms": 191.672,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 25.93111,
+              "pitch_deg": -4.82313,
+              "angular_error_deg": 1.92131,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 33.07781,
+              "pitch_deg": -0.45947,
+              "angular_error_deg": 10.25926,
+              "fit_residual_deg": 1.20342,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 34.93722,
+              "pitch_deg": -11.48811,
+              "angular_error_deg": 12.25729,
+              "fit_residual_deg": 0.91392,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 284,
+          "truth_frame": 290,
+          "actual_horizon_ms": 192.005,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.30847,
+              "pitch_deg": -4.1398,
+              "angular_error_deg": 1.73796,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 27.56187,
+              "pitch_deg": -3.14778,
+              "angular_error_deg": 4.64768,
+              "fit_residual_deg": 2.07982,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 11.38054,
+              "pitch_deg": -8.87948,
+              "angular_error_deg": 12.50567,
+              "fit_residual_deg": 1.50484,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 285,
+          "truth_frame": 291,
+          "actual_horizon_ms": 191.616,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.4404,
+              "pitch_deg": -5.43112,
+              "angular_error_deg": 0.64642,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 25.66663,
+              "pitch_deg": -5.27034,
+              "angular_error_deg": 2.85695,
+              "fit_residual_deg": 1.92293,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 7.08082,
+              "pitch_deg": -8.86988,
+              "angular_error_deg": 15.94415,
+              "fit_residual_deg": 0.98803,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 286,
+          "truth_frame": 292,
+          "actual_horizon_ms": 207.799,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.4029,
+              "pitch_deg": -5.28157,
+              "angular_error_deg": 0.76119,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 24.43717,
+              "pitch_deg": -5.79256,
+              "angular_error_deg": 1.23388,
+              "fit_residual_deg": 1.43532,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 8.27228,
+              "pitch_deg": -7.79975,
+              "angular_error_deg": 14.94227,
+              "fit_residual_deg": 0.90135,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 287,
+          "truth_frame": 293,
+          "actual_horizon_ms": 207.881,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 24.12263,
+              "pitch_deg": -5.49193,
+              "angular_error_deg": 1.32967,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 24.46401,
+              "pitch_deg": -6.24655,
+              "angular_error_deg": 1.66987,
+              "fit_residual_deg": 1.07266,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 20.55984,
+              "pitch_deg": -6.85273,
+              "angular_error_deg": 2.47512,
+              "fit_residual_deg": 1.09974,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 290,
+          "truth_frame": 296,
+          "actual_horizon_ms": 207.678,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.4932,
+              "pitch_deg": -5.41523,
+              "angular_error_deg": 0.72193,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 21.91865,
+              "pitch_deg": -5.49591,
+              "angular_error_deg": 1.49896,
+              "fit_residual_deg": 0.64238,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 25.67048,
+              "pitch_deg": -5.66983,
+              "angular_error_deg": 2.60783,
+              "fit_residual_deg": 0.55556,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 291,
+          "truth_frame": 297,
+          "actual_horizon_ms": 208.021,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.81763,
+              "pitch_deg": -5.61446,
+              "angular_error_deg": 1.04681,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 22.24491,
+              "pitch_deg": -6.00524,
+              "angular_error_deg": 1.7098,
+              "fit_residual_deg": 0.533,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 23.213,
+              "pitch_deg": -6.80619,
+              "angular_error_deg": 2.06423,
+              "fit_residual_deg": 0.52976,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 292,
+          "truth_frame": 298,
+          "actual_horizon_ms": 192.14,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.21799,
+              "pitch_deg": -6.02019,
+              "angular_error_deg": 1.54421,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 22.88502,
+              "pitch_deg": -6.71353,
+              "angular_error_deg": 2.0985,
+              "fit_residual_deg": 0.47613,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 22.93765,
+              "pitch_deg": -9.02207,
+              "angular_error_deg": 4.39359,
+              "fit_residual_deg": 0.449,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 373,
+          "truth_frame": 379,
+          "actual_horizon_ms": 209.063,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -1.38003,
+              "pitch_deg": -13.52966,
+              "angular_error_deg": 20.14869,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 27.69885,
+              "pitch_deg": -50.43114,
+              "angular_error_deg": 35.85016,
+              "fit_residual_deg": 1.88965,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 53.59003,
+              "pitch_deg": -16.71576,
+              "angular_error_deg": 32.9089,
+              "fit_residual_deg": 1.08204,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 607,
+          "truth_frame": 614,
+          "actual_horizon_ms": 224.441,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 2.67998,
+              "pitch_deg": -7.4834,
+              "angular_error_deg": 32.73481,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 25.68429,
+              "pitch_deg": -13.49838,
+              "angular_error_deg": 17.13762,
+              "fit_residual_deg": 2.82278,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 76.28871,
+              "pitch_deg": 7.94273,
+              "angular_error_deg": 42.36058,
+              "fit_residual_deg": 2.37235,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 608,
+          "truth_frame": 614,
+          "actual_horizon_ms": 192.4,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 17.58999,
+              "pitch_deg": -10.35443,
+              "angular_error_deg": 20.32581,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 41.6726,
+              "pitch_deg": -17.8531,
+              "angular_error_deg": 20.56261,
+              "fit_residual_deg": 4.62708,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 140.28298,
+              "pitch_deg": -15.17853,
+              "angular_error_deg": 105.80792,
+              "fit_residual_deg": 2.48959,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 614,
+          "truth_frame": 620,
+          "actual_horizon_ms": 207.693,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 34.27144,
+              "pitch_deg": 1.37465,
+              "angular_error_deg": 7.54698,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 63.89671,
+              "pitch_deg": 5.88552,
+              "angular_error_deg": 36.07985,
+              "fit_residual_deg": 3.09126,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 41.57154,
+              "pitch_deg": 35.00388,
+              "angular_error_deg": 40.91927,
+              "fit_residual_deg": 2.92502,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 615,
+          "truth_frame": 621,
+          "actual_horizon_ms": 208.678,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 33.93698,
+              "pitch_deg": 3.28925,
+              "angular_error_deg": 14.48931,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 63.31916,
+              "pitch_deg": 9.77787,
+              "angular_error_deg": 44.07557,
+              "fit_residual_deg": 3.8733,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 5.6965,
+              "pitch_deg": 50.33176,
+              "angular_error_deg": 55.4427,
+              "fit_residual_deg": 1.57551,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 678,
+          "truth_frame": 684,
+          "actual_horizon_ms": 194.55,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -16.98296,
+              "pitch_deg": -8.34314,
+              "angular_error_deg": 32.71308,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -17.18803,
+              "pitch_deg": -31.61708,
+              "angular_error_deg": 40.85821,
+              "fit_residual_deg": 2.8244,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 6.5013,
+              "pitch_deg": -61.31809,
+              "angular_error_deg": 56.88934,
+              "fit_residual_deg": 1.4508,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 679,
+          "truth_frame": 685,
+          "actual_horizon_ms": 193.959,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -14.99823,
+              "pitch_deg": -4.94823,
+              "angular_error_deg": 34.90361,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -10.27816,
+              "pitch_deg": -27.62184,
+              "angular_error_deg": 37.09432,
+              "fit_residual_deg": 2.4107,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 12.55136,
+              "pitch_deg": -16.3591,
+              "angular_error_deg": 14.11113,
+              "fit_residual_deg": 2.10711,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 680,
+          "truth_frame": 686,
+          "actual_horizon_ms": 193.42,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -9.20756,
+              "pitch_deg": -8.07133,
+              "angular_error_deg": 39.57226,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -5.39787,
+              "pitch_deg": -28.82481,
+              "angular_error_deg": 43.18758,
+              "fit_residual_deg": 2.67795,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 33.82091,
+              "pitch_deg": -18.9927,
+              "angular_error_deg": 17.50886,
+              "fit_residual_deg": 1.83171,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 681,
+          "truth_frame": 687,
+          "actual_horizon_ms": 188.808,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 0.24365,
+              "pitch_deg": -8.18692,
+              "angular_error_deg": 34.73132,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 7.41003,
+              "pitch_deg": -28.53491,
+              "angular_error_deg": 38.2837,
+              "fit_residual_deg": 4.6763,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 63.44269,
+              "pitch_deg": -9.53613,
+              "angular_error_deg": 30.69623,
+              "fit_residual_deg": 2.13747,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 682,
+          "truth_frame": 687,
+          "actual_horizon_ms": 155.249,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -9.46712,
+              "pitch_deg": -9.08365,
+              "angular_error_deg": 44.33219,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 1.58266,
+              "pitch_deg": -25.00978,
+              "angular_error_deg": 40.16896,
+              "fit_residual_deg": 3.72001,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 16.67808,
+              "pitch_deg": -4.82011,
+              "angular_error_deg": 18.07012,
+              "fit_residual_deg": 3.11875,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 754,
+          "truth_frame": 760,
+          "actual_horizon_ms": 207.872,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 20.03581,
+              "pitch_deg": -11.21105,
+              "angular_error_deg": 14.34384,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 56.11212,
+              "pitch_deg": -30.57167,
+              "angular_error_deg": 29.84491,
+              "fit_residual_deg": 2.00099,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 66.49073,
+              "pitch_deg": -30.65682,
+              "angular_error_deg": 37.13564,
+              "fit_residual_deg": 2.03523,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 755,
+          "truth_frame": 761,
+          "actual_horizon_ms": 207.716,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 26.32399,
+              "pitch_deg": -9.44886,
+              "angular_error_deg": 9.95879,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 61.21206,
+              "pitch_deg": -23.98013,
+              "angular_error_deg": 28.7547,
+              "fit_residual_deg": 2.56553,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 67.81303,
+              "pitch_deg": 13.17298,
+              "angular_error_deg": 37.76315,
+              "fit_residual_deg": 1.97844,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 756,
+          "truth_frame": 762,
+          "actual_horizon_ms": 208.387,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 29.5272,
+              "pitch_deg": -10.23524,
+              "angular_error_deg": 6.69312,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 62.36595,
+              "pitch_deg": -21.52153,
+              "angular_error_deg": 28.85043,
+              "fit_residual_deg": 2.68508,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 46.44555,
+              "pitch_deg": 17.72023,
+              "angular_error_deg": 27.74554,
+              "fit_residual_deg": 1.58932,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 757,
+          "truth_frame": 763,
+          "actual_horizon_ms": 207.55,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 31.13475,
+              "pitch_deg": -9.79535,
+              "angular_error_deg": 4.91974,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 61.73949,
+              "pitch_deg": -17.37538,
+              "angular_error_deg": 26.75038,
+              "fit_residual_deg": 2.91997,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 32.6517,
+              "pitch_deg": 14.71837,
+              "angular_error_deg": 23.24986,
+              "fit_residual_deg": 1.56884,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 758,
+          "truth_frame": 764,
+          "actual_horizon_ms": 208.18,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 33.06846,
+              "pitch_deg": -10.31288,
+              "angular_error_deg": 4.25577,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 59.58577,
+              "pitch_deg": -13.05867,
+              "angular_error_deg": 24.13454,
+              "fit_residual_deg": 2.49073,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 22.66313,
+              "pitch_deg": 12.38537,
+              "angular_error_deg": 23.42992,
+              "fit_residual_deg": 1.33126,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 759,
+          "truth_frame": 765,
+          "actual_horizon_ms": 207.834,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 33.40902,
+              "pitch_deg": -8.77213,
+              "angular_error_deg": 2.50962,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 57.56079,
+              "pitch_deg": -10.50133,
+              "angular_error_deg": 25.61783,
+              "fit_residual_deg": 3.07052,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 16.07937,
+              "pitch_deg": 9.42925,
+              "angular_error_deg": 22.59713,
+              "fit_residual_deg": 1.09612,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 760,
+          "truth_frame": 766,
+          "actual_horizon_ms": 191.576,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 34.37293,
+              "pitch_deg": -8.68272,
+              "angular_error_deg": 5.36639,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 54.48437,
+              "pitch_deg": -8.58814,
+              "angular_error_deg": 24.69961,
+              "fit_residual_deg": 3.37187,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 13.94881,
+              "pitch_deg": 3.52444,
+              "angular_error_deg": 18.37645,
+              "fit_residual_deg": 1.05322,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 761,
+          "truth_frame": 768,
+          "actual_horizon_ms": 223.891,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 36.28097,
+              "pitch_deg": -7.9289,
+              "angular_error_deg": 73.75554,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 52.60542,
+              "pitch_deg": -6.4039,
+              "angular_error_deg": 89.41592,
+              "fit_residual_deg": 2.92139,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 18.68663,
+              "pitch_deg": 1.26141,
+              "angular_error_deg": 54.73858,
+              "fit_residual_deg": 1.19614,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 762,
+          "truth_frame": 768,
+          "actual_horizon_ms": 192.06,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 35.91844,
+              "pitch_deg": -8.00307,
+              "angular_error_deg": 73.41942,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 49.27206,
+              "pitch_deg": -6.04922,
+              "angular_error_deg": 86.08844,
+              "fit_residual_deg": 2.60385,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 19.75498,
+              "pitch_deg": -3.61246,
+              "angular_error_deg": 56.77179,
+              "fit_residual_deg": 1.08498,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 763,
+          "truth_frame": 769,
+          "actual_horizon_ms": 192.301,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 35.88407,
+              "pitch_deg": -8.30949,
+              "angular_error_deg": 73.81063,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 43.86473,
+              "pitch_deg": -6.0518,
+              "angular_error_deg": 81.2466,
+              "fit_residual_deg": 1.52538,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 21.88806,
+              "pitch_deg": -7.42908,
+              "angular_error_deg": 60.06083,
+              "fit_residual_deg": 0.91395,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 764,
+          "truth_frame": 770,
+          "actual_horizon_ms": 192.231,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 35.83003,
+              "pitch_deg": -7.04773,
+              "angular_error_deg": 13.13424,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 41.70337,
+              "pitch_deg": -5.29645,
+              "angular_error_deg": 18.54462,
+              "fit_residual_deg": 1.27811,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 26.16952,
+              "pitch_deg": -5.06573,
+              "angular_error_deg": 3.49339,
+              "fit_residual_deg": 0.70958,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 765,
+          "truth_frame": 771,
+          "actual_horizon_ms": 192.296,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 31.92096,
+              "pitch_deg": -6.74125,
+              "angular_error_deg": 21.39272,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 39.79655,
+              "pitch_deg": -4.86081,
+              "angular_error_deg": 26.435,
+              "fit_residual_deg": 1.44018,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 13.15076,
+              "pitch_deg": -3.04408,
+              "angular_error_deg": 12.29367,
+              "fit_residual_deg": 0.87684,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 766,
+          "truth_frame": 772,
+          "actual_horizon_ms": 208.293,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 29.72324,
+              "pitch_deg": -5.9381,
+              "angular_error_deg": 24.402,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 32.7649,
+              "pitch_deg": -3.80486,
+              "angular_error_deg": 25.04022,
+              "fit_residual_deg": 2.45641,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 4.25896,
+              "pitch_deg": -2.15986,
+              "angular_error_deg": 17.35678,
+              "fit_residual_deg": 0.79936,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1043,
+          "truth_frame": 1049,
+          "actual_horizon_ms": 209.144,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 1.19763,
+              "pitch_deg": -0.60142,
+              "angular_error_deg": 21.45813,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 21.43478,
+              "pitch_deg": -25.11132,
+              "angular_error_deg": 19.80955,
+              "fit_residual_deg": 1.08558,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 63.41627,
+              "pitch_deg": -27.25057,
+              "angular_error_deg": 44.93344,
+              "fit_residual_deg": 0.74158,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1044,
+          "truth_frame": 1050,
+          "actual_horizon_ms": 208.225,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -35.38381,
+              "pitch_deg": 9.77458,
+              "angular_error_deg": 1.86081,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 8.03585,
+              "pitch_deg": -21.36018,
+              "angular_error_deg": 53.57006,
+              "fit_residual_deg": 5.96295,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -183.47832,
+              "pitch_deg": 80.81912,
+              "angular_error_deg": 88.81364,
+              "fit_residual_deg": 5.87447,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1045,
+          "truth_frame": 1051,
+          "actual_horizon_ms": 207.525,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -35.47507,
+              "pitch_deg": 9.39158,
+              "angular_error_deg": 1.96828,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -51.70545,
+              "pitch_deg": -0.3463,
+              "angular_error_deg": 16.90693,
+              "fit_residual_deg": 10.55774,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -177.70079,
+              "pitch_deg": 68.9262,
+              "angular_error_deg": 97.77925,
+              "fit_residual_deg": 6.06948,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1047,
+          "truth_frame": 1053,
+          "actual_horizon_ms": 208.077,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 14.27834,
+              "pitch_deg": -3.3031,
+              "angular_error_deg": 52.70225,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 35.65323,
+              "pitch_deg": -14.3553,
+              "angular_error_deg": 75.64077,
+              "fit_residual_deg": 6.20391,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 71.45927,
+              "pitch_deg": 0.57084,
+              "angular_error_deg": 108.70944,
+              "fit_residual_deg": 9.54856,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1048,
+          "truth_frame": 1054,
+          "actual_horizon_ms": 192.211,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 16.56566,
+              "pitch_deg": -5.06854,
+              "angular_error_deg": 54.92746,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 38.95136,
+              "pitch_deg": -17.19476,
+              "angular_error_deg": 78.92459,
+              "fit_residual_deg": 5.73212,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 56.31563,
+              "pitch_deg": -5.54064,
+              "angular_error_deg": 94.07964,
+              "fit_residual_deg": 6.60926,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1049,
+          "truth_frame": 1054,
+          "actual_horizon_ms": 158.871,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.16605,
+              "pitch_deg": -5.31419,
+              "angular_error_deg": 60.4393,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 44.30538,
+              "pitch_deg": -16.85266,
+              "angular_error_deg": 83.90489,
+              "fit_residual_deg": 4.41778,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 51.15709,
+              "pitch_deg": -5.74785,
+              "angular_error_deg": 89.00784,
+              "fit_residual_deg": 4.21296,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1129,
+          "truth_frame": 1136,
+          "actual_horizon_ms": 240.566,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 30.04621,
+              "pitch_deg": -10.24941,
+              "angular_error_deg": 8.42267,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 59.44033,
+              "pitch_deg": -20.50899,
+              "angular_error_deg": 34.68276,
+              "fit_residual_deg": 3.10015,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 1.09693,
+              "pitch_deg": -21.92708,
+              "angular_error_deg": 34.13133,
+              "fit_residual_deg": 1.00274,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1555,
+          "truth_frame": 1561,
+          "actual_horizon_ms": 191.199,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -18.81587,
+              "pitch_deg": 15.89362,
+              "angular_error_deg": 2.4826,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -14.05299,
+              "pitch_deg": 39.98799,
+              "angular_error_deg": 22.91699,
+              "fit_residual_deg": 3.20692,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -19.51016,
+              "pitch_deg": -51.09229,
+              "angular_error_deg": 68.86233,
+              "fit_residual_deg": 1.64935,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1556,
+          "truth_frame": 1562,
+          "actual_horizon_ms": 191.598,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -18.5459,
+              "pitch_deg": 14.54749,
+              "angular_error_deg": 6.62583,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -14.25959,
+              "pitch_deg": 33.4228,
+              "angular_error_deg": 14.71584,
+              "fit_residual_deg": 3.96029,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -20.66845,
+              "pitch_deg": -48.14346,
+              "angular_error_deg": 68.51063,
+              "fit_residual_deg": 1.33635,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1557,
+          "truth_frame": 1563,
+          "actual_horizon_ms": 191.651,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -19.40416,
+              "pitch_deg": 13.92669,
+              "angular_error_deg": 7.81959,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -15.44596,
+              "pitch_deg": 26.69463,
+              "angular_error_deg": 8.09311,
+              "fit_residual_deg": 3.77742,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -26.61094,
+              "pitch_deg": -41.99332,
+              "angular_error_deg": 63.45335,
+              "fit_residual_deg": 1.45745,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1558,
+          "truth_frame": 1564,
+          "actual_horizon_ms": 207.688,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -19.85842,
+              "pitch_deg": 13.8317,
+              "angular_error_deg": 8.78252,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -17.17285,
+              "pitch_deg": 23.05509,
+              "angular_error_deg": 5.29631,
+              "fit_residual_deg": 3.81766,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -29.36253,
+              "pitch_deg": -30.03335,
+              "angular_error_deg": 52.55999,
+              "fit_residual_deg": 1.7713,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1559,
+          "truth_frame": 1564,
+          "actual_horizon_ms": 175.553,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -20.31278,
+              "pitch_deg": 14.82748,
+              "angular_error_deg": 7.69946,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -18.77788,
+              "pitch_deg": 20.44409,
+              "angular_error_deg": 4.13883,
+              "fit_residual_deg": 3.23837,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -30.4541,
+              "pitch_deg": -12.60998,
+              "angular_error_deg": 35.55545,
+              "fit_residual_deg": 1.9059,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 1647,
+          "truth_frame": 1653,
+          "actual_horizon_ms": 207.838,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -17.29655,
+              "pitch_deg": -15.32409,
+              "angular_error_deg": 38.11765,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -24.48852,
+              "pitch_deg": -46.65333,
+              "angular_error_deg": 69.84324,
+              "fit_residual_deg": 4.49285,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -30.50867,
+              "pitch_deg": 50.14303,
+              "angular_error_deg": 29.60317,
+              "fit_residual_deg": 1.10558,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1648,
+          "truth_frame": 1653,
+          "actual_horizon_ms": 159.8,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -17.55831,
+              "pitch_deg": -13.18459,
+              "angular_error_deg": 35.98858,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -24.3831,
+              "pitch_deg": -34.64023,
+              "angular_error_deg": 57.95308,
+              "fit_residual_deg": 5.42906,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -22.13428,
+              "pitch_deg": 52.09112,
+              "angular_error_deg": 29.68199,
+              "fit_residual_deg": 1.34573,
+              "predicted_visible": false
+            }
+          }
+        }
+      ]
+    },
+    "400": {
+      "eligible": 96,
+      "matched": 45,
+      "future_detection_coverage": 0.4688,
+      "matched_truth_clipped": 11,
+      "matched_truth_clipped_fraction": 0.2444,
+      "metrics": {
+        "hold": {
+          "angular_error_deg": {
+            "count": 45,
+            "median": 8.6239,
+            "p90": 36.3803,
+            "mean": 16.0952
+          },
+          "yaw_absolute_error_deg": {
+            "count": 45,
+            "median": 6.7817,
+            "p90": 35.0506,
+            "mean": 13.7787
+          },
+          "pitch_absolute_error_deg": {
+            "count": 45,
+            "median": 5.0492,
+            "p90": 18.3053,
+            "mean": 6.7791
+          },
+          "fit_residual_deg": {
+            "count": 45,
+            "median": 0.0,
+            "p90": 0.0,
+            "mean": 0.0
+          },
+          "predicted_visible_fraction": 0.4688,
+          "wins": 43
+        },
+        "angular_velocity": {
+          "angular_error_deg": {
+            "count": 45,
+            "median": 48.1118,
+            "p90": 96.5782,
+            "mean": 51.5362
+          },
+          "yaw_absolute_error_deg": {
+            "count": 45,
+            "median": 42.8461,
+            "p90": 99.6754,
+            "mean": 47.4883
+          },
+          "pitch_absolute_error_deg": {
+            "count": 45,
+            "median": 20.4674,
+            "p90": 41.7631,
+            "mean": 22.4786
+          },
+          "fit_residual_deg": {
+            "count": 45,
+            "median": 2.337,
+            "p90": 9.6532,
+            "mean": 4.0345
+          },
+          "predicted_visible_fraction": 0.1562,
+          "wins": 1
+        },
+        "angular_acceleration": {
+          "angular_error_deg": {
+            "count": 45,
+            "median": 71.9242,
+            "p90": 121.3982,
+            "mean": 69.5795
+          },
+          "yaw_absolute_error_deg": {
+            "count": 45,
+            "median": 70.2998,
+            "p90": 369.9204,
+            "mean": 118.0201
+          },
+          "pitch_absolute_error_deg": {
+            "count": 45,
+            "median": 35.4645,
+            "p90": 81.87,
+            "mean": 41.4298
+          },
+          "fit_residual_deg": {
+            "count": 45,
+            "median": 1.3313,
+            "p90": 5.858,
+            "mean": 2.7903
+          },
+          "predicted_visible_fraction": 0.1146,
+          "wins": 1
+        }
+      },
+      "comparisons": {
+        "angular_velocity_vs_hold_median_percent": -457.89,
+        "angular_acceleration_vs_hold_median_percent": -734.01
+      },
+      "records": [
+        {
+          "anchor_frame": 268,
+          "truth_frame": 280,
+          "actual_horizon_ms": 400.08,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -1.61564,
+              "pitch_deg": -5.1326,
+              "angular_error_deg": 27.20457,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 41.85477,
+              "pitch_deg": -36.54844,
+              "angular_error_deg": 34.88092,
+              "fit_residual_deg": 1.4731,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 64.25099,
+              "pitch_deg": 19.22136,
+              "angular_error_deg": 45.00054,
+              "fit_residual_deg": 0.90878,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 269,
+          "truth_frame": 281,
+          "actual_horizon_ms": 400.184,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 5.11113,
+              "pitch_deg": -7.07211,
+              "angular_error_deg": 20.82708,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 55.21815,
+              "pitch_deg": -36.93158,
+              "angular_error_deg": 41.82098,
+              "fit_residual_deg": 1.58737,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 104.47344,
+              "pitch_deg": 7.18453,
+              "angular_error_deg": 79.28809,
+              "fit_residual_deg": 0.97691,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 270,
+          "truth_frame": 281,
+          "actual_horizon_ms": 368.248,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 13.48554,
+              "pitch_deg": -9.87235,
+              "angular_error_deg": 13.33192,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 66.79849,
+              "pitch_deg": -39.10161,
+              "angular_error_deg": 50.37172,
+              "fit_residual_deg": 2.33695,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 154.42998,
+              "pitch_deg": -24.21886,
+              "angular_error_deg": 122.08712,
+              "fit_residual_deg": 1.29978,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 271,
+          "truth_frame": 284,
+          "actual_horizon_ms": 432.101,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 14.68012,
+              "pitch_deg": -10.0192,
+              "angular_error_deg": 9.58234,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 69.59931,
+              "pitch_deg": -36.98535,
+              "angular_error_deg": 54.28051,
+              "fit_residual_deg": 1.7893,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 110.25568,
+              "pitch_deg": -3.42689,
+              "angular_error_deg": 87.70881,
+              "fit_residual_deg": 1.35663,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 272,
+          "truth_frame": 284,
+          "actual_horizon_ms": 400.029,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 15.53573,
+              "pitch_deg": -9.2759,
+              "angular_error_deg": 8.46117,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 68.66248,
+              "pitch_deg": -34.25007,
+              "angular_error_deg": 52.43559,
+              "fit_residual_deg": 2.4752,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 68.79045,
+              "pitch_deg": 17.87947,
+              "angular_error_deg": 50.84254,
+              "fit_residual_deg": 2.09258,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 273,
+          "truth_frame": 285,
+          "actual_horizon_ms": 399.901,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 17.99082,
+              "pitch_deg": -8.09329,
+              "angular_error_deg": 6.03055,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 68.49046,
+              "pitch_deg": -27.47025,
+              "angular_error_deg": 48.11182,
+              "fit_residual_deg": 2.8492,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 27.94126,
+              "pitch_deg": 37.95446,
+              "angular_error_deg": 43.58712,
+              "fit_residual_deg": 2.06495,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 274,
+          "truth_frame": 286,
+          "actual_horizon_ms": 399.973,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 18.58684,
+              "pitch_deg": -8.14536,
+              "angular_error_deg": 5.57437,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 65.5532,
+              "pitch_deg": -22.88447,
+              "angular_error_deg": 44.2806,
+              "fit_residual_deg": 3.36088,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -2.75617,
+              "pitch_deg": 39.70439,
+              "angular_error_deg": 51.03741,
+              "fit_residual_deg": 1.80332,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 275,
+          "truth_frame": 287,
+          "actual_horizon_ms": 398.968,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 18.99346,
+              "pitch_deg": -8.23073,
+              "angular_error_deg": 5.78175,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 61.9746,
+              "pitch_deg": -14.23952,
+              "angular_error_deg": 38.24535,
+              "fit_residual_deg": 3.46402,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -32.93814,
+              "pitch_deg": 45.23206,
+              "angular_error_deg": 71.74643,
+              "fit_residual_deg": 1.37454,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 276,
+          "truth_frame": 288,
+          "actual_horizon_ms": 400.105,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 18.68,
+              "pitch_deg": -5.29819,
+              "angular_error_deg": 4.53338,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 47.17539,
+              "pitch_deg": -5.65577,
+              "angular_error_deg": 23.88239,
+              "fit_residual_deg": 3.3508,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -47.09399,
+              "pitch_deg": 61.68206,
+              "angular_error_deg": 85.10318,
+              "fit_residual_deg": 1.11788,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 277,
+          "truth_frame": 289,
+          "actual_horizon_ms": 399.728,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 19.28633,
+              "pitch_deg": -4.72098,
+              "angular_error_deg": 3.39803,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 32.14875,
+              "pitch_deg": 3.19762,
+              "angular_error_deg": 12.52883,
+              "fit_residual_deg": 1.80377,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -49.94041,
+              "pitch_deg": 49.92126,
+              "angular_error_deg": 82.8442,
+              "fit_residual_deg": 1.10871,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 278,
+          "truth_frame": 290,
+          "actual_horizon_ms": 399.716,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.29476,
+              "pitch_deg": -3.30167,
+              "angular_error_deg": 2.42795,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 35.48715,
+              "pitch_deg": 6.72214,
+              "angular_error_deg": 17.04737,
+              "fit_residual_deg": 1.61121,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -13.50738,
+              "pitch_deg": 45.98908,
+              "angular_error_deg": 61.01806,
+              "fit_residual_deg": 1.71049,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 279,
+          "truth_frame": 291,
+          "actual_horizon_ms": 399.405,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.66454,
+              "pitch_deg": -4.64719,
+              "angular_error_deg": 1.28339,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 37.00793,
+              "pitch_deg": 6.49349,
+              "angular_error_deg": 18.63342,
+              "fit_residual_deg": 1.25567,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 31.04323,
+              "pitch_deg": 21.73198,
+              "angular_error_deg": 28.50991,
+              "fit_residual_deg": 1.20042,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 280,
+          "truth_frame": 292,
+          "actual_horizon_ms": 399.521,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 25.69667,
+              "pitch_deg": -4.97365,
+              "angular_error_deg": 2.68002,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 39.21,
+              "pitch_deg": 4.44679,
+              "angular_error_deg": 19.09294,
+              "fit_residual_deg": 1.1344,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 47.52459,
+              "pitch_deg": -20.24408,
+              "angular_error_deg": 27.5468,
+              "fit_residual_deg": 0.96661,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 281,
+          "truth_frame": 293,
+          "actual_horizon_ms": 399.553,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 25.93111,
+              "pitch_deg": -4.82313,
+              "angular_error_deg": 3.24815,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 39.91283,
+              "pitch_deg": 2.81603,
+              "angular_error_deg": 19.129,
+              "fit_residual_deg": 1.20342,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 44.66745,
+              "pitch_deg": -25.45331,
+              "angular_error_deg": 28.64886,
+              "fit_residual_deg": 0.91392,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 284,
+          "truth_frame": 296,
+          "actual_horizon_ms": 399.682,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.30847,
+              "pitch_deg": -4.1398,
+              "angular_error_deg": 1.09374,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 30.54239,
+              "pitch_deg": -2.23317,
+              "angular_error_deg": 7.72651,
+              "fit_residual_deg": 2.07982,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -11.51321,
+              "pitch_deg": -17.91677,
+              "angular_error_deg": 36.41722,
+              "fit_residual_deg": 1.50484,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 285,
+          "truth_frame": 297,
+          "actual_horizon_ms": 399.638,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.4404,
+              "pitch_deg": -5.43112,
+              "angular_error_deg": 0.68014,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 27.40427,
+              "pitch_deg": -5.55999,
+              "angular_error_deg": 4.05677,
+              "fit_residual_deg": 1.92293,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -24.17347,
+              "pitch_deg": -15.49471,
+              "angular_error_deg": 47.94354,
+              "fit_residual_deg": 0.98803,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 286,
+          "truth_frame": 298,
+          "actual_horizon_ms": 399.94,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.4029,
+              "pitch_deg": -5.28157,
+              "angular_error_deg": 1.09656,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 25.30334,
+              "pitch_deg": -6.36601,
+              "angular_error_deg": 3.27307,
+              "fit_residual_deg": 1.43532,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -19.14241,
+              "pitch_deg": -11.87368,
+              "angular_error_deg": 41.79351,
+              "fit_residual_deg": 0.90135,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 287,
+          "truth_frame": 299,
+          "actual_horizon_ms": 399.753,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 24.12263,
+              "pitch_deg": -5.49193,
+              "angular_error_deg": 2.76959,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 25.14084,
+              "pitch_deg": -7.05564,
+              "angular_error_deg": 4.39239,
+              "fit_residual_deg": 1.07266,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 14.69925,
+              "pitch_deg": -8.68666,
+              "angular_error_deg": 7.91131,
+              "fit_residual_deg": 1.09974,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 290,
+          "truth_frame": 302,
+          "actual_horizon_ms": 400.056,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.4932,
+              "pitch_deg": -5.41523,
+              "angular_error_deg": 10.42491,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 20.81964,
+              "pitch_deg": -5.74054,
+              "angular_error_deg": 10.60367,
+              "fit_residual_deg": 0.64238,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 31.07761,
+              "pitch_deg": -6.21084,
+              "angular_error_deg": 14.55056,
+              "fit_residual_deg": 0.55556,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 291,
+          "truth_frame": 303,
+          "actual_horizon_ms": 400.355,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.81763,
+              "pitch_deg": -5.61446,
+              "angular_error_deg": 19.88565,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 21.54291,
+              "pitch_deg": -6.53895,
+              "angular_error_deg": 20.26382,
+              "fit_residual_deg": 0.533,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 24.43968,
+              "pitch_deg": -8.79669,
+              "angular_error_deg": 23.44884,
+              "fit_residual_deg": 0.52976,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 292,
+          "truth_frame": 304,
+          "actual_horizon_ms": 400.165,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 23.21799,
+              "pitch_deg": -6.02019,
+              "angular_error_deg": 25.09247,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 22.68564,
+              "pitch_deg": -7.57962,
+              "angular_error_deg": 26.24663,
+              "fit_residual_deg": 0.47613,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 22.83568,
+              "pitch_deg": -14.09987,
+              "angular_error_deg": 32.29627,
+              "fit_residual_deg": 0.449,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 373,
+          "truth_frame": 385,
+          "actual_horizon_ms": 399.733,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -1.38003,
+              "pitch_deg": -13.52966,
+              "angular_error_deg": 19.23202,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 56.88814,
+              "pitch_deg": -85.66603,
+              "angular_error_deg": 69.2455,
+              "fit_residual_deg": 1.88965,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 140.0689,
+              "pitch_deg": 18.07018,
+              "angular_error_deg": 124.88973,
+              "fit_residual_deg": 1.08204,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 607,
+          "truth_frame": 619,
+          "actual_horizon_ms": 399.986,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 2.67998,
+              "pitch_deg": -7.4834,
+              "angular_error_deg": 32.47427,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 49.89156,
+              "pitch_deg": -19.62158,
+              "angular_error_deg": 29.63048,
+              "fit_residual_deg": 2.82278,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": 203.78955,
+              "pitch_deg": 47.35088,
+              "angular_error_deg": 127.25813,
+              "fit_residual_deg": 2.37235,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 608,
+          "truth_frame": 620,
+          "actual_horizon_ms": 400.093,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 17.58999,
+              "pitch_deg": -10.35443,
+              "angular_error_deg": 13.05061,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 73.69469,
+              "pitch_deg": -26.21692,
+              "angular_error_deg": 47.8594,
+              "fit_residual_deg": 4.62708,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 355.11486,
+              "pitch_deg": -17.36756,
+              "angular_error_deg": 35.88684,
+              "fit_residual_deg": 2.48959,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 754,
+          "truth_frame": 766,
+          "actual_horizon_ms": 399.447,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 20.03581,
+              "pitch_deg": -11.21105,
+              "angular_error_deg": 10.93114,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 91.28895,
+              "pitch_deg": -48.89134,
+              "angular_error_deg": 67.08701,
+              "fit_residual_deg": 2.00099,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 124.32349,
+              "pitch_deg": -49.14309,
+              "angular_error_deg": 88.50661,
+              "fit_residual_deg": 2.03523,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 755,
+          "truth_frame": 768,
+          "actual_horizon_ms": 431.607,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 26.32399,
+              "pitch_deg": -9.44886,
+              "angular_error_deg": 64.52057,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 95.98939,
+              "pitch_deg": -36.11552,
+              "angular_error_deg": 128.57784,
+              "fit_residual_deg": 2.56553,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 116.61407,
+              "pitch_deg": 76.88426,
+              "angular_error_deg": 92.6693,
+              "fit_residual_deg": 1.97844,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 756,
+          "truth_frame": 768,
+          "actual_horizon_ms": 400.447,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 29.5272,
+              "pitch_deg": -10.23524,
+              "angular_error_deg": 67.77297,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 94.26807,
+              "pitch_deg": -30.99585,
+              "angular_error_deg": 128.69843,
+              "fit_residual_deg": 2.68508,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 45.57919,
+              "pitch_deg": 84.32607,
+              "angular_error_deg": 80.21055,
+              "fit_residual_deg": 1.58932,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 757,
+          "truth_frame": 769,
+          "actual_horizon_ms": 399.851,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 31.13475,
+              "pitch_deg": -9.79535,
+              "angular_error_deg": 69.49868,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 90.09498,
+              "pitch_deg": -23.25794,
+              "angular_error_deg": 126.46034,
+              "fit_residual_deg": 2.91997,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 5.09544,
+              "pitch_deg": 68.7367,
+              "angular_error_deg": 66.8968,
+              "fit_residual_deg": 1.56884,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 758,
+          "truth_frame": 770,
+          "actual_horizon_ms": 400.411,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 33.06846,
+              "pitch_deg": -10.31288,
+              "angular_error_deg": 12.09976,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 83.89428,
+              "pitch_deg": -15.46511,
+              "angular_error_deg": 60.90949,
+              "fit_residual_deg": 2.49073,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -22.25648,
+              "pitch_deg": 59.64935,
+              "angular_error_deg": 72.17943,
+              "fit_residual_deg": 1.33126,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 759,
+          "truth_frame": 771,
+          "actual_horizon_ms": 400.13,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 33.40902,
+              "pitch_deg": -8.77213,
+              "angular_error_deg": 23.87824,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 78.6155,
+              "pitch_deg": -11.09518,
+              "angular_error_deg": 64.38464,
+              "fit_residual_deg": 3.07052,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -37.09279,
+              "pitch_deg": 46.15789,
+              "angular_error_deg": 59.34192,
+              "fit_residual_deg": 1.09612,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 760,
+          "truth_frame": 772,
+          "actual_horizon_ms": 399.869,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 34.37293,
+              "pitch_deg": -8.68272,
+              "angular_error_deg": 29.54847,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 71.17719,
+              "pitch_deg": -7.97723,
+              "angular_error_deg": 60.73597,
+              "fit_residual_deg": 3.37187,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -37.73457,
+              "pitch_deg": 25.96316,
+              "angular_error_deg": 50.00394,
+              "fit_residual_deg": 1.05322,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 761,
+          "truth_frame": 772,
+          "actual_horizon_ms": 367.68,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 36.28097,
+              "pitch_deg": -7.9289,
+              "angular_error_deg": 30.39186,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 66.81417,
+              "pitch_deg": -4.53184,
+              "angular_error_deg": 55.51724,
+              "fit_residual_deg": 2.92139,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -23.51186,
+              "pitch_deg": 17.17746,
+              "angular_error_deg": 36.15495,
+              "fit_residual_deg": 1.19614,
+              "predicted_visible": true
+            }
+          }
+        },
+        {
+          "anchor_frame": 768,
+          "truth_frame": 780,
+          "actual_horizon_ms": 399.876,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -35.78286,
+              "pitch_deg": 8.98212,
+              "angular_error_deg": 7.95233,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 17.7641,
+              "pitch_deg": 1.53398,
+              "angular_error_deg": 60.81245,
+              "fit_residual_deg": 6.17159,
+              "predicted_visible": true
+            },
+            "angular_acceleration": {
+              "yaw_deg": -441.83213,
+              "pitch_deg": 112.09136,
+              "angular_error_deg": 93.98565,
+              "fit_residual_deg": 8.46216,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 769,
+          "truth_frame": 780,
+          "actual_horizon_ms": 367.774,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -36.43229,
+              "pitch_deg": 7.6016,
+              "angular_error_deg": 8.32256,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -109.68517,
+              "pitch_deg": 24.65816,
+              "angular_error_deg": 63.89159,
+              "fit_residual_deg": 18.73876,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -476.89796,
+              "pitch_deg": 112.26075,
+              "angular_error_deg": 83.45367,
+              "fit_residual_deg": 6.95474,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 814,
+          "truth_frame": 826,
+          "actual_horizon_ms": 399.993,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 20.56486,
+              "pitch_deg": -2.1124,
+              "angular_error_deg": 14.31308,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 111.57735,
+              "pitch_deg": -39.27718,
+              "angular_error_deg": 84.16138,
+              "fit_residual_deg": 2.39124,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 233.28319,
+              "pitch_deg": 33.67015,
+              "angular_error_deg": 137.08914,
+              "fit_residual_deg": 2.30662,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 815,
+          "truth_frame": 827,
+          "actual_horizon_ms": 399.834,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 27.96393,
+              "pitch_deg": -2.50603,
+              "angular_error_deg": 7.91743,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 117.08231,
+              "pitch_deg": -32.19012,
+              "angular_error_deg": 89.59876,
+              "fit_residual_deg": 2.19949,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 150.68665,
+              "pitch_deg": 74.22173,
+              "angular_error_deg": 93.02304,
+              "fit_residual_deg": 1.37923,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 899,
+          "truth_frame": 911,
+          "actual_horizon_ms": 397.764,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": 29.72592,
+              "pitch_deg": -0.86568,
+              "angular_error_deg": 4.78145,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 71.50167,
+              "pitch_deg": 17.1643,
+              "angular_error_deg": 41.18247,
+              "fit_residual_deg": 1.3376,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 85.3689,
+              "pitch_deg": -62.54865,
+              "angular_error_deg": 71.45521,
+              "fit_residual_deg": 0.83752,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1043,
+          "truth_frame": 1054,
+          "actual_horizon_ms": 368.015,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 1.19763,
+              "pitch_deg": -0.60142,
+              "angular_error_deg": 38.98439,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 44.27094,
+              "pitch_deg": -49.57774,
+              "angular_error_deg": 89.79395,
+              "fit_residual_deg": 1.08558,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 170.88189,
+              "pitch_deg": -56.45238,
+              "angular_error_deg": 125.84948,
+              "fit_residual_deg": 0.74158,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1049,
+          "truth_frame": 1062,
+          "actual_horizon_ms": 430.551,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 22.16605,
+              "pitch_deg": -5.31419,
+              "angular_error_deg": 59.34424,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 66.91017,
+              "pitch_deg": -27.71652,
+              "angular_error_deg": 105.15585,
+              "fit_residual_deg": 4.41778,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": 85.51606,
+              "pitch_deg": 2.11666,
+              "angular_error_deg": 120.3649,
+              "fit_residual_deg": 4.21296,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1050,
+          "truth_frame": 1062,
+          "actual_horizon_ms": 399.875,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -37.02744,
+              "pitch_deg": 8.86245,
+              "angular_error_deg": 1.35804,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 59.6864,
+              "pitch_deg": -17.16767,
+              "angular_error_deg": 97.6448,
+              "fit_residual_deg": 12.86595,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -273.01105,
+              "pitch_deg": 95.01741,
+              "angular_error_deg": 78.52362,
+              "fit_residual_deg": 19.01903,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1051,
+          "truth_frame": 1063,
+          "actual_horizon_ms": 399.966,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -37.27603,
+              "pitch_deg": 8.54921,
+              "angular_error_deg": 2.12512,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -51.9587,
+              "pitch_deg": 7.69644,
+              "angular_error_deg": 16.51762,
+              "fit_residual_deg": 24.67313,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -476.84714,
+              "pitch_deg": 153.11896,
+              "angular_error_deg": 93.18007,
+              "fit_residual_deg": 17.98569,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1052,
+          "truth_frame": 1063,
+          "actual_horizon_ms": 367.732,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": -37.30387,
+              "pitch_deg": 7.74564,
+              "angular_error_deg": 2.60793,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -78.1972,
+              "pitch_deg": 14.54776,
+              "angular_error_deg": 42.14935,
+              "fit_residual_deg": 22.63539,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -485.86343,
+              "pitch_deg": 133.62585,
+              "angular_error_deg": 82.7879,
+              "fit_residual_deg": 16.10517,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1080,
+          "truth_frame": 1092,
+          "actual_horizon_ms": 399.941,
+          "truth_clipped": true,
+          "methods": {
+            "hold": {
+              "yaw_deg": -35.15301,
+              "pitch_deg": 8.75645,
+              "angular_error_deg": 8.62388,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": -159.39438,
+              "pitch_deg": 52.30218,
+              "angular_error_deg": 94.97829,
+              "fit_residual_deg": 11.97431,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -474.5999,
+              "pitch_deg": 2.11392,
+              "angular_error_deg": 71.92416,
+              "fit_residual_deg": 3.3317,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1125,
+          "truth_frame": 1137,
+          "actual_horizon_ms": 400.374,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 26.02467,
+              "pitch_deg": -2.32149,
+              "angular_error_deg": 5.87376,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 91.82432,
+              "pitch_deg": -23.85017,
+              "angular_error_deg": 71.24542,
+              "fit_residual_deg": 1.63957,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -50.59069,
+              "pitch_deg": 55.30795,
+              "angular_error_deg": 78.63716,
+              "fit_residual_deg": 0.76478,
+              "predicted_visible": false
+            }
+          }
+        },
+        {
+          "anchor_frame": 1126,
+          "truth_frame": 1138,
+          "actual_horizon_ms": 400.032,
+          "truth_clipped": false,
+          "methods": {
+            "hold": {
+              "yaw_deg": 27.15776,
+              "pitch_deg": -3.76568,
+              "angular_error_deg": 13.27428,
+              "fit_residual_deg": 0.0,
+              "predicted_visible": true
+            },
+            "angular_velocity": {
+              "yaw_deg": 85.51058,
+              "pitch_deg": -23.83868,
+              "angular_error_deg": 71.58753,
+              "fit_residual_deg": 2.19766,
+              "predicted_visible": false
+            },
+            "angular_acceleration": {
+              "yaw_deg": -81.55412,
+              "pitch_deg": 20.71501,
+              "angular_error_deg": 97.47665,
+              "fit_residual_deg": 0.74665,
+              "predicted_visible": false
+            }
+          }
+        }
+      ]
+    }
+  },
+  "history_selection": {
+    "eligible_anchors": 96,
+    "rejected": {
+      "insufficient_samples": 389,
+      "insufficient_motion": 9
+    }
+  }
+}

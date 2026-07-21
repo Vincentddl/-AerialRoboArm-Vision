@@ -1,0 +1,974 @@
+[
+  {
+    "frame": 1284,
+    "split": "train",
+    "box": [
+      183,
+      340,
+      275,
+      480
+    ],
+    "confidence": 0.57704,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1286,
+    "split": "train",
+    "box": [
+      132,
+      172,
+      266,
+      394
+    ],
+    "confidence": 0.77246,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1288,
+    "split": "train",
+    "box": [
+      93,
+      52,
+      258,
+      298
+    ],
+    "confidence": 0.71065,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1290,
+    "split": "train",
+    "box": [
+      72,
+      67,
+      256,
+      361
+    ],
+    "confidence": 0.72276,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1292,
+    "split": "train",
+    "box": [
+      94,
+      207,
+      255,
+      480
+    ],
+    "confidence": 0.74804,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1324,
+    "split": "train",
+    "box": [
+      235,
+      435,
+      312,
+      480
+    ],
+    "confidence": 0.30069,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1326,
+    "split": "train",
+    "box": [
+      194,
+      140,
+      319,
+      338
+    ],
+    "confidence": 0.75479,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1328,
+    "split": "train",
+    "box": [
+      146,
+      1,
+      339,
+      95
+    ],
+    "confidence": 0.64958,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1334,
+    "split": "train",
+    "box": [
+      97,
+      1,
+      290,
+      133
+    ],
+    "confidence": 0.6813,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1336,
+    "split": "train",
+    "box": [
+      116,
+      161,
+      282,
+      415
+    ],
+    "confidence": 0.71782,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1374,
+    "split": "train",
+    "box": [
+      142,
+      357,
+      279,
+      480
+    ],
+    "confidence": 0.73403,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1376,
+    "split": "train",
+    "box": [
+      97,
+      171,
+      264,
+      364
+    ],
+    "confidence": 0.81556,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1378,
+    "split": "train",
+    "box": [
+      59,
+      2,
+      254,
+      235
+    ],
+    "confidence": 0.691,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1380,
+    "split": "train",
+    "box": [
+      36,
+      1,
+      225,
+      239
+    ],
+    "confidence": 0.68841,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1382,
+    "split": "train",
+    "box": [
+      12,
+      178,
+      228,
+      462
+    ],
+    "confidence": 0.71823,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1458,
+    "split": "train",
+    "box": [
+      218,
+      398,
+      337,
+      479
+    ],
+    "confidence": 0.21863,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1460,
+    "split": "train",
+    "box": [
+      204,
+      182,
+      321,
+      340
+    ],
+    "confidence": 0.70081,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1462,
+    "split": "train",
+    "box": [
+      189,
+      0,
+      337,
+      123
+    ],
+    "confidence": 0.68362,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1467,
+    "split": "train",
+    "box": [
+      139,
+      0,
+      298,
+      30
+    ],
+    "confidence": 0.42759,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1469,
+    "split": "train",
+    "box": [
+      101,
+      0,
+      289,
+      237
+    ],
+    "confidence": 0.72876,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1471,
+    "split": "train",
+    "box": [
+      99,
+      248,
+      299,
+      438
+    ],
+    "confidence": 0.44512,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1496,
+    "split": "train",
+    "box": [
+      174,
+      359,
+      312,
+      480
+    ],
+    "confidence": 0.53934,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1498,
+    "split": "train",
+    "box": [
+      139,
+      118,
+      317,
+      330
+    ],
+    "confidence": 0.72366,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1507,
+    "split": "train",
+    "box": [
+      124,
+      1,
+      259,
+      99
+    ],
+    "confidence": 0.5669,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1539,
+    "split": "train",
+    "box": [
+      197,
+      412,
+      279,
+      479
+    ],
+    "confidence": 0.4745,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1541,
+    "split": "train",
+    "box": [
+      170,
+      223,
+      261,
+      357
+    ],
+    "confidence": 0.79918,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1543,
+    "split": "train",
+    "box": [
+      154,
+      44,
+      252,
+      153
+    ],
+    "confidence": 0.81256,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1545,
+    "split": "train",
+    "box": [
+      146,
+      0,
+      228,
+      29
+    ],
+    "confidence": 0.48666,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1547,
+    "split": "train",
+    "box": [
+      135,
+      0,
+      222,
+      35
+    ],
+    "confidence": 0.57954,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1549,
+    "split": "train",
+    "box": [
+      122,
+      0,
+      214,
+      138
+    ],
+    "confidence": 0.71189,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1551,
+    "split": "train",
+    "box": [
+      127,
+      205,
+      207,
+      346
+    ],
+    "confidence": 0.7757,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1555,
+    "split": "train",
+    "box": [
+      161,
+      360,
+      219,
+      443
+    ],
+    "confidence": 0.59586,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1557,
+    "split": "train",
+    "box": [
+      158,
+      341,
+      215,
+      420
+    ],
+    "confidence": 0.74567,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1559,
+    "split": "train",
+    "box": [
+      153,
+      349,
+      210,
+      435
+    ],
+    "confidence": 0.7571,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1561,
+    "split": "train",
+    "box": [
+      142,
+      376,
+      221,
+      458
+    ],
+    "confidence": 0.34894,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1563,
+    "split": "train",
+    "box": [
+      136,
+      427,
+      209,
+      479
+    ],
+    "confidence": 0.47382,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1590,
+    "split": "train",
+    "box": [
+      161,
+      337,
+      282,
+      480
+    ],
+    "confidence": 0.67416,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1592,
+    "split": "train",
+    "box": [
+      95,
+      175,
+      266,
+      421
+    ],
+    "confidence": 0.70064,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1594,
+    "split": "train",
+    "box": [
+      49,
+      52,
+      226,
+      333
+    ],
+    "confidence": 0.65592,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1598,
+    "split": "train",
+    "box": [
+      2,
+      230,
+      176,
+      480
+    ],
+    "confidence": 0.2049,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1600,
+    "split": "train",
+    "box": [
+      31,
+      409,
+      196,
+      480
+    ],
+    "confidence": 0.20376,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1640,
+    "split": "train",
+    "box": [
+      216,
+      392,
+      320,
+      480
+    ],
+    "confidence": 0.39256,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1642,
+    "split": "train",
+    "box": [
+      185,
+      237,
+      304,
+      393
+    ],
+    "confidence": 0.67537,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1644,
+    "split": "train",
+    "box": [
+      151,
+      33,
+      303,
+      199
+    ],
+    "confidence": 0.69524,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1646,
+    "split": "train",
+    "box": [
+      133,
+      1,
+      285,
+      143
+    ],
+    "confidence": 0.73268,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1648,
+    "split": "train",
+    "box": [
+      124,
+      8,
+      278,
+      202
+    ],
+    "confidence": 0.62416,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1650,
+    "split": "train",
+    "box": [
+      128,
+      186,
+      252,
+      362
+    ],
+    "confidence": 0.66184,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1652,
+    "split": "train",
+    "box": [
+      151,
+      362,
+      247,
+      478
+    ],
+    "confidence": 0.76082,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1680,
+    "split": "train",
+    "box": [
+      203,
+      342,
+      316,
+      468
+    ],
+    "confidence": 0.45925,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1682,
+    "split": "train",
+    "box": [
+      171,
+      89,
+      321,
+      300
+    ],
+    "confidence": 0.54128,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1684,
+    "split": "train",
+    "box": [
+      162,
+      0,
+      300,
+      84
+    ],
+    "confidence": 0.66359,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1691,
+    "split": "train",
+    "box": [
+      133,
+      1,
+      287,
+      127
+    ],
+    "confidence": 0.68112,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1693,
+    "split": "train",
+    "box": [
+      159,
+      186,
+      290,
+      365
+    ],
+    "confidence": 0.74211,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1695,
+    "split": "train",
+    "box": [
+      229,
+      413,
+      299,
+      479
+    ],
+    "confidence": 0.48263,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1715,
+    "split": "train",
+    "box": [
+      185,
+      404,
+      288,
+      479
+    ],
+    "confidence": 0.46436,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1717,
+    "split": "train",
+    "box": [
+      153,
+      224,
+      265,
+      379
+    ],
+    "confidence": 0.72489,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1719,
+    "split": "train",
+    "box": [
+      122,
+      0,
+      255,
+      110
+    ],
+    "confidence": 0.78365,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1725,
+    "split": "train",
+    "box": [
+      107,
+      1,
+      198,
+      61
+    ],
+    "confidence": 0.65446,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1727,
+    "split": "train",
+    "box": [
+      112,
+      123,
+      211,
+      276
+    ],
+    "confidence": 0.79142,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1731,
+    "split": "train",
+    "box": [
+      186,
+      413,
+      245,
+      479
+    ],
+    "confidence": 0.33256,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1735,
+    "split": "train",
+    "box": [
+      165,
+      403,
+      250,
+      480
+    ],
+    "confidence": 0.58822,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1737,
+    "split": "train",
+    "box": [
+      147,
+      405,
+      238,
+      480
+    ],
+    "confidence": 0.68908,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1739,
+    "split": "train",
+    "box": [
+      133,
+      425,
+      219,
+      480
+    ],
+    "confidence": 0.50949,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1741,
+    "split": "train",
+    "box": [
+      124,
+      450,
+      202,
+      480
+    ],
+    "confidence": 0.24479,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1755,
+    "split": "train",
+    "box": [
+      210,
+      337,
+      306,
+      480
+    ],
+    "confidence": 0.69453,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1757,
+    "split": "train",
+    "box": [
+      193,
+      74,
+      355,
+      265
+    ],
+    "confidence": 0.71198,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1768,
+    "split": "train",
+    "box": [
+      256,
+      141,
+      446,
+      377
+    ],
+    "confidence": 0.48125,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1831,
+    "split": "val",
+    "box": [
+      190,
+      380,
+      318,
+      480
+    ],
+    "confidence": 0.43046,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1833,
+    "split": "val",
+    "box": [
+      104,
+      26,
+      272,
+      227
+    ],
+    "confidence": 0.66339,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1841,
+    "split": "val",
+    "box": [
+      2,
+      0,
+      233,
+      348
+    ],
+    "confidence": 0.55701,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1843,
+    "split": "val",
+    "box": [
+      105,
+      335,
+      254,
+      480
+    ],
+    "confidence": 0.33845,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1905,
+    "split": "val",
+    "box": [
+      140,
+      178,
+      240,
+      360
+    ],
+    "confidence": 0.75421,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1907,
+    "split": "val",
+    "box": [
+      90,
+      7,
+      213,
+      207
+    ],
+    "confidence": 0.62928,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1909,
+    "split": "val",
+    "box": [
+      63,
+      4,
+      183,
+      121
+    ],
+    "confidence": 0.42805,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1913,
+    "split": "val",
+    "box": [
+      31,
+      119,
+      153,
+      343
+    ],
+    "confidence": 0.62043,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1947,
+    "split": "val",
+    "box": [
+      219,
+      382,
+      337,
+      480
+    ],
+    "confidence": 0.61587,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1949,
+    "split": "val",
+    "box": [
+      219,
+      95,
+      384,
+      308
+    ],
+    "confidence": 0.56051,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1951,
+    "split": "val",
+    "box": [
+      255,
+      0,
+      357,
+      38
+    ],
+    "confidence": 0.45861,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1958,
+    "split": "val",
+    "box": [
+      326,
+      0,
+      466,
+      37
+    ],
+    "confidence": 0.34183,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1960,
+    "split": "val",
+    "box": [
+      331,
+      124,
+      438,
+      247
+    ],
+    "confidence": 0.79248,
+    "source": "reviewed_v6"
+  },
+  {
+    "frame": 1964,
+    "split": "val",
+    "box": [
+      316,
+      421,
+      393,
+      478
+    ],
+    "confidence": 0.31472,
+    "source": "reviewed_v6"
+  }
+]

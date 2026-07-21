@@ -1,0 +1,80 @@
+{
+  "source_detector": "V5 cached detections, conf>=0.20",
+  "frames": 6504,
+  "duration_s": 222.296,
+  "effective_fps": 29.254,
+  "detection_frames": 2063,
+  "detection_frame_rate": 0.3172,
+  "detections": 2542,
+  "confirmed_track_ids": 166,
+  "eligible_forecasts": 250,
+  "matched_0p5s_forecasts": 118,
+  "future_match_coverage": 0.472,
+  "pixel_error": {
+    "hold": {
+      "n": 118,
+      "mean": 20.466,
+      "median": 15.657,
+      "p75": 27.447,
+      "p90": 44.875,
+      "p95": 55.077,
+      "max": 65.464
+    },
+    "constant_velocity": {
+      "n": 118,
+      "mean": 109.122,
+      "median": 91.009,
+      "p75": 122.989,
+      "p90": 187.01,
+      "p95": 206.336,
+      "max": 371.764
+    },
+    "constant_acceleration_kalman": {
+      "n": 118,
+      "mean": 203.664,
+      "median": 166.095,
+      "p75": 267.496,
+      "p90": 394.699,
+      "p95": 410.676,
+      "max": 523.581
+    }
+  },
+  "angular_error_deg": {
+    "hold": {
+      "n": 118,
+      "mean": 2.616,
+      "median": 2.08,
+      "p75": 3.741,
+      "p90": 5.215,
+      "p95": 6.079,
+      "max": 10.227
+    },
+    "constant_velocity": {
+      "n": 118,
+      "mean": 14.362,
+      "median": 12.607,
+      "p75": 15.538,
+      "p90": 25.488,
+      "p95": 28.977,
+      "max": 37.475
+    },
+    "constant_acceleration_kalman": {
+      "n": 118,
+      "mean": 27.331,
+      "median": 23.557,
+      "p75": 31.134,
+      "p90": 48.752,
+      "p95": 59.142,
+      "max": 79.128
+    }
+  },
+  "observation_gap_s": {
+    "n": 739,
+    "mean": 0.041,
+    "median": 0.032,
+    "p75": 0.032,
+    "p90": 0.048,
+    "p95": 0.08,
+    "max": 0.433
+  }
+}

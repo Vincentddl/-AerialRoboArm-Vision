@@ -1,0 +1,1295 @@
+{
+  "source_dataset": "D:\\Study_data\\ultralytics-8.3.218\\lab_tracking\\datasets\\foam_board_2p1mm\\v6",
+  "source_video": "D:\\Study_data\\ultralytics-8.3.218\\lab_tracking\\datasets\\foam_board_2p1mm_zaxis\\raw\\20260714_223253\\foam_board_2p1mm_zaxis_trajectory_20260714_223351_701282.mp4",
+  "candidate_file": "D:\\Study_data\\ultralytics-8.3.218\\lab_tracking\\datasets\\foam_board_2p1mm_zaxis\\raw\\20260714_223253\\v7_candidate_selection.json",
+  "annotation_policy": "V6 boxes retained only after full contact-sheet review; train/val are split by throw interval.",
+  "copied_counts": {
+    "train": 516,
+    "val": 143
+  },
+  "copied_negative_counts": {
+    "train": 151,
+    "val": 60
+  },
+  "new_counts": {
+    "positive_train": 67,
+    "positive_val": 14,
+    "negative_train": 33,
+    "negative_val": 10
+  },
+  "samples": [
+    {
+      "frame": 1284,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        183,
+        340,
+        275,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1286,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        132,
+        172,
+        266,
+        394
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1288,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        93,
+        52,
+        258,
+        298
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1290,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        72,
+        67,
+        256,
+        361
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1292,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        94,
+        207,
+        255,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1324,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        235,
+        435,
+        312,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1326,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        194,
+        140,
+        319,
+        338
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1328,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        146,
+        1,
+        339,
+        95
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1334,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        97,
+        1,
+        290,
+        133
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1336,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        116,
+        161,
+        282,
+        415
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1374,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        142,
+        357,
+        279,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1376,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        97,
+        171,
+        264,
+        364
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1378,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        59,
+        2,
+        254,
+        235
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1380,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        36,
+        1,
+        225,
+        239
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1382,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        12,
+        178,
+        228,
+        462
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1458,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        218,
+        398,
+        337,
+        479
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1460,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        204,
+        182,
+        321,
+        340
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1462,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        189,
+        0,
+        337,
+        123
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1467,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        139,
+        0,
+        298,
+        30
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1469,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        101,
+        0,
+        289,
+        237
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1471,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        99,
+        248,
+        299,
+        438
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1496,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        174,
+        359,
+        312,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1498,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        139,
+        118,
+        317,
+        330
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1507,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        124,
+        1,
+        259,
+        99
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1539,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        197,
+        412,
+        279,
+        479
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1541,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        170,
+        223,
+        261,
+        357
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1543,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        154,
+        44,
+        252,
+        153
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1545,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        146,
+        0,
+        228,
+        29
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1547,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        135,
+        0,
+        222,
+        35
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1549,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        122,
+        0,
+        214,
+        138
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1551,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        127,
+        205,
+        207,
+        346
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1555,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        161,
+        360,
+        219,
+        443
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1557,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        158,
+        341,
+        215,
+        420
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1559,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        153,
+        349,
+        210,
+        435
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1561,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        142,
+        376,
+        221,
+        458
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1563,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        136,
+        427,
+        209,
+        479
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1590,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        161,
+        337,
+        282,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1592,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        95,
+        175,
+        266,
+        421
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1594,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        49,
+        52,
+        226,
+        333
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1598,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        2,
+        230,
+        176,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1600,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        31,
+        409,
+        196,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1640,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        216,
+        392,
+        320,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1642,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        185,
+        237,
+        304,
+        393
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1644,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        151,
+        33,
+        303,
+        199
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1646,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        133,
+        1,
+        285,
+        143
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1648,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        124,
+        8,
+        278,
+        202
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1650,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        128,
+        186,
+        252,
+        362
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1652,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        151,
+        362,
+        247,
+        478
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1680,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        203,
+        342,
+        316,
+        468
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1682,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        171,
+        89,
+        321,
+        300
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1684,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        162,
+        0,
+        300,
+        84
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1691,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        133,
+        1,
+        287,
+        127
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1693,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        159,
+        186,
+        290,
+        365
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1695,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        229,
+        413,
+        299,
+        479
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1715,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        185,
+        404,
+        288,
+        479
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1717,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        153,
+        224,
+        265,
+        379
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1719,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        122,
+        0,
+        255,
+        110
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1725,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        107,
+        1,
+        198,
+        61
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1727,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        112,
+        123,
+        211,
+        276
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1731,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        186,
+        413,
+        245,
+        479
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1735,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        165,
+        403,
+        250,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1737,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        147,
+        405,
+        238,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1739,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        133,
+        425,
+        219,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1741,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        124,
+        450,
+        202,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1755,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        210,
+        337,
+        306,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1757,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        193,
+        74,
+        355,
+        265
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1768,
+      "split": "train",
+      "type": "positive",
+      "box": [
+        256,
+        141,
+        446,
+        377
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1831,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        190,
+        380,
+        318,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1833,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        104,
+        26,
+        272,
+        227
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1841,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        2,
+        0,
+        233,
+        348
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1843,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        105,
+        335,
+        254,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1905,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        140,
+        178,
+        240,
+        360
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1907,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        90,
+        7,
+        213,
+        207
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1909,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        63,
+        4,
+        183,
+        121
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1913,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        31,
+        119,
+        153,
+        343
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1947,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        219,
+        382,
+        337,
+        480
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1949,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        219,
+        95,
+        384,
+        308
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1951,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        255,
+        0,
+        357,
+        38
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1958,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        326,
+        0,
+        466,
+        37
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1960,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        331,
+        124,
+        438,
+        247
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1964,
+      "split": "val",
+      "type": "positive",
+      "box": [
+        316,
+        421,
+        393,
+        478
+      ],
+      "annotation_source": "reviewed_v6_box"
+    },
+    {
+      "frame": 1200,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1210,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1230,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1240,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1250,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1260,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1270,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1300,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1310,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1320,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1340,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1350,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1360,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1390,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1400,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1410,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1420,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1430,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1440,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1450,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1480,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1490,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1500,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1520,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1530,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1570,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1580,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1610,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1620,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1630,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1660,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1670,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1700,
+      "split": "train",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1800,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1820,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1850,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1870,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1890,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1920,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1930,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1970,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 1990,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    },
+    {
+      "frame": 2010,
+      "split": "val",
+      "type": "negative",
+      "box": null,
+      "annotation_source": "reviewed_negative"
+    }
+  ]
+}

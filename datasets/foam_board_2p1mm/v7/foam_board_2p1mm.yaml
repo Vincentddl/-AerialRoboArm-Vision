@@ -1,0 +1,5 @@
+path: D:/Study_data/AerialRoboArm-Vision/datasets/foam_board_2p1mm/v7
+train: images/train
+val: images/val
+names:
+  0: foam_board

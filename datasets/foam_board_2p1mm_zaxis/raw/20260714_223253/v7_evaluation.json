@@ -1,0 +1,152 @@
+{
+  "v6_on_v7": {
+    "precision": 0.8441298317904415,
+    "recall": 0.8556701030927835,
+    "map50": 0.8443671643952603,
+    "map50_95": 0.48544024154185494
+  },
+  "v7_on_v6": {
+    "precision": 0.8974619654763589,
+    "recall": 0.843615408532114,
+    "map50": 0.8707293288855177,
+    "map50_95": 0.4811191424208613
+  },
+  "conf_0.1": {
+    "v6": {
+      "all_frames": [
+        532,
+        2050
+      ],
+      "late_heldout_1800_2049": [
+        30,
+        250
+      ],
+      "reviewed_val_positives": [
+        14,
+        14
+      ],
+      "reviewed_train_negatives_false_positive": [
+        0,
+        33
+      ],
+      "reviewed_val_negatives_false_positive": [
+        0,
+        10
+      ]
+    },
+    "v7": {
+      "all_frames": [
+        578,
+        2050
+      ],
+      "late_heldout_1800_2049": [
+        35,
+        250
+      ],
+      "reviewed_val_positives": [
+        14,
+        14
+      ],
+      "reviewed_train_negatives_false_positive": [
+        0,
+        33
+      ],
+      "reviewed_val_negatives_false_positive": [
+        0,
+        10
+      ]
+    }
+  },
+  "conf_0.2": {
+    "v6": {
+      "all_frames": [
+        436,
+        2050
+      ],
+      "late_heldout_1800_2049": [
+        27,
+        250
+      ],
+      "reviewed_val_positives": [
+        14,
+        14
+      ],
+      "reviewed_train_negatives_false_positive": [
+        0,
+        33
+      ],
+      "reviewed_val_negatives_false_positive": [
+        0,
+        10
+      ]
+    },
+    "v7": {
+      "all_frames": [
+        494,
+        2050
+      ],
+      "late_heldout_1800_2049": [
+        32,
+        250
+      ],
+      "reviewed_val_positives": [
+        14,
+        14
+      ],
+      "reviewed_train_negatives_false_positive": [
+        0,
+        33
+      ],
+      "reviewed_val_negatives_false_positive": [
+        0,
+        10
+      ]
+    }
+  },
+  "conf_0.4": {
+    "v6": {
+      "all_frames": [
+        295,
+        2050
+      ],
+      "late_heldout_1800_2049": [
+        22,
+        250
+      ],
+      "reviewed_val_positives": [
+        11,
+        14
+      ],
+      "reviewed_train_negatives_false_positive": [
+        0,
+        33
+      ],
+      "reviewed_val_negatives_false_positive": [
+        0,
+        10
+      ]
+    },
+    "v7": {
+      "all_frames": [
+        418,
+        2050
+      ],
+      "late_heldout_1800_2049": [
+        30,
+        250
+      ],
+      "reviewed_val_positives": [
+        14,
+        14
+      ],
+      "reviewed_train_negatives_false_positive": [
+        0,
+        33
+      ],
+      "reviewed_val_negatives_false_positive": [
+        0,
+        10
+      ]
+    }
+  }
+}
