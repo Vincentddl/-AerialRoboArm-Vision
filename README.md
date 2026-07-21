@@ -1,36 +1,49 @@
 # AerialRoboArm Vision
 
-本目录将相机棋盘标定、泡沫块数据集、YOLO训练结果和轨迹实验整合为一个本地工程。原始目录仍保留，当前目录是后续开发入口。
+本仓库是 AerialRoboArm 的视觉识别与预测工程，包含相机标定、泡沫板 YOLO 检测、方向角预测评估、短期方向角估计训练，以及给机械臂运行时使用的模型权重。
+
+当前仓库已经上传代码、配置、文档、测试、模型权重，以及给协作者优化模型所需的关键训练/评估数据。大体积历史输出和完整实验归档仍按 `.gitignore` 留在本地。
 
 ## 当前状态
 
-- 相机：2.1 mm鱼眼镜头，运行分辨率640x480。
-- 棋盘：9x6内角点，方格边长20 mm。
+- 相机：2.1 mm 鱼眼镜头，运行分辨率 `640x480`。
 - 有效标定：`configs/camera_2p1mm_640x480_fisheye.json`。
-- 标定重投影误差：约0.229 px。
-- 当前检测模型：`models/foam_board_2p1mm_v7.pt`。
-- 历史轨迹模型：二维像素位置/速度/加速度Kalman，保留为基线。
-- 实验轨迹模型：去畸变方向角的保持、鲁棒匀角速度和鲁棒角加速度预测。
-- 当前结论：方向角转换已完成，但现有录像上的400 ms外推尚未超过保持角度基线，不能用于抓取控制。
+- 标定重投影误差：约 `0.229 px`。
+- 当前 YOLO 检测模型：`models/foam_board_2p1mm_v7.pt`。
+- 当前方向角估计模型：`models/bearing_estimator_v1.pt`。
+- 当前结论：方向角转换与离线评估流程已经完成，但现有录像上的 `400 ms` 外推尚未稳定超过保持角度基线，暂时不能直接用于抓取控制。
 
-## 目录
+## 目录说明
 
-```text
-calibration/  棋盘照片、标定脚本、历史标定结果和调试图
-configs/      视觉运行使用的正式相机配置
-datasets/     原始录像、图片、标签及V1-V7训练数据
-models/       历史模型和当前V7权重
-runs/         Ultralytics训练结果、指标图和检查点
-outputs/      历史回放、预测输出和量化结果
-scripts/      数据采集、数据集构建和运行入口
-tracking/     当前轨迹与坐标映射实现
-docs/         训练记录和旧版运行说明
-archive/      旧实验与无效采集归档
-```
+| 路径 | 中文说明 |
+| --- | --- |
+| `.gitattributes` | Git LFS 规则。模型、数据集图片和视频通过 LFS 上传，避免普通 Git 历史膨胀。 |
+| `.gitignore` | 本地数据、训练输出、缓存和历史归档的忽略规则。 |
+| `requirements.txt` | Python 依赖版本要求。 |
+| `calibration/` | 相机标定脚本、历史标定材料和本地调试图。部分原始图片仍被忽略。 |
+| `configs/` | 正式运行使用的相机配置文件。 |
+| `datasets/` | 已上传的关键训练集和 Z-axis 轨迹数据；详见 `datasets/README.md`。 |
+| `docs/` | 训练记录、评估结论、历史说明和协作背景文档。 |
+| `models/` | 已通过 Git LFS 上传的模型权重；详见 `models/README.md`。 |
+| `outputs/` | 已上传的方向角、轨迹和目标输出 JSON/JSONL；详见 `outputs/README.md`。 |
+| `scripts/` | 数据集构建、离线评估、模型训练和实时运行入口脚本。 |
+| `tests/` | 几何映射、预测器和估计器的单元测试。 |
+| `tracking/` | 轨迹预测、方向角映射和坐标转换实现。 |
+| `runs/` | 本地 Ultralytics 训练输出，默认不上传。 |
+| `archive/` | 旧实验和无效采集归档，默认不上传。 |
 
-## 环境
+## 协作者最常用文件
 
-当前使用的解释器：
+| 目标 | 必看文件 |
+| --- | --- |
+| 优化 YOLO 检测模型 | `datasets/foam_board_2p1mm/v7/README.md`、`datasets/foam_board_2p1mm/v7/foam_board_2p1mm.yaml`、`models/foam_board_2p1mm_v7.pt` |
+| 优化方向角预测/轨迹评估 | `datasets/foam_board_2p1mm_zaxis/README.md`、`outputs/README.md`、`tracking/bearing.py`、`scripts/evaluate_bearing_prediction.py` |
+| 复现短期方向角估计训练 | `scripts/build_bearing_estimation_dataset.py`、`scripts/train_bearing_estimator.py`、`docs/bearing_estimator_v1_training.md` |
+| 检查项目完整性 | `scripts/project_doctor.py` |
+
+## 环境准备
+
+推荐使用本项目开发时的 Python 环境：
 
 ```powershell
 & "D:\app\miniconda\envs\python312\python.exe" --version
@@ -42,37 +55,43 @@ archive/      旧实验与无效采集归档
 & "D:\app\miniconda\envs\python312\python.exe" -m pip install -r requirements.txt
 ```
 
-项目代码按Ultralytics 8.3.218整理。`scripts/project_doctor.py` 会报告实际环境版本是否一致。
-
-## 完整性检查
+项目代码按 `Ultralytics 8.3.218` 整理。运行完整性检查：
 
 ```powershell
 & "D:\app\miniconda\envs\python312\python.exe" .\scripts\project_doctor.py
 ```
 
-## 棋盘采集与标定
+## YOLO 检测训练
 
-采集新照片：
+当前已上传的主要训练集是：
 
-```powershell
-& "D:\app\miniconda\envs\python312\python.exe" .\calibration\capture_chessboard.py --source 0 --out .\calibration\images_new --cols 9 --rows 6 --width 640 --height 480
+```text
+datasets/foam_board_2p1mm/v7/
 ```
 
-重新生成正式鱼眼参数：
+数据集配置文件：
 
-```powershell
-& "D:\app\miniconda\envs\python312\python.exe" .\calibration\calibrate.py --images .\calibration\images_2p1mm_final --model fisheye --cols 9 --rows 6 --square-size 20 --out .\configs\camera_2p1mm_640x480_fisheye.json --debug-dir .\calibration\debug_active
+```text
+datasets/foam_board_2p1mm/v7/foam_board_2p1mm.yaml
 ```
 
-相机、镜头、焦距或分辨率变化后必须重新标定。
+协作者可从当前 V7 权重继续训练或微调：
+
+```powershell
+yolo detect train model=models/foam_board_2p1mm_v7.pt data=datasets/foam_board_2p1mm/v7/foam_board_2p1mm.yaml imgsz=512
+```
+
+如果使用绝对路径训练，请先检查 `foam_board_2p1mm.yaml` 里的 `path` 是否符合自己的本地目录。
 
 ## 实时识别
+
+使用摄像头实时运行：
 
 ```powershell
 & "D:\app\miniconda\envs\python312\python.exe" .\scripts\run_foam_board.py --source 0
 ```
 
-离线回放示例：
+使用已上传的 Z-axis 录像离线回放：
 
 ```powershell
 & "D:\app\miniconda\envs\python312\python.exe" .\scripts\run_foam_board.py --source ".\datasets\foam_board_2p1mm_zaxis\raw\20260714_223253\foam_board_2p1mm_zaxis_trajectory_20260714_223351_701282.mp4"
@@ -80,39 +99,66 @@ archive/      旧实验与无效采集归档
 
 ## 方向角预测离线评估
 
-使用现有V7检测结果、真实帧时间戳和2.1 mm鱼眼标定参数运行：
+使用现有 V7 检测结果、真实帧时间戳和 2.1 mm 鱼眼标定参数运行：
 
 ```powershell
 & "D:\app\miniconda\envs\python312\python.exe" .\scripts\evaluate_bearing_prediction.py
 ```
 
-结果写入`outputs/bearing_prediction_eval_v7.json`。详细口径与当前结论见
-`docs/bearing_prediction_v7_evaluation.md`。该脚本只使用锚点之前的观测进行拟合，未来V7检测中心仅作为伪真值计算误差。
+默认结果写入：
 
-运行几何与预测器单元测试：
+```text
+outputs/bearing_prediction_eval_v7.json
+```
 
-```powershell
-& "D:\app\miniconda\envs\python312\python.exe" -m unittest discover -s tests -v
+详细评估口径见：
+
+```text
+docs/bearing_prediction_v7_evaluation.md
 ```
 
 ## 短期方向角估计训练
 
-当前学习目标只包含100 ms和200 ms，400 ms默认关闭。先从已有V7检测和真实时间戳构建按完整轨迹分组的数据集：
+先构建按完整轨迹分组的数据集：
 
 ```powershell
 & "D:\app\miniconda\envs\python312\python.exe" .\scripts\build_bearing_estimation_dataset.py
 ```
 
-训练轻量GRU估计器：
+训练轻量 GRU 估计器：
 
 ```powershell
 & "D:\app\miniconda\envs\python312\python.exe" .\scripts\train_bearing_estimator.py --device cuda
 ```
 
-生成的V1模型只是伪标签实验模型，不会自动接入实时抓取。必须在独立人工标注轨迹上超过保持角度基线后，才能进入运行时集成。
+当前 V1 模型只是伪标签实验模型，不会自动接入实时抓取。必须在独立人工标注轨迹上超过保持角度基线后，才能进入运行时集成。
 
-## 数据与Git
+## 测试
 
-本地目录包含约7 GB完整实验资料。数据集、录像、训练运行目录和模型权重会保留在本地，但默认被`.gitignore`排除，避免普通Git提交超过GitHub限制。未来上传模型时使用Git LFS或GitHub Release，训练数据保留清单与版本说明。
+运行几何、预测器和估计器单元测试：
 
-旧视觉运行说明保存在`docs/LEGACY_LAB_TRACKING_README.md`。
+```powershell
+& "D:\app\miniconda\envs\python312\python.exe" -m unittest discover -s tests -v
+```
+
+## 数据上传策略
+
+已经上传：
+
+- `models/**/*.pt`
+- `datasets/foam_board_2p1mm/v7/`
+- `datasets/foam_board_2p1mm_zaxis/`
+- 方向角、轨迹和目标相关的 `outputs/*.json` / `outputs/*.jsonl`
+
+仍默认保留在本地：
+
+- 完整历史 `outputs/` 图片、视频和中间结果。
+- 完整 `runs/` 训练过程目录。
+- `archive/` 旧实验归档。
+- 标定原始图片和大量调试角点图。
+
+旧视觉运行说明保存在：
+
+```text
+docs/LEGACY_LAB_TRACKING_README.md
+```
