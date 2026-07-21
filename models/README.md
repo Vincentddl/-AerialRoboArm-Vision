@@ -22,6 +22,24 @@
 | `foam_board_2p1mm_v5.pt` | V5 检测模型，历史基线之一。 |
 | `foam_board_2p1mm_v6.pt` | V6 检测模型，V7 之前的主要对照模型。 |
 
+## 如何选择检测权重
+
+如果只是让朋友优化 YOLO 检测模型，建议默认使用 `foam_board_2p1mm_v7.pt` 作为起点，因为它对应当前已上传的 V7 数据集和训练记录。V6/V5/V4/V3 主要用于对照实验：当 V7 在某段录像上表现异常时，可以临时换成旧模型，判断问题是否由最新权重引入。
+
+临时回退运行示例：
+
+```powershell
+python scripts/run_foam_board.py --source 0 --device cpu --model models/foam_board_2p1mm_v6.pt
+```
+
+如果要继续训练，通常使用：
+
+```powershell
+yolo detect train model=models/foam_board_2p1mm_v7.pt data=datasets/foam_board_2p1mm/v7/foam_board_2p1mm.yaml imgsz=512
+```
+
+新训练得到的 `best.pt` 建议复制到 `models/` 下并改成清晰版本名，例如 `foam_board_2p1mm_v8.pt`，再同步更新根 README 和本文件。
+
 ## 参考预训练模型
 
 | 文件 | 中文说明 |

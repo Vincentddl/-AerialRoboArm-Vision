@@ -181,6 +181,23 @@ python -m unittest discover -s tests -v
 | `datasets/foam_board_2p1mm/v7/labels/val/` | 验证标签 |
 | `runs/foam_board_2p1mm_v7/` | V7 训练指标、曲线和预览图 |
 
+### 模型来源和历史权重
+
+本仓库不是只有最终模型，已经上传了从 bootstrap 到 V7 的主要检测权重，方便朋友做横向对比、回退测试或者继续微调。
+
+| 权重文件 | 建议用途 |
+| --- | --- |
+| `models/foam_board_2p1mm_v7.pt` | 当前主模型，优先用于实时识别、离线回放、继续训练和效果评估。 |
+| `models/foam_board_2p1mm_v6.pt` | V7 前一版主模型，适合在怀疑 V7 过拟合或轨迹逻辑异常时做对照。 |
+| `models/foam_board_2p1mm_v5.pt` | 历史基线，可用于确认 V6/V7 改动是否真的改善了动态场景。 |
+| `models/foam_board_2p1mm_v4.pt` | 更早的 2.1 mm 镜头模型，主要用于追溯训练演进。 |
+| `models/foam_board_2p1mm_v3.pt` | 早期完整模型，可作为最低限度回退参考。 |
+| `models/foam_board_2p1mm_v3_stage1.pt` | V3 第一阶段中间模型，通常不建议作为当前运行模型。 |
+| `models/foam_board_bootstrap_v1.pt`、`models/foam_board_bootstrap_v2.pt` | 早期 bootstrap 模型，主要用于历史追溯，不作为当前推荐入口。 |
+| `models/yolo11s.pt`、`models/reference/*.pt` | Ultralytics 预训练/参考权重，用于重新训练或模型结构对照。 |
+
+如果朋友只想优化当前检测效果，优先从 `foam_board_2p1mm_v7.pt` 和 `datasets/foam_board_2p1mm/v7/` 开始，不需要先重建 V3 到 V6。
+
 ### 数据集类别
 
 ```text
@@ -206,6 +223,22 @@ yolo detect val model=models/foam_board_2p1mm_v7.pt data=datasets/foam_board_2p1
 ```powershell
 yolo detect predict model=models/foam_board_2p1mm_v7.pt source=datasets/foam_board_2p1mm/v7/images/val imgsz=512
 ```
+
+### 临时切换旧模型运行
+
+`scripts/run_foam_board.py` 默认使用 `models/foam_board_2p1mm_v7.pt`。如果想临时测试旧模型，不需要改代码，直接在命令后覆盖 `--model` 参数即可：
+
+```powershell
+python scripts/run_foam_board.py --source 0 --device cpu --model models/foam_board_2p1mm_v6.pt
+```
+
+或者对已上传的 Z-axis 录像离线回放：
+
+```powershell
+python scripts/run_foam_board.py --source "datasets/foam_board_2p1mm_zaxis/raw/20260714_223253/foam_board_2p1mm_zaxis_trajectory_20260714_223351_701282.mp4" --device cpu --model models/foam_board_2p1mm_v6.pt
+```
+
+这类回退测试的好处是可以快速判断问题来自检测模型本身，还是来自后面的轨迹预测、方向角映射或控制逻辑。缺点是旧模型识别精度和新场景适配性通常弱于 V7，不能把旧模型跑通误认为整体方案已经可靠。
 
 ### 看训练结果时重点看什么
 
