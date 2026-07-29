@@ -7,6 +7,7 @@
 | `run_foam_board.py` | 当前推荐的泡沫板实时/离线运行入口，封装默认模型、相机标定和预测参数。 |
 | `yolo_track.py` | 底层 YOLO 检测、目标跟踪、预测输出和结果保存脚本。`run_foam_board.py` 会调用或复用它的逻辑。 |
 | `evaluate_bearing_prediction.py` | 方向角预测离线评估脚本，使用 V7 检测结果、真实时间戳和鱼眼标定计算预测误差。 |
+| `evaluate_target_jsonl.py` | 评估实时程序保存的 400 ms 未来位置、方向角和偏移角误差，并报告未来检测覆盖率。 |
 | `build_bearing_estimation_dataset.py` | 从 V7 检测结果和时间戳构建短期方向角估计训练数据。 |
 | `train_bearing_estimator.py` | 训练轻量 GRU 方向角估计器，输出 `models/bearing_estimator_v1.pt` 和训练报告。 |
 | `project_doctor.py` | 项目完整性检查脚本，检查关键模型、数据、配置和脚本是否存在。 |

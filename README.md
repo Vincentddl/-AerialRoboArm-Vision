@@ -265,7 +265,7 @@ python scripts/run_foam_board.py --source 0
 python scripts/run_foam_board.py --source "datasets/foam_board_2p1mm_zaxis/raw/20260714_223253/foam_board_2p1mm_zaxis_trajectory_20260714_223351_701282.mp4"
 ```
 
-`scripts/run_foam_board.py` 是推荐入口；更底层的 YOLO 检测、跟踪和输出逻辑在 `scripts/yolo_track.py`。
+`scripts/run_foam_board.py` 是推荐入口；更底层的 YOLO 检测、跟踪和输出逻辑在 `scripts/yolo_track.py`。默认输出泡沫板未来 **0.4 s** 的预测轨迹和终点位置：`trajectory_pixel` 是原始画面坐标轨迹，`trajectory_world` / `predicted_world` 是使用鱼眼标定去畸变后的方向角轨迹（单位为 `deg`）。`predicted_angle_deg` 是 0.4 s 后相对相机光轴的 `[yaw, pitch]`，`predicted_angular_displacement_deg` 是相对当前帧的角位移。
 
 ## 方向角预测和轨迹评估
 
@@ -453,3 +453,38 @@ datasets/foam_board_2p1mm/v7/foam_board_2p1mm.yaml
 - 模型、图片、视频、npy 等二进制文件走 Git LFS。
 - 原始大视频、可再生成中间图、重复训练权重和缓存默认不上传。
 - 新模型进入 `models/` 后，要同步更新 `models/README.md` 和根 README。
+
+## 0.4 秒动态预测与偏移角
+
+实时输出中：
+
+- `predicted_pixel` / `trajectory_pixel`：未来 0.4 秒的图像坐标终点与轨迹。
+- `predicted_angle_deg`：未来方向角 `[yaw, pitch]`；yaw 向右为正，pitch 向下为正。
+- `offset_angle_deg`：当前目标视线与相机光轴之间的三维夹角；光轴中心为 `0°`，向任意方向偏离时角度增大。
+- `predicted_offset_angle_deg`：预测 0.4 秒后目标视线与相机光轴之间的三维夹角。
+- `prediction_valid`：只有预测仍在视野内且估计不确定度没有超过阈值时才为 `true`。机械臂控制必须检查该字段。
+
+偏移角以相机自身光轴为基准，是非负标量，因此不受相机相对水平面的安装仰角影响。
+
+保存一次完整上抛/下抛录像的逐帧结果并评估 400 ms 误差：
+
+```powershell
+python scripts/run_foam_board.py --source input.mp4 --no-window --save-jsonl outputs/throw_targets.jsonl
+python scripts/evaluate_target_jsonl.py outputs/throw_targets.jsonl --horizon-ms 400
+```
+
+注意：单目相机只能从一个检测中心得到一条三维射线，不能唯一恢复物体的真实 `(X,Y,Z)` 距离位置。当前“位置”输出是像素位置与方向角；若机械臂需要毫米级三维位置，必须增加深度相机、双目相机，或在泡沫块尺寸和姿态已知时使用可靠的 PnP/尺度约束。
+
+### 动态目标曝光调节
+
+`run_foam_board.py` 默认使用短曝光 `-7` 和增益 `20`，用于减少运动模糊。不同摄像头的 DirectShow 参数范围可能不同，程序启动时会打印驱动实际接受的参数。
+
+```powershell
+# 画面仍然太白或拖影明显：缩短曝光、降低增益
+python scripts/run_foam_board.py --camera-exposure -8 --camera-gain 10
+
+# 画面太暗：先增加环境照明，再适量增加增益
+python scripts/run_foam_board.py --camera-exposure -7 --camera-gain 35
+```
+
+不要重新使用旧版的强制 `brightness=128, gain=100` 设置；高增益会增加噪声，自动曝光在暗环境中还会延长快门时间并造成动态拖影。

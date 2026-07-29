@@ -61,7 +61,6 @@ class TrackState:
     center: Point
     last_time: float
     velocity: Point = (0.0, 0.0)
-    acceleration: Point = (0.0, 0.0)
     age: int = 1
     missed: int = 0
     stationary_frames: int = 0
@@ -76,32 +75,31 @@ class TrackState:
                 self.center[1],
                 self.velocity[0],
                 self.velocity[1],
-                self.acceleration[0],
-                self.acceleration[1],
             ],
             dtype=np.float64,
         )
-        self.covariance = np.diag([100.0, 100.0, 10000.0, 10000.0, 100000.0, 100000.0]).astype(np.float64)
+        self.covariance = np.diag([100.0, 100.0, 10000.0, 10000.0]).astype(np.float64)
 
-    def predict_to(self, timestamp: float, process_noise: float) -> None:
+    def predict_to(
+        self, timestamp: float, process_noise_x: float, process_noise_y: float | None = None
+    ) -> None:
+        if process_noise_y is None:
+            process_noise_y = process_noise_x
         dt = max(timestamp - self.last_time, 1e-6)
+        # Constant-velocity transition: x ← x + v*dt, v unchanged
         transition = np.asarray(
             [
-                [1.0, 0.0, dt, 0.0, 0.5 * dt * dt, 0.0],
-                [0.0, 1.0, 0.0, dt, 0.0, 0.5 * dt * dt],
-                [0.0, 0.0, 1.0, 0.0, dt, 0.0],
-                [0.0, 0.0, 0.0, 1.0, 0.0, dt],
-                [0.0, 0.0, 0.0, 0.0, 1.0, 0.0],
-                [0.0, 0.0, 0.0, 0.0, 0.0, 1.0],
+                [1.0, 0.0, dt, 0.0],
+                [0.0, 1.0, 0.0, dt],
+                [0.0, 0.0, 1.0, 0.0],
+                [0.0, 0.0, 0.0, 1.0],
             ],
             dtype=np.float64,
         )
         dt2 = dt * dt
-        dt3 = dt2 * dt
+        # Asymmetric process noise: px for x-dim, py for y-dim (vertical)
         noise_gain = np.asarray(
             [
-                [dt3 / 6.0, 0.0],
-                [0.0, dt3 / 6.0],
                 [0.5 * dt2, 0.0],
                 [0.0, 0.5 * dt2],
                 [dt, 0.0],
@@ -109,7 +107,9 @@ class TrackState:
             ],
             dtype=np.float64,
         )
-        process = process_noise * noise_gain @ noise_gain.T
+        # Asymmetric process noise: px for x, py for y (vertical)
+        Q_2d = np.diag([float(process_noise_x), float(process_noise_y)]).astype(np.float64)
+        process = noise_gain @ Q_2d @ noise_gain.T
 
         self.state = transition @ self.state
         self.covariance = transition @ self.covariance @ transition.T + process
@@ -118,11 +118,11 @@ class TrackState:
 
     def update(self, detection: Detection, timestamp: float, measurement_noise: float, max_history: int) -> None:
         if timestamp > self.last_time:
-            self.predict_to(timestamp, process_noise=1.0)
+            self.predict_to(timestamp, process_noise_x=1.0)
 
         observation = np.asarray(detection.center, dtype=np.float64)
         observation_model = np.asarray(
-            [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0, 0.0, 0.0]],
+            [[1.0, 0.0, 0.0, 0.0], [0.0, 1.0, 0.0, 0.0]],
             dtype=np.float64,
         )
         measurement_covariance = np.eye(2, dtype=np.float64) * measurement_noise
@@ -131,7 +131,7 @@ class TrackState:
         innovation_covariance = observation_model @ self.covariance @ observation_model.T + measurement_covariance
         kalman_gain = self.covariance @ observation_model.T @ np.linalg.inv(innovation_covariance)
         self.state = self.state + kalman_gain @ innovation
-        identity = np.eye(6, dtype=np.float64)
+        identity = np.eye(4, dtype=np.float64)
         self.covariance = (identity - kalman_gain @ observation_model) @ self.covariance
 
         self.bbox = detection.bbox
@@ -152,16 +152,31 @@ class TrackState:
             self.history = self.history[-max_history:]
 
     def predict_pixel(self, seconds: float) -> Point:
+        """Predict future pixel position assuming constant velocity.
+
+        Simple linear extrapolation — no acceleration term to drift.
+        Well-suited for short horizons (≤ 0.4 s) and pure vertical motion.
+        """
+        t = float(seconds)
         return (
-            float(self.state[0] + self.state[2] * seconds + 0.5 * self.state[4] * seconds * seconds),
-            float(self.state[1] + self.state[3] * seconds + 0.5 * self.state[5] * seconds * seconds),
+            float(self.state[0] + self.state[2] * t),
+            float(self.state[1] + self.state[3] * t),
         )
+
+    def predict_trajectory(self, seconds: float, steps: int = 8) -> List[Point]:
+        """Return a sampled future path, including now and the requested endpoint."""
+        if seconds < 0:
+            raise ValueError("prediction horizon must be non-negative")
+        sample_count = max(1, int(steps))
+        return [
+            self.predict_pixel(seconds * index / sample_count)
+            for index in range(sample_count + 1)
+        ]
 
     def _sync_from_state(self, shift_bbox: bool) -> None:
         old_center = self.center
         self.center = (float(self.state[0]), float(self.state[1]))
         self.velocity = (float(self.state[2]), float(self.state[3]))
-        self.acceleration = (float(self.state[4]), float(self.state[5]))
         if shift_bbox:
             dx = self.center[0] - old_center[0]
             dy = self.center[1] - old_center[1]
@@ -180,6 +195,9 @@ class PixelToWorldMapper:
     3. Simple scale and offset:
        {"type": "scale_offset", "scale": [sx, sy], "offset": [ox, oy], "unit": "mm"}
 
+    Camera calibration formats (pinhole / fisheye) map pixels to bearing
+    angles (yaw, pitch) in degrees via undistortion.
+
     If no calibration is provided, world coordinates are returned as pixels.
     """
 
@@ -193,12 +211,14 @@ class PixelToWorldMapper:
         self._camera_model: Optional[str] = None
         self._angle_offset = np.zeros(2, dtype=np.float64)
         self.image_size: Optional[Tuple[int, int]] = None
+        self._reprojection_error_px: Optional[float] = None
 
         if calibration_path:
             self.load(calibration_path)
 
     def load(self, calibration_path: str) -> None:
         data = json.loads(Path(calibration_path).read_text(encoding="utf-8"))
+        self._reprojection_error_px = data.get("reprojection_error_px")
         camera_model = data.get("model")
         if camera_model in {"pinhole", "fisheye"}:
             camera_matrix = np.asarray(data["camera_matrix"], dtype=np.float64)
@@ -262,6 +282,98 @@ class PixelToWorldMapper:
             return (float(dst[0]), float(dst[1]))
         return (float(xy[0]), float(xy[1]))
 
+    def to_pixel(self, angles: Point) -> Point:
+        """Reverse-map bearing angles ``(yaw_deg, pitch_deg)`` back to pixels.
+
+        Only supported for camera (pinhole / fisheye) calibrations.
+        Inverse of :meth:`to_world` for those models.
+        """
+        if self._camera_matrix is None or self._dist_coeffs is None:
+            raise RuntimeError(
+                "to_pixel requires a camera calibration (pinhole or fisheye)"
+            )
+        raw_yaw = angles[0] - float(self._angle_offset[0])
+        raw_pitch = angles[1] - float(self._angle_offset[1])
+        yaw_rad = math.radians(raw_yaw)
+        pitch_rad = math.radians(raw_pitch)
+        ray = np.asarray(
+            [
+                math.sin(yaw_rad) * math.cos(pitch_rad),
+                math.sin(pitch_rad),
+                math.cos(yaw_rad) * math.cos(pitch_rad),
+            ],
+            dtype=np.float64,
+        )
+        ray = ray / np.linalg.norm(ray)
+        point = (ray / ray[2]).reshape(1, 1, 3)
+        zero_rvec = np.zeros((3, 1), dtype=np.float64)
+        zero_tvec = np.zeros((3, 1), dtype=np.float64)
+        if self._camera_model == "fisheye":
+            projected, _ = cv2.fisheye.projectPoints(
+                point, zero_rvec, zero_tvec, self._camera_matrix, self._dist_coeffs
+            )
+        else:
+            projected, _ = cv2.projectPoints(
+                point, zero_rvec, zero_tvec, self._camera_matrix, self._dist_coeffs
+            )
+        pixel = projected[0, 0]
+        return (float(pixel[0]), float(pixel[1]))
+
+    def is_visible(self, angles: Point, margin_px: float = 0.0) -> bool:
+        """Return whether a camera bearing projects into the calibrated image."""
+        if self._camera_matrix is None or self._dist_coeffs is None or self.image_size is None:
+            return False
+        yaw = math.radians(angles[0] - float(self._angle_offset[0]))
+        pitch = math.radians(angles[1] - float(self._angle_offset[1]))
+        if math.cos(yaw) * math.cos(pitch) <= 0.0:
+            return False
+        u, v = self.to_pixel(angles)
+        width, height = self.image_size
+        return (
+            math.isfinite(u)
+            and math.isfinite(v)
+            and -margin_px <= u < width + margin_px
+            and -margin_px <= v < height + margin_px
+        )
+
+    def optical_axis_offset_deg(self, angles: Point) -> float:
+        """Return the 3-D angle between a bearing ray and the camera optical axis."""
+        if self._camera_matrix is None or self._dist_coeffs is None:
+            raise RuntimeError(
+                "optical-axis offset requires a camera calibration"
+            )
+        yaw = math.radians(angles[0] - float(self._angle_offset[0]))
+        pitch = math.radians(angles[1] - float(self._angle_offset[1]))
+        optical_axis_dot = math.cos(yaw) * math.cos(pitch)
+        return math.degrees(
+            math.acos(float(np.clip(optical_axis_dot, -1.0, 1.0)))
+        )
+
+    @property
+    def principal_point(self) -> Optional[Point]:
+        """Camera principal point ``(cx, cy)`` in pixels, if calibrated."""
+        if self._camera_matrix is not None:
+            return (
+                float(self._camera_matrix[0, 2]),
+                float(self._camera_matrix[1, 2]),
+            )
+        return None
+
+    @property
+    def calibration_info(self) -> str:
+        """Human-readable calibration summary for logging."""
+        if self._camera_model is not None and self._reprojection_error_px is not None:
+            size = f"{self.image_size[0]}x{self.image_size[1]}" if self.image_size else "?"
+            return (
+                f"camera calibration: {self._camera_model} {size} "
+                f"{self._reprojection_error_px:.2f} px reproj error "
+                f"(lens distortion already corrected in pixel→angle mapping)"
+            )
+        if self._camera_model is not None:
+            size = f"{self.image_size[0]}x{self.image_size[1]}" if self.image_size else "?"
+            return f"camera calibration: {self._camera_model} {size} (distortion corrected)"
+        return "no camera calibration loaded"
+
 
 class TrajectoryEstimator:
     """Kalman-filter tracker for lightweight detector outputs."""
@@ -273,6 +385,7 @@ class TrajectoryEstimator:
         max_history: int = 40,
         velocity_alpha: float = 0.55,
         process_noise: float = 250.0,
+        process_noise_y: float | None = None,
         measurement_noise: float = 25.0,
         new_track_min_score: float = 0.0,
         new_track_confirmation_frames: int = 1,
@@ -282,12 +395,14 @@ class TrajectoryEstimator:
         stationary_max_frames: int = 8,
         match_classes: bool = True,
         mapper: Optional[PixelToWorldMapper] = None,
+        ensemble_predictor=None,
     ):
         self.max_match_distance = max_match_distance
         self.max_missed = max_missed
         self.max_history = max_history
         self.velocity_alpha = velocity_alpha
         self.process_noise = process_noise
+        self.process_noise_y = process_noise_y if process_noise_y is not None else process_noise
         self.measurement_noise = measurement_noise
         self.new_track_min_score = new_track_min_score
         self.new_track_confirmation_frames = max(1, new_track_confirmation_frames)
@@ -297,6 +412,7 @@ class TrajectoryEstimator:
         self.stationary_max_frames = max(1, stationary_max_frames)
         self.match_classes = match_classes
         self.mapper = mapper or PixelToWorldMapper()
+        self._ensemble_predictor = ensemble_predictor
         self._next_id = 1
         self._next_candidate_id = 1
         self._tracks: Dict[int, TrackState] = {}
@@ -312,7 +428,7 @@ class TrajectoryEstimator:
         unmatched_tracks = set(self._tracks.keys())
 
         for track in self._tracks.values():
-            track.predict_to(timestamp, process_noise=self.process_noise)
+            track.predict_to(timestamp, process_noise_x=self.process_noise, process_noise_y=self.process_noise_y)
 
         candidates: List[Tuple[float, int, int]] = []
         for track_id, track in self._tracks.items():
@@ -338,6 +454,7 @@ class TrajectoryEstimator:
         for track_id in list(unmatched_tracks):
             self._tracks[track_id].mark_missed(max_history=self.max_history)
             if self._tracks[track_id].missed > self.max_missed:
+                self._cleanup_track(track_id)
                 del self._tracks[track_id]
 
         unmatched_pending = set(self._pending_tracks.keys())
@@ -417,9 +534,22 @@ class TrajectoryEstimator:
                 else:
                     track.stationary_frames = 0
                 if track.stationary_frames >= self.stationary_max_frames:
+                    self._cleanup_track(track_id)
                     del self._tracks[track_id]
 
+        # Only detector-corrected states are observations. Feeding a missed
+        # track's Kalman extrapolation back into the predictor causes drift.
+        if self._ensemble_predictor is not None:
+            for track in self._tracks.values():
+                if track.missed == 0:
+                    self._ensemble_predictor.update_with_track(track, timestamp)
+
         return self.tracks
+
+    def _cleanup_track(self, track_id: int) -> None:
+        """Notify ensemble predictor (if any) that a track was dropped."""
+        if self._ensemble_predictor is not None:
+            self._ensemble_predictor.cleanup_track(track_id)
 
     def _create_track(
         self,
@@ -446,10 +576,13 @@ class TrajectoryEstimator:
 
     def arm_targets(
         self,
-        predict_seconds: float = 0.5,
+        predict_seconds: float = 0.4,
         min_age: int = 3,
         max_missed: int = 0,
         min_speed: float = 0.0,
+        trajectory_steps: int = 8,
+        camera_elevation_deg: float = 0.0,
+        max_prediction_uncertainty_deg: float = 8.0,
     ) -> List[dict]:
         targets = []
         for track in self.tracks:
@@ -457,9 +590,73 @@ class TrajectoryEstimator:
                 continue
             if math.hypot(track.velocity[0], track.velocity[1]) < min_speed:
                 continue
-            predicted_pixel = track.predict_pixel(predict_seconds)
+            trajectory_pixel: List[Optional[Point]] = list(
+                track.predict_trajectory(predict_seconds, trajectory_steps)
+            )
+            predicted_pixel: Optional[Point] = trajectory_pixel[-1]
             current_world = self.mapper.to_world(track.center)
-            predicted_world = self.mapper.to_world(predicted_pixel)
+
+            # --- angle / world prediction --------------------------------
+            prediction_method = "pixel_kalman"
+            prediction_uncertainty_deg: Optional[float] = None
+            prediction_error: Optional[str] = None
+            prediction_sources: Optional[dict] = None
+            if self._ensemble_predictor is not None and self.mapper.unit == "deg":
+                try:
+                    ensemble = self._ensemble_predictor.predict(
+                        track, predict_seconds, trajectory_steps
+                    )
+                    predicted_world = ensemble["predicted_angle"]
+                    trajectory_world = ensemble["trajectory"]
+                    prediction_method = ensemble["method"]
+                    prediction_uncertainty_deg = ensemble.get("uncertainty_deg")
+                    prediction_sources = ensemble.get("sources")
+                    trajectory_pixel = []
+                    for angles in trajectory_world:
+                        if self.mapper.is_visible(angles, margin_px=640.0):
+                            trajectory_pixel.append(self.mapper.to_pixel(angles))
+                        else:
+                            trajectory_pixel.append(None)
+                    predicted_pixel = trajectory_pixel[-1]
+                except (ValueError, RuntimeError, np.linalg.LinAlgError) as exc:
+                    # Fall back to pixel-Kalman-converted angles
+                    if predicted_pixel is None:
+                        raise RuntimeError("pixel Kalman prediction is unavailable") from exc
+                    predicted_world = self.mapper.to_world(predicted_pixel)
+                    trajectory_world = [
+                        self.mapper.to_world(point)
+                        for point in trajectory_pixel
+                        if point is not None
+                    ]
+                    prediction_method = "pixel_kalman (fallback)"
+                    prediction_error = str(exc)
+            else:
+                if predicted_pixel is None:
+                    continue
+                predicted_world = self.mapper.to_world(predicted_pixel)
+                trajectory_world = [
+                    self.mapper.to_world(point)
+                    for point in trajectory_pixel
+                    if point is not None
+                ]
+
+            predicted_visible = (
+                self.mapper.is_visible(predicted_world)
+                if self.mapper.unit == "deg"
+                else predicted_pixel is not None
+            )
+            uncertainty_ok = (
+                prediction_uncertainty_deg is None
+                or prediction_uncertainty_deg <= max_prediction_uncertainty_deg
+            )
+            prediction_valid = (
+                track.missed == 0
+                and predicted_pixel is not None
+                and predicted_visible
+                and uncertainty_ok
+                and prediction_error is None
+            )
+
             targets.append(
                 {
                     "track_id": track.track_id,
@@ -470,17 +667,57 @@ class TrajectoryEstimator:
                     "missed_frames": track.missed,
                     "pixel": _round_point(track.center),
                     "velocity_px_s": _round_point(track.velocity),
-                    "acceleration_px_s2": _round_point(track.acceleration),
-                    "predicted_pixel": _round_point(predicted_pixel),
+                    "predicted_pixel": (
+                        _round_point(predicted_pixel) if predicted_pixel is not None else None
+                    ),
                     "world": _round_point(current_world),
                     "predicted_world": _round_point(predicted_world),
                     "world_unit": self.mapper.unit,
                     "predict_seconds": predict_seconds,
+                    "trajectory_pixel": [
+                        _round_point(point) if point is not None else None
+                        for point in trajectory_pixel
+                    ],
+                    "trajectory_world": [_round_point(point) for point in trajectory_world],
+                    "prediction_method": prediction_method,
+                    "prediction_valid": prediction_valid,
+                    "predicted_visible": predicted_visible,
+                    "prediction_uncertainty_deg": (
+                        round(float(prediction_uncertainty_deg), 3)
+                        if prediction_uncertainty_deg is not None
+                        else None
+                    ),
+                    "prediction_sources": prediction_sources,
                 }
             )
+            if prediction_error is not None:
+                targets[-1]["prediction_error"] = prediction_error
             if self.mapper.unit == "deg":
                 targets[-1]["angle_deg"] = _round_point(current_world)
                 targets[-1]["predicted_angle_deg"] = _round_point(predicted_world)
+                targets[-1]["predicted_angular_displacement_deg"] = _round_point(
+                    (
+                        predicted_world[0] - current_world[0],
+                        predicted_world[1] - current_world[1],
+                    )
+                )
+                current_axis_offset = self.mapper.optical_axis_offset_deg(
+                    current_world
+                )
+                predicted_axis_offset = self.mapper.optical_axis_offset_deg(
+                    predicted_world
+                )
+                targets[-1]["yaw_offset_deg"] = round(float(current_world[0]), 3)
+                targets[-1]["predicted_yaw_offset_deg"] = round(
+                    float(predicted_world[0]), 3
+                )
+                targets[-1]["offset_angle_deg"] = round(current_axis_offset, 3)
+                targets[-1]["predicted_offset_angle_deg"] = round(
+                    predicted_axis_offset, 3
+                )
+                targets[-1]["offset_angle_convention"] = (
+                    "unsigned 3-D angle from camera optical axis"
+                )
         return targets
 
 
@@ -488,9 +725,17 @@ def draw_tracks(
     image: np.ndarray,
     tracks: Sequence[TrackState],
     mapper: PixelToWorldMapper,
-    predict_seconds: float = 0.5,
+    predict_seconds: float = 0.4,
     min_age: int = 3,
+    trajectory_steps: int = 8,
+    targets: Optional[Sequence[dict]] = None,
 ) -> np.ndarray:
+    text_color = (0, 0, 255)  # red
+    font = cv2.FONT_HERSHEY_DUPLEX
+    targets_by_id = {
+        int(target["track_id"]): target for target in (targets or [])
+    }
+
     for track in tracks:
         color = _track_color(track.track_id)
         x1, y1, x2, y2 = [int(v) for v in track.bbox]
@@ -503,25 +748,53 @@ def draw_tracks(
             points = np.asarray(track.history, dtype=np.int32).reshape(-1, 1, 2)
             cv2.polylines(image, [points], isClosed=False, color=color, thickness=2)
 
-        coast = f" coast={track.missed}" if track.missed else ""
-        line1 = (
-            f"ID {track.track_id} {track.label}{coast} "
-            f"v=({track.velocity[0]:.0f},{track.velocity[1]:.0f})px/s"
-        )
         if track.age >= min_age:
-            px, py = [int(v) for v in track.predict_pixel(predict_seconds)]
-            world_x, world_y = mapper.to_world(track.predict_pixel(predict_seconds))
-            cv2.circle(image, (px, py), 5, (0, 0, 255), -1)
-            cv2.arrowedLine(image, (cx, cy), (px, py), (0, 0, 255), 2, tipLength=0.25)
-            line2 = (
-                f"a=({track.acceleration[0]:.0f},{track.acceleration[1]:.0f})px/s2 "
-                f"+{predict_seconds:.2f}s=({world_x:.1f},{world_y:.1f}){mapper.unit}"
+            target = targets_by_id.get(track.track_id)
+            raw_path = (
+                target.get("trajectory_pixel", [])
+                if target is not None
+                else track.predict_trajectory(predict_seconds, trajectory_steps)
             )
+            future_path = [
+                (float(point[0]), float(point[1]))
+                for point in raw_path
+                if point is not None
+            ]
+            if len(future_path) >= 2:
+                future_points = np.asarray(future_path, dtype=np.int32).reshape(-1, 1, 2)
+                cv2.polylines(
+                    image,
+                    [future_points],
+                    isClosed=False,
+                    color=(0, 0, 255),
+                    thickness=2,
+                )
+                px, py = [int(v) for v in future_path[-1]]
+                if 0 <= px < image.shape[1] and 0 <= py < image.shape[0]:
+                    cv2.circle(image, (px, py), 5, (0, 0, 255), -1)
+                    cv2.arrowedLine(
+                        image, (cx, cy), (px, py), (0, 0, 255), 2, tipLength=0.25
+                    )
+            if (
+                target is not None
+                and "offset_angle_deg" in target
+                and "predicted_offset_angle_deg" in target
+            ):
+                valid_text = "OK" if target.get("prediction_valid") else "INVALID"
+                line1 = f"axis_offset={target['offset_angle_deg']:.1f}deg"
+                line2 = (
+                    f"axis_offset@+{predict_seconds:.1f}s="
+                    f"{target['predicted_offset_angle_deg']:.1f}deg {valid_text}"
+                )
+            else:
+                line1 = "axis_offset=calculating..."
+                line2 = f"axis_offset@+{predict_seconds:.1f}s=calculating..."
         else:
-            line2 = f"collecting trajectory {track.age}/{min_age} frames"
+            line1 = "axis_offset=calculating..."
+            line2 = f"axis_offset@+{predict_seconds:.1f}s=calculating..."
         text_y = max(20, y1 - 25)
-        cv2.putText(image, line1, (x1, text_y), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 1)
-        cv2.putText(image, line2, (x1, text_y + 17), cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 1)
+        cv2.putText(image, line1, (x1, text_y), font, 0.55, text_color, 2)
+        cv2.putText(image, line2, (x1, text_y + 20), font, 0.55, text_color, 2)
     return image
 
 
