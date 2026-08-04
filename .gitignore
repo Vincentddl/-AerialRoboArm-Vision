@@ -4,6 +4,8 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 .venv/
+.venv-codex/
+.venv-gpu/
 venv/
 
 # Editors and OS
@@ -18,6 +20,7 @@ runs/
 outputs/
 archive/
 models/**/*.pt
+/yolo11n.pt
 assets/media/
 assets/calibration_data/*.npy
 

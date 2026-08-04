@@ -10,14 +10,27 @@ import torch
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
-LAB_DIR = SCRIPT_DIR.parent
+LAB_DIR = (
+    Path(sys._MEIPASS)
+    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS")
+    else SCRIPT_DIR.parent
+)
 TRACKING_DIR = LAB_DIR / "tracking"
 MODELS_DIR = LAB_DIR / "models"
 OUTPUTS_DIR = LAB_DIR / "outputs"
 
 sys.path.insert(0, str(TRACKING_DIR))
 
-from trajectory import Detection, PixelToWorldMapper, TrajectoryEstimator, draw_tracks  # noqa: E402
+from ballistic_predictor import BallisticPredictor
+from servo_angle_calibration import ServoOpticalAngleCalibration  # noqa: E402
+from trajectory import (  # noqa: E402
+    Detection,
+    PixelToWorldMapper,
+    TrajectoryEstimator,
+    draw_arm_angle_overlay,
+    draw_tracks,
+)
+from trajectory_predictor import EnsembleTrajectoryPredictor  # noqa: E402
 from ultralytics import YOLO  # noqa: E402
 
 
@@ -95,7 +108,42 @@ CAMERA_BACKENDS = {
 }
 
 
-def open_source(source, backend="dshow"):
+def _configure_camera(cap, exposure=None, gain=None, brightness=None):
+    """Configure exposure without forcing an overexposed high-gain image."""
+    if exposure is None:
+        cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.75)
+    else:
+        cap.set(cv2.CAP_PROP_AUTO_EXPOSURE, 0.25)
+        cap.set(cv2.CAP_PROP_EXPOSURE, float(exposure))
+    if gain is not None:
+        cap.set(cv2.CAP_PROP_GAIN, float(gain))
+    if brightness is not None:
+        cap.set(cv2.CAP_PROP_BRIGHTNESS, float(brightness))
+
+    print(
+        "Camera image controls: "
+        f"exposure={cap.get(cv2.CAP_PROP_EXPOSURE):.2f}, "
+        f"gain={cap.get(cv2.CAP_PROP_GAIN):.2f}, "
+        f"brightness={cap.get(cv2.CAP_PROP_BRIGHTNESS):.2f}"
+    )
+
+
+def _warmup_camera(cap, frames=10):
+    """Read and discard *frames* to let auto-exposure settle."""
+    for _ in range(frames):
+        cap.read()
+
+
+def open_source(
+    source,
+    backend="dshow",
+    lock_camera=False,
+    width=0,
+    height=0,
+    exposure=None,
+    gain=None,
+    brightness=None,
+):
     if source.isdigit():
         candidates = (
             [("dshow", cv2.CAP_DSHOW), ("msmf", cv2.CAP_MSMF), ("any", cv2.CAP_ANY)]
@@ -107,6 +155,19 @@ def open_source(source, backend="dshow"):
             cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
             if cap.isOpened():
                 print(f"Camera source {source} opened with {backend_name}")
+                if width:
+                    cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+                if height:
+                    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+                _configure_camera(
+                    cap,
+                    exposure=exposure,
+                    gain=gain,
+                    brightness=brightness,
+                )
+                _warmup_camera(cap, frames=3 if exposure is not None else 10)
+                if lock_camera and exposure is None:
+                    _lock_camera_settings(cap)
                 return cap
             cap.release()
         return cap
@@ -116,15 +177,54 @@ def open_source(source, backend="dshow"):
     return cap
 
 
+def _lock_camera_settings(cap):
+    """Disable auto-exposure and auto-white-balance for stable detection.
+
+    Auto-exposure changes frame brightness continuously, which makes the
+    object's appearance inconsistent from frame to frame.  This is the #1
+    reason why real-time detection often looks worse than recorded video.
+
+    We disable the auto modes AFTER auto-exposure has settled, so the
+    camera retains a usable brightness level rather than a near-black frame.
+    """
+    settings = [
+        (cv2.CAP_PROP_AUTO_EXPOSURE, 0.25, "auto_exposure=locked"),
+        (cv2.CAP_PROP_AUTO_WB, 0.0, "auto_white_balance=locked"),
+    ]
+    applied = []
+    for prop, value, name in settings:
+        success = cap.set(prop, value)
+        if success:
+            applied.append(name)
+        else:
+            applied.append(f"{name}(unsupported)")
+    print(f"Camera lock: {', '.join(applied)}")
+
+
 class LatestFrameCapture:
     """Read camera frames in the background and always expose the newest frame."""
 
-    def __init__(self, source, width=0, height=0, backend="dshow"):
-        self.cap = open_source(source, backend=backend)
-        if width:
-            self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
-        if height:
-            self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+    def __init__(
+        self,
+        source,
+        width=0,
+        height=0,
+        backend="dshow",
+        lock_camera=False,
+        exposure=None,
+        gain=None,
+        brightness=None,
+    ):
+        self.cap = open_source(
+            source,
+            backend=backend,
+            lock_camera=lock_camera,
+            width=width,
+            height=height,
+            exposure=exposure,
+            gain=gain,
+            brightness=brightness,
+        )
         if not self.cap.isOpened():
             raise RuntimeError(f"failed to open source: {source}")
 
@@ -198,7 +298,7 @@ class SequentialVideoCapture:
         self.cap.release()
 
 
-def result_to_detections(result, allowed_classes=None):
+def result_to_detections(result, allowed_classes=None, max_box_area=0.0, min_box_area=0.0, image_shape=None):
     detections = []
     names = result.names
     boxes = result.boxes
@@ -209,9 +309,21 @@ def result_to_detections(result, allowed_classes=None):
     conf = boxes.conf.cpu().numpy()
     cls = boxes.cls.cpu().numpy().astype(int)
 
+    image_area = float(image_shape[0] * image_shape[1]) if image_shape else 1.0
+
     for bbox, score, class_id in zip(xyxy, conf, cls):
         if allowed_classes is not None and class_id not in allowed_classes:
             continue
+        # Filter by bounding-box area (fraction of image)
+        if max_box_area > 0 or min_box_area > 0:
+            box_w = float(bbox[2] - bbox[0])
+            box_h = float(bbox[3] - bbox[1])
+            box_area = box_w * box_h
+            area_frac = box_area / image_area
+            if max_box_area > 0 and area_frac > max_box_area:
+                continue
+            if min_box_area > 0 and area_frac < min_box_area:
+                continue
         detections.append(
             Detection(
                 bbox=(float(bbox[0]), float(bbox[1]), float(bbox[2]), float(bbox[3])),
@@ -256,11 +368,31 @@ def main():
     parser.add_argument("--iou", type=float, default=0.5, help="NMS IoU threshold")
     parser.add_argument("--imgsz", type=int, default=512, help="YOLO inference image size")
     parser.add_argument("--device", default="", help="Device, e.g. cpu, 0, cuda:0. Empty means auto")
-    parser.add_argument("--predict-seconds", type=float, default=0.2, help="Lead time for short-term prediction")
+    parser.add_argument(
+        "--target-mode",
+        choices=["current", "predictive"],
+        default="current",
+        help="current outputs the latest confirmed detection without future "
+             "extrapolation; predictive enables the optional trajectory predictors",
+    )
+    parser.add_argument("--predict-seconds", type=float, default=0.4, help="Future trajectory horizon in seconds")
+    parser.add_argument(
+        "--trajectory-steps",
+        type=int,
+        default=8,
+        help="Number of samples in the predicted trajectory, excluding the current point",
+    )
     parser.add_argument("--min-age", type=int, default=1, help="Frames required before a track is sent as an arm target")
     parser.add_argument("--max-match-distance", type=float, default=120.0, help="Max pixel distance for ID matching")
     parser.add_argument("--max-missed", type=int, default=15, help="Drop a track after this many missed frames")
-    parser.add_argument("--process-noise", type=float, default=250.0, help="Kalman process noise; higher follows acceleration faster")
+    parser.add_argument("--process-noise", type=float, default=250.0, help="Kalman process noise for horizontal (x) direction")
+    parser.add_argument(
+        "--process-noise-y",
+        type=float,
+        default=None,
+        help="Kalman process noise for vertical (y) direction. Higher = faster vertical response. "
+             "Defaults to --process-noise if not set.",
+    )
     parser.add_argument("--measurement-noise", type=float, default=25.0, help="Kalman measurement noise; higher smooths detector jitter more")
     parser.add_argument(
         "--new-track-conf",
@@ -313,13 +445,127 @@ def main():
         default="dshow",
         help="Windows camera backend for numeric sources",
     )
+    parser.add_argument(
+        "--camera-exposure",
+        type=float,
+        default=None,
+        help="Manual camera exposure value. Lower DirectShow values shorten "
+             "exposure and reduce motion blur; omit to use auto exposure.",
+    )
+    parser.add_argument(
+        "--camera-gain",
+        type=float,
+        default=None,
+        help="Optional manual camera gain. Raise only enough to compensate for short exposure.",
+    )
+    parser.add_argument(
+        "--camera-brightness",
+        type=float,
+        default=None,
+        help="Optional manual camera brightness. Omit to keep the device default.",
+    )
     parser.add_argument("--skip-unchanged", action="store_true", help="Skip duplicate camera frames from the latest-frame reader")
+    parser.add_argument("--lock-camera", action="store_true", help="Disable camera auto-exposure/auto-white-balance for stable real-time detection")
     parser.add_argument("--hide-centers", action="store_true", help="Hide immediate detection centroids")
     parser.add_argument("--print-targets", action="store_true", help="Print target JSON to terminal")
     parser.add_argument("--calibration", default="", help="Optional pixel-to-robot-plane calibration JSON")
+    parser.add_argument(
+        "--servo-angle-calibration",
+        default="",
+        help="Optional empirical servo-command to optical-axis angle calibration JSON. "
+             "When set, live output keeps optical, servo and legacy mechanical angles separate.",
+    )
+    parser.add_argument(
+        "--camera-down-tilt-deg",
+        "--camera-elevation-deg",
+        dest="camera_down_tilt_deg",
+        type=float,
+        default=0.0,
+        help="Camera optical axis downward tilt from the mechanical horizontal "
+             "x-axis. Positive means the camera points downward.",
+    )
+    parser.add_argument(
+        "--lateral-tolerance-deg",
+        type=float,
+        default=5.0,
+        help="Maximum absolute left/right angle for a target to be considered "
+             "inside the single-axis arm plane.",
+    )
+    parser.add_argument(
+        "--angle-tick-step-deg",
+        type=float,
+        default=5.0,
+        help="Mechanical-angle spacing for the calibrated video overlay.",
+    )
+    parser.add_argument(
+        "--hide-angle-overlay",
+        action="store_true",
+        help="Hide the camera crosshair and single-axis angle scale.",
+    )
+    parser.add_argument(
+        "--max-prediction-uncertainty-deg",
+        type=float,
+        default=8.0,
+        help="Mark a future target invalid when estimated angular uncertainty exceeds this value.",
+    )
+    parser.add_argument(
+        "--max-box-area",
+        type=float,
+        default=0.0,
+        help="Ignore detections whose bounding box exceeds this fraction of the image (0=off). "
+             "Useful for filtering out large false positives like faces/hands near the camera.",
+    )
+    parser.add_argument(
+        "--min-box-area",
+        type=float,
+        default=0.0,
+        help="Ignore detections whose bounding box is smaller than this fraction of the image (0=off).",
+    )
+    parser.add_argument(
+        "--predictor",
+        choices=["kalman", "ensemble", "angle_kalman"],
+        default="kalman",
+        help="Prediction method for 0.4s trajectory: kalman (pixel-space, default), "
+             "ensemble (fuses pixel + angle Kalman + polynomial + ballistic), angle_kalman (pure angle-space)",
+    )
+    parser.add_argument(
+        "--angle-process-noise",
+        type=float,
+        default=150.0,
+        help="Angle-space Kalman process noise (higher = faster response, default 150)",
+    )
+    parser.add_argument(
+        "--angle-measurement-noise",
+        type=float,
+        default=0.5,
+        help="Angle-space Kalman measurement noise deg^2 (higher = smoother, default 0.5)",
+    )
+    parser.add_argument(
+        "--ballistic-gravity",
+        type=float,
+        default=400.0,
+        help="Initial g_eff prior for ballistic predictor (deg/s^2). "
+             "Pitch is positive downward, so gravity is normally positive. Default 400.",
+    )
+    parser.add_argument(
+        "--ballistic-ema-alpha",
+        type=float,
+        default=0.30,
+        help="EMA smoothing factor for online g_eff estimation (0-1). Default 0.30.",
+    )
+    parser.add_argument(
+        "--no-ballistic",
+        action="store_true",
+        help="Disable the ballistic predictor even when using ensemble mode.",
+    )
     parser.add_argument("--save-jsonl", default="", help="Optional path to append arm target JSON lines")
     parser.add_argument("--output", default="", help="Optional output image/video path")
     parser.add_argument("--no-window", action="store_true", help="Run without cv2.imshow")
+    parser.add_argument(
+        "--window-title",
+        default="YOLO Object Trajectory",
+        help="Title for the interactive preview window.",
+    )
     args = parser.parse_args()
 
     device = resolve_device(args.device)
@@ -331,10 +577,63 @@ def main():
 
     allowed_classes = parse_class_filter(args.classes, model.names)
     mapper = PixelToWorldMapper(resolve_path(args.calibration) if args.calibration else None)
+    servo_angle_calibration = (
+        ServoOpticalAngleCalibration.from_json(
+            resolve_path(args.servo_angle_calibration)
+        )
+        if args.servo_angle_calibration
+        else None
+    )
+    if servo_angle_calibration is not None:
+        if mapper.unit != "deg":
+            raise RuntimeError(
+                "--servo-angle-calibration requires a pinhole/fisheye camera calibration"
+            )
+        print(servo_angle_calibration.summary)
+
+    # Prediction is optional. The default current-target mode avoids starting
+    # any future predictor and is intended for hand-held slow/fast approach.
+    ballistic_predictor = None
+    if args.target_mode == "predictive" and not args.no_ballistic:
+        ballistic_predictor = BallisticPredictor(
+            ema_alpha=args.ballistic_ema_alpha,
+            initial_gravity_deg_s2=args.ballistic_gravity,
+        )
+        print(f"Ballistic predictor enabled (initial g_eff={args.ballistic_gravity} deg/s²)")
+
+    # Build ensemble predictor when requested and calibration is available
+    ensemble_predictor = None
+    if (
+        args.target_mode == "predictive"
+        and args.predictor in ("ensemble", "angle_kalman")
+        and mapper.unit == "deg"
+    ):
+        ensemble_predictor = EnsembleTrajectoryPredictor(
+            mapper=mapper,
+            angle_process_noise=args.angle_process_noise,
+            angle_measurement_noise=args.angle_measurement_noise,
+            ballistic_predictor=ballistic_predictor,
+            mode=args.predictor,
+        )
+        print(f"Prediction method: {args.predictor}")
+        if args.predictor == "angle_kalman":
+            print("  (pure angle-space Kalman — ensemble fusion disabled)")
+    elif (
+        args.target_mode == "predictive"
+        and args.predictor in ("ensemble", "angle_kalman")
+    ):
+        print(
+            f"Warning: --predictor={args.predictor} requires a camera calibration "
+            f"(pinhole/fisheye). Falling back to pixel kalman."
+        )
+    if args.target_mode == "current":
+        print("Target mode: current detection (future prediction disabled)")
+
     estimator = TrajectoryEstimator(
         max_match_distance=args.max_match_distance,
         max_missed=args.max_missed,
         process_noise=args.process_noise,
+        process_noise_y=args.process_noise_y,
         measurement_noise=args.measurement_noise,
         new_track_min_score=args.new_track_conf,
         new_track_confirmation_frames=args.new_track_confirm_frames,
@@ -344,6 +643,8 @@ def main():
         stationary_max_frames=args.stationary_max_frames,
         match_classes=not args.class_agnostic_tracking,
         mapper=mapper,
+        ensemble_predictor=ensemble_predictor,
+        servo_angle_calibration=servo_angle_calibration,
     )
 
     source = args.source
@@ -371,6 +672,10 @@ def main():
                 width=args.camera_width,
                 height=args.camera_height,
                 backend=args.camera_backend,
+                lock_camera=args.lock_camera,
+                exposure=args.camera_exposure,
+                gain=args.camera_gain,
+                brightness=args.camera_brightness,
             )
             frames = None
 
@@ -401,7 +706,7 @@ def main():
                         f"calibration expects {mapper.image_size[0]}x{mapper.image_size[1]}, "
                         f"but source is {actual_size[0]}x{actual_size[1]}"
                     )
-                print(f"Camera calibration: {mapper.image_size[0]}x{mapper.image_size[1]} ({mapper.unit})")
+                print(mapper.calibration_info)
                 calibration_size_checked = True
 
             start = time.perf_counter()
@@ -416,14 +721,32 @@ def main():
             if not inference_device_reported:
                 print(f"Inference device: {next(model.model.parameters()).device}")
                 inference_device_reported = True
-            detections = result_to_detections(result, allowed_classes)
-            tracks = estimator.update(detections, timestamp)
-            arm_targets = estimator.arm_targets(
-                predict_seconds=args.predict_seconds,
-                min_age=args.min_age,
-                max_missed=args.coast_frames,
-                min_speed=args.min_target_speed,
+            detections = result_to_detections(
+                result,
+                allowed_classes,
+                max_box_area=args.max_box_area,
+                min_box_area=args.min_box_area,
+                image_shape=frame.shape[:2],
             )
+            tracks = estimator.update(detections, timestamp)
+            if args.target_mode == "current":
+                arm_targets = estimator.current_targets(
+                    min_age=args.min_age,
+                    max_missed=args.coast_frames,
+                    camera_down_tilt_deg=args.camera_down_tilt_deg,
+                    lateral_tolerance_deg=args.lateral_tolerance_deg,
+                )
+            else:
+                arm_targets = estimator.arm_targets(
+                    predict_seconds=args.predict_seconds,
+                    min_age=args.min_age,
+                    max_missed=args.coast_frames,
+                    min_speed=args.min_target_speed,
+                    trajectory_steps=args.trajectory_steps,
+                    camera_down_tilt_deg=args.camera_down_tilt_deg,
+                    lateral_tolerance_deg=args.lateral_tolerance_deg,
+                    max_prediction_uncertainty_deg=args.max_prediction_uncertainty_deg,
+                )
             active_tracks = [track for track in tracks if track.missed <= args.coast_frames]
             infer_ms = (time.perf_counter() - start) * 1000.0
 
@@ -440,12 +763,25 @@ def main():
                 mapper,
                 predict_seconds=args.predict_seconds,
                 min_age=args.min_age,
+                trajectory_steps=args.trajectory_steps,
+                targets=arm_targets,
             )
+            if not args.hide_angle_overlay:
+                vis = draw_arm_angle_overlay(
+                    vis,
+                    mapper,
+                    camera_down_tilt_deg=args.camera_down_tilt_deg,
+                    tick_step_deg=args.angle_tick_step_deg,
+                    servo_angle_calibration=servo_angle_calibration,
+                )
             if not args.hide_centers:
                 vis = draw_detection_centers(vis, detections)
             cv2.putText(
                 vis,
-                f"YOLO trajectory {infer_ms:.1f}ms | det {len(detections)} | tracks {len(tracks)}",
+                f"YOLO {args.target_mode} "
+                f"{'SERVO_CAL' if servo_angle_calibration else 'LEGACY_GEOMETRIC'} "
+                f"{infer_ms:.1f}ms | "
+                f"det {len(detections)} | tracks {len(tracks)}",
                 (10, 24),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.7,
@@ -464,7 +800,7 @@ def main():
                 writer.write(vis)
 
             if not args.no_window:
-                window_name = "YOLO Object Trajectory"
+                window_name = args.window_title
                 cv2.imshow(window_name, vis)
                 key = cv2.waitKey(0 if is_image else 1) & 0xFF
                 if cv2.getWindowProperty(window_name, cv2.WND_PROP_VISIBLE) < 1:
