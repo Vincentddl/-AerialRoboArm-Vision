@@ -1,11 +1,20 @@
 # 脚本文件说明
 
+## 实时运行入口分类
+
+| 模式 | 入口 | 角度定义 | 状态 |
+| --- | --- | --- | --- |
+| 舵机—视觉实测标定 | `run_foam_board_servo_calibrated.py` | 同时输出光轴偏移角、建议舵机 `g` 角和旧机械水平角 | 当前推荐 |
+| 旧版几何角度 | `run_foam_board.py` | 保留原有鱼眼几何角和 `offset_angle_deg` | 保留兼容，不删除 |
+
+详细字段、有效范围和检测限制见 `docs/realtime_angle_modes.md`。
+
 本目录保存数据采集、数据集构建、模型训练、离线评估和实时运行入口。优先使用根 README 中给出的命令；下面是每个脚本的用途说明。
 
 | 文件 | 中文说明 |
 | --- | --- |
-| `run_foam_board.py` | 当前推荐的泡沫板实时/离线运行入口，封装默认模型、相机标定和预测参数。 |
-| `yolo_track.py` | 底层 YOLO 检测、目标跟踪、预测输出和结果保存脚本。`run_foam_board.py` 会调用或复用它的逻辑。 |
+| `run_foam_board.py` | 当前推荐入口，默认跟随手持目标的最新确认位置，不进行未来位置预测。 |
+| `yolo_track.py` | 底层 YOLO 检测和目标跟踪脚本；支持默认 `current` 模式及可选 `predictive` 实验模式。 |
 | `evaluate_bearing_prediction.py` | 方向角预测离线评估脚本，使用 V7 检测结果、真实时间戳和鱼眼标定计算预测误差。 |
 | `evaluate_target_jsonl.py` | 评估实时程序保存的 400 ms 未来位置、方向角和偏移角误差，并报告未来检测覆盖率。 |
 | `build_bearing_estimation_dataset.py` | 从 V7 检测结果和时间戳构建短期方向角估计训练数据。 |

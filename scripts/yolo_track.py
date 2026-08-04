@@ -22,7 +22,14 @@ OUTPUTS_DIR = LAB_DIR / "outputs"
 sys.path.insert(0, str(TRACKING_DIR))
 
 from ballistic_predictor import BallisticPredictor
-from trajectory import Detection, PixelToWorldMapper, TrajectoryEstimator, draw_tracks  # noqa: E402
+from servo_angle_calibration import ServoOpticalAngleCalibration  # noqa: E402
+from trajectory import (  # noqa: E402
+    Detection,
+    PixelToWorldMapper,
+    TrajectoryEstimator,
+    draw_arm_angle_overlay,
+    draw_tracks,
+)
 from trajectory_predictor import EnsembleTrajectoryPredictor  # noqa: E402
 from ultralytics import YOLO  # noqa: E402
 
@@ -361,6 +368,13 @@ def main():
     parser.add_argument("--iou", type=float, default=0.5, help="NMS IoU threshold")
     parser.add_argument("--imgsz", type=int, default=512, help="YOLO inference image size")
     parser.add_argument("--device", default="", help="Device, e.g. cpu, 0, cuda:0. Empty means auto")
+    parser.add_argument(
+        "--target-mode",
+        choices=["current", "predictive"],
+        default="current",
+        help="current outputs the latest confirmed detection without future "
+             "extrapolation; predictive enables the optional trajectory predictors",
+    )
     parser.add_argument("--predict-seconds", type=float, default=0.4, help="Future trajectory horizon in seconds")
     parser.add_argument(
         "--trajectory-steps",
@@ -456,11 +470,37 @@ def main():
     parser.add_argument("--print-targets", action="store_true", help="Print target JSON to terminal")
     parser.add_argument("--calibration", default="", help="Optional pixel-to-robot-plane calibration JSON")
     parser.add_argument(
+        "--servo-angle-calibration",
+        default="",
+        help="Optional empirical servo-command to optical-axis angle calibration JSON. "
+             "When set, live output keeps optical, servo and legacy mechanical angles separate.",
+    )
+    parser.add_argument(
+        "--camera-down-tilt-deg",
         "--camera-elevation-deg",
+        dest="camera_down_tilt_deg",
         type=float,
         default=0.0,
-        help="Legacy camera mounting metadata. It does not affect the "
-             "optical-axis offset angle.",
+        help="Camera optical axis downward tilt from the mechanical horizontal "
+             "x-axis. Positive means the camera points downward.",
+    )
+    parser.add_argument(
+        "--lateral-tolerance-deg",
+        type=float,
+        default=5.0,
+        help="Maximum absolute left/right angle for a target to be considered "
+             "inside the single-axis arm plane.",
+    )
+    parser.add_argument(
+        "--angle-tick-step-deg",
+        type=float,
+        default=5.0,
+        help="Mechanical-angle spacing for the calibrated video overlay.",
+    )
+    parser.add_argument(
+        "--hide-angle-overlay",
+        action="store_true",
+        help="Hide the camera crosshair and single-axis angle scale.",
     )
     parser.add_argument(
         "--max-prediction-uncertainty-deg",
@@ -521,6 +561,11 @@ def main():
     parser.add_argument("--save-jsonl", default="", help="Optional path to append arm target JSON lines")
     parser.add_argument("--output", default="", help="Optional output image/video path")
     parser.add_argument("--no-window", action="store_true", help="Run without cv2.imshow")
+    parser.add_argument(
+        "--window-title",
+        default="YOLO Object Trajectory",
+        help="Title for the interactive preview window.",
+    )
     args = parser.parse_args()
 
     device = resolve_device(args.device)
@@ -532,10 +577,24 @@ def main():
 
     allowed_classes = parse_class_filter(args.classes, model.names)
     mapper = PixelToWorldMapper(resolve_path(args.calibration) if args.calibration else None)
+    servo_angle_calibration = (
+        ServoOpticalAngleCalibration.from_json(
+            resolve_path(args.servo_angle_calibration)
+        )
+        if args.servo_angle_calibration
+        else None
+    )
+    if servo_angle_calibration is not None:
+        if mapper.unit != "deg":
+            raise RuntimeError(
+                "--servo-angle-calibration requires a pinhole/fisheye camera calibration"
+            )
+        print(servo_angle_calibration.summary)
 
-    # Build ballistic predictor (used by ensemble)
+    # Prediction is optional. The default current-target mode avoids starting
+    # any future predictor and is intended for hand-held slow/fast approach.
     ballistic_predictor = None
-    if not args.no_ballistic:
+    if args.target_mode == "predictive" and not args.no_ballistic:
         ballistic_predictor = BallisticPredictor(
             ema_alpha=args.ballistic_ema_alpha,
             initial_gravity_deg_s2=args.ballistic_gravity,
@@ -544,7 +603,11 @@ def main():
 
     # Build ensemble predictor when requested and calibration is available
     ensemble_predictor = None
-    if args.predictor in ("ensemble", "angle_kalman") and mapper.unit == "deg":
+    if (
+        args.target_mode == "predictive"
+        and args.predictor in ("ensemble", "angle_kalman")
+        and mapper.unit == "deg"
+    ):
         ensemble_predictor = EnsembleTrajectoryPredictor(
             mapper=mapper,
             angle_process_noise=args.angle_process_noise,
@@ -555,11 +618,16 @@ def main():
         print(f"Prediction method: {args.predictor}")
         if args.predictor == "angle_kalman":
             print("  (pure angle-space Kalman — ensemble fusion disabled)")
-    elif args.predictor in ("ensemble", "angle_kalman"):
+    elif (
+        args.target_mode == "predictive"
+        and args.predictor in ("ensemble", "angle_kalman")
+    ):
         print(
             f"Warning: --predictor={args.predictor} requires a camera calibration "
             f"(pinhole/fisheye). Falling back to pixel kalman."
         )
+    if args.target_mode == "current":
+        print("Target mode: current detection (future prediction disabled)")
 
     estimator = TrajectoryEstimator(
         max_match_distance=args.max_match_distance,
@@ -576,6 +644,7 @@ def main():
         match_classes=not args.class_agnostic_tracking,
         mapper=mapper,
         ensemble_predictor=ensemble_predictor,
+        servo_angle_calibration=servo_angle_calibration,
     )
 
     source = args.source
@@ -660,15 +729,24 @@ def main():
                 image_shape=frame.shape[:2],
             )
             tracks = estimator.update(detections, timestamp)
-            arm_targets = estimator.arm_targets(
-                predict_seconds=args.predict_seconds,
-                min_age=args.min_age,
-                max_missed=args.coast_frames,
-                min_speed=args.min_target_speed,
-                trajectory_steps=args.trajectory_steps,
-                camera_elevation_deg=args.camera_elevation_deg,
-                max_prediction_uncertainty_deg=args.max_prediction_uncertainty_deg,
-            )
+            if args.target_mode == "current":
+                arm_targets = estimator.current_targets(
+                    min_age=args.min_age,
+                    max_missed=args.coast_frames,
+                    camera_down_tilt_deg=args.camera_down_tilt_deg,
+                    lateral_tolerance_deg=args.lateral_tolerance_deg,
+                )
+            else:
+                arm_targets = estimator.arm_targets(
+                    predict_seconds=args.predict_seconds,
+                    min_age=args.min_age,
+                    max_missed=args.coast_frames,
+                    min_speed=args.min_target_speed,
+                    trajectory_steps=args.trajectory_steps,
+                    camera_down_tilt_deg=args.camera_down_tilt_deg,
+                    lateral_tolerance_deg=args.lateral_tolerance_deg,
+                    max_prediction_uncertainty_deg=args.max_prediction_uncertainty_deg,
+                )
             active_tracks = [track for track in tracks if track.missed <= args.coast_frames]
             infer_ms = (time.perf_counter() - start) * 1000.0
 
@@ -688,11 +766,22 @@ def main():
                 trajectory_steps=args.trajectory_steps,
                 targets=arm_targets,
             )
+            if not args.hide_angle_overlay:
+                vis = draw_arm_angle_overlay(
+                    vis,
+                    mapper,
+                    camera_down_tilt_deg=args.camera_down_tilt_deg,
+                    tick_step_deg=args.angle_tick_step_deg,
+                    servo_angle_calibration=servo_angle_calibration,
+                )
             if not args.hide_centers:
                 vis = draw_detection_centers(vis, detections)
             cv2.putText(
                 vis,
-                f"YOLO trajectory {infer_ms:.1f}ms | det {len(detections)} | tracks {len(tracks)}",
+                f"YOLO {args.target_mode} "
+                f"{'SERVO_CAL' if servo_angle_calibration else 'LEGACY_GEOMETRIC'} "
+                f"{infer_ms:.1f}ms | "
+                f"det {len(detections)} | tracks {len(tracks)}",
                 (10, 24),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.7,
@@ -711,7 +800,7 @@ def main():
                 writer.write(vis)
 
             if not args.no_window:
-                window_name = "YOLO Object Trajectory"
+                window_name = args.window_title
                 cv2.imshow(window_name, vis)
                 key = cv2.waitKey(0 if is_image else 1) & 0xFF
                 if cv2.getWindowProperty(window_name, cv2.WND_PROP_VISIBLE) < 1:

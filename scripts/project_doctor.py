@@ -14,8 +14,18 @@ CRITICAL_PATHS = {
     "calibration script": ROOT / "calibration" / "calibrate.py",
     "capture script": ROOT / "calibration" / "capture_chessboard.py",
     "runtime calibration": ROOT / "configs" / "camera_2p1mm_640x480_fisheye.json",
-    "V7 model": ROOT / "models" / "foam_board_2p1mm_v7.pt",
+    "manual-centre servo angle calibration": ROOT
+    / "configs"
+    / "servo_to_optical_angle_20260804_v1.json",
+    "YOLO-anchor servo angle calibration": ROOT
+    / "configs"
+    / "servo_to_optical_angle_yolo_v8_20260804_v1.json",
+    "V8 model": ROOT / "models" / "foam_board_2p1mm_v8.pt",
     "tracking runtime": ROOT / "scripts" / "run_foam_board.py",
+    "servo-calibrated runtime": ROOT
+    / "scripts"
+    / "run_foam_board_servo_calibrated.py",
+    "servo angle mapper": ROOT / "tracking" / "servo_angle_calibration.py",
     "trajectory baseline": ROOT / "tracking" / "trajectory.py",
     "bearing predictor": ROOT / "tracking" / "bearing.py",
     "bearing evaluator": ROOT / "scripts" / "evaluate_bearing_prediction.py",

@@ -9,6 +9,8 @@ from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 import cv2
 import numpy as np
 
+from servo_angle_calibration import ServoOpticalAngleCalibration
+
 
 Point = Tuple[float, float]
 BBox = Tuple[float, float, float, float]
@@ -349,6 +351,70 @@ class PixelToWorldMapper:
             math.acos(float(np.clip(optical_axis_dot, -1.0, 1.0)))
         )
 
+    def lateral_angle_deg(self, angles: Point) -> float:
+        """Return signed left/right angle from the camera center plane."""
+        if self._camera_matrix is None or self._dist_coeffs is None:
+            raise RuntimeError(
+                "lateral angle requires a camera calibration"
+            )
+        return float(angles[0] - float(self._angle_offset[0]))
+
+    def camera_plane_angle_deg(self, angles: Point) -> float:
+        """Project a bearing into the arm plane and return its signed angle.
+
+        The arm plane is the camera's vertical center plane. Positive angles
+        point downward in the image, matching the single-axis mechanism.
+        """
+        if self._camera_matrix is None or self._dist_coeffs is None:
+            raise RuntimeError(
+                "arm-plane angle requires a camera calibration"
+            )
+        yaw = math.radians(
+            angles[0] - float(self._angle_offset[0])
+        )
+        pitch = math.radians(
+            angles[1] - float(self._angle_offset[1])
+        )
+        # 单轴偏移角定义：
+        # 1. 将目标三维视线投影到机械臂的竖直运动平面（相机 Y-Z 平面）。
+        # 2. camera_plane_angle = atan2(ray_y, ray_z)。
+        # 3. 向画面下方为正，向画面上方为负。
+        # 左右偏角 yaw 不加入控制角，只通过 lateral_valid 判断目标是否
+        # 位于机械臂能够抓取的中轴平面内。
+        ray_y = math.sin(pitch)
+        ray_z = math.cos(yaw) * math.cos(pitch)
+        return math.degrees(math.atan2(ray_y, ray_z))
+
+    def arm_angle_deg(
+        self,
+        angles: Point,
+        camera_down_tilt_deg: float = 0.0,
+    ) -> float:
+        """Return signed arm angle from the mechanical horizontal x-axis."""
+        # 镜头相对机械水平轴向下倾斜时：
+        # arm_angle / offset_angle = camera_plane_angle + camera_down_tilt。
+        # 当前推荐入口 camera_down_tilt=30°，所以镜头光轴中心对应
+        # 机械角 +30°；机械水平线对应 0°。
+        return (
+            self.camera_plane_angle_deg(angles)
+            + float(camera_down_tilt_deg)
+        )
+
+    def arm_angle_to_pixel(
+        self,
+        arm_angle_deg: float,
+        camera_down_tilt_deg: float = 0.0,
+    ) -> Point:
+        """Project a single-axis mechanical angle onto the camera centerline."""
+        camera_plane_angle = (
+            float(arm_angle_deg) - float(camera_down_tilt_deg)
+        )
+        camera_angles = (
+            float(self._angle_offset[0]),
+            camera_plane_angle + float(self._angle_offset[1]),
+        )
+        return self.to_pixel(camera_angles)
+
     @property
     def principal_point(self) -> Optional[Point]:
         """Camera principal point ``(cx, cy)`` in pixels, if calibrated."""
@@ -396,6 +462,7 @@ class TrajectoryEstimator:
         match_classes: bool = True,
         mapper: Optional[PixelToWorldMapper] = None,
         ensemble_predictor=None,
+        servo_angle_calibration: Optional[ServoOpticalAngleCalibration] = None,
     ):
         self.max_match_distance = max_match_distance
         self.max_missed = max_missed
@@ -413,6 +480,7 @@ class TrajectoryEstimator:
         self.match_classes = match_classes
         self.mapper = mapper or PixelToWorldMapper()
         self._ensemble_predictor = ensemble_predictor
+        self.servo_angle_calibration = servo_angle_calibration
         self._next_id = 1
         self._next_candidate_id = 1
         self._tracks: Dict[int, TrackState] = {}
@@ -574,6 +642,132 @@ class TrajectoryEstimator:
         self._tracks[self._next_id] = track
         self._next_id += 1
 
+    def current_targets(
+        self,
+        min_age: int = 2,
+        max_missed: int = 0,
+        camera_down_tilt_deg: float = 0.0,
+        lateral_tolerance_deg: float = 5.0,
+    ) -> List[dict]:
+        """Return current detector targets without future extrapolation.
+
+        The latest detection-box center is used instead of the filtered
+        Kalman center. This avoids position lag when a hand-held target moves
+        quickly while still using the tracker for confirmation and identity.
+        """
+        targets = []
+        for track in self.tracks:
+            if track.age < min_age or track.missed > max_missed:
+                continue
+
+            x1, y1, x2, y2 = track.bbox
+            current_pixel = (0.5 * (x1 + x2), 0.5 * (y1 + y2))
+            current_world = self.mapper.to_world(current_pixel)
+            box_width = max(0.0, x2 - x1)
+            box_height = max(0.0, y2 - y1)
+            box_area = box_width * box_height
+
+            target = {
+                "track_id": track.track_id,
+                "label": track.label,
+                "class_id": track.class_id,
+                "score": round(float(track.score), 4),
+                "age": track.age,
+                "missed_frames": track.missed,
+                "target_mode": "current",
+                "target_valid": track.missed == 0,
+                "bbox": [round(float(value), 3) for value in track.bbox],
+                "bbox_size_px": _round_point((box_width, box_height)),
+                "bbox_area_px2": round(float(box_area), 3),
+                "pixel": _round_point(current_pixel),
+                "velocity_px_s": _round_point(track.velocity),
+                "world": _round_point(current_world),
+                "world_unit": self.mapper.unit,
+            }
+            if self.mapper.image_size is not None:
+                image_area = float(
+                    self.mapper.image_size[0] * self.mapper.image_size[1]
+                )
+                target["bbox_area_ratio"] = round(box_area / image_area, 6)
+
+            if self.mapper.unit == "deg":
+                lateral_angle = self.mapper.lateral_angle_deg(current_world)
+                camera_plane_angle = self.mapper.camera_plane_angle_deg(
+                    current_world
+                )
+                arm_angle = self.mapper.arm_angle_deg(
+                    current_world,
+                    camera_down_tilt_deg=camera_down_tilt_deg,
+                )
+                lateral_valid = (
+                    abs(lateral_angle) <= lateral_tolerance_deg
+                )
+                target["angle_deg"] = _round_point(current_world)
+                target["yaw_offset_deg"] = round(float(current_world[0]), 3)
+                target["pitch_offset_deg"] = round(float(current_world[1]), 3)
+                target["lateral_angle_deg"] = round(lateral_angle, 3)
+                target["lateral_tolerance_deg"] = round(
+                    float(lateral_tolerance_deg), 3
+                )
+                target["lateral_valid"] = lateral_valid
+                target["camera_plane_angle_deg"] = round(
+                    camera_plane_angle, 3
+                )
+                # Signed target bearing from the camera optical axis. This is
+                # distinct from the legacy mechanical-horizontal angle below.
+                target["optical_axis_offset_deg"] = round(
+                    camera_plane_angle, 3
+                )
+                target["camera_down_tilt_deg"] = round(
+                    float(camera_down_tilt_deg), 3
+                )
+                target["arm_angle_deg"] = round(arm_angle, 3)
+                target["legacy_mechanical_angle_deg"] = round(arm_angle, 3)
+                # Keep the historical field name for the control interface,
+                # but redefine it as the signed single-axis arm angle.
+                target["offset_angle_deg"] = round(arm_angle, 3)
+                target["offset_angle_convention"] = (
+                    "signed angle from mechanical horizontal x-axis; "
+                    "positive downward"
+                )
+                target["target_valid"] = (
+                    target["target_valid"] and lateral_valid
+                )
+                target["angle_mode"] = "legacy_geometric"
+                if self.servo_angle_calibration is not None:
+                    servo_command = (
+                        self.servo_angle_calibration.servo_from_optical_offset(
+                            camera_plane_angle
+                        )
+                    )
+                    servo_valid = self.servo_angle_calibration.is_servo_in_range(
+                        servo_command
+                    )
+                    target["angle_mode"] = "servo_calibrated"
+                    target["servo_command_deg"] = round(servo_command, 3)
+                    target["servo_calibration_valid"] = servo_valid
+                    target["servo_calibration_name"] = (
+                        self.servo_angle_calibration.name
+                    )
+                    target["servo_calibration_version"] = (
+                        self.servo_angle_calibration.version
+                    )
+                    target["servo_calibration_range_deg"] = [
+                        round(value, 3)
+                        for value in self.servo_angle_calibration.servo_range_deg
+                    ]
+                    target["servo_calibration_boundary_tolerance_deg"] = round(
+                        self.servo_angle_calibration.boundary_tolerance_deg, 3
+                    )
+                    target["servo_command_convention"] = (
+                        "empirical g command inferred from optical_axis_offset_deg"
+                    )
+                    target["target_valid"] = (
+                        target["target_valid"] and servo_valid
+                    )
+            targets.append(target)
+        return targets
+
     def arm_targets(
         self,
         predict_seconds: float = 0.4,
@@ -581,7 +775,8 @@ class TrajectoryEstimator:
         max_missed: int = 0,
         min_speed: float = 0.0,
         trajectory_steps: int = 8,
-        camera_elevation_deg: float = 0.0,
+        camera_down_tilt_deg: float = 0.0,
+        lateral_tolerance_deg: float = 5.0,
         max_prediction_uncertainty_deg: float = 8.0,
     ) -> List[dict]:
         targets = []
@@ -645,6 +840,16 @@ class TrajectoryEstimator:
                 if self.mapper.unit == "deg"
                 else predicted_pixel is not None
             )
+            if self.mapper.unit == "deg":
+                predicted_lateral_angle = self.mapper.lateral_angle_deg(
+                    predicted_world
+                )
+                predicted_lateral_valid = (
+                    abs(predicted_lateral_angle) <= lateral_tolerance_deg
+                )
+            else:
+                predicted_lateral_angle = None
+                predicted_lateral_valid = True
             uncertainty_ok = (
                 prediction_uncertainty_deg is None
                 or prediction_uncertainty_deg <= max_prediction_uncertainty_deg
@@ -653,6 +858,7 @@ class TrajectoryEstimator:
                 track.missed == 0
                 and predicted_pixel is not None
                 and predicted_visible
+                and predicted_lateral_valid
                 and uncertainty_ok
                 and prediction_error is None
             )
@@ -701,23 +907,127 @@ class TrajectoryEstimator:
                         predicted_world[1] - current_world[1],
                     )
                 )
-                current_axis_offset = self.mapper.optical_axis_offset_deg(
+                current_lateral_angle = self.mapper.lateral_angle_deg(
                     current_world
                 )
-                predicted_axis_offset = self.mapper.optical_axis_offset_deg(
-                    predicted_world
+                current_camera_plane_angle = (
+                    self.mapper.camera_plane_angle_deg(current_world)
+                )
+                predicted_camera_plane_angle = (
+                    self.mapper.camera_plane_angle_deg(predicted_world)
+                )
+                current_arm_angle = self.mapper.arm_angle_deg(
+                    current_world,
+                    camera_down_tilt_deg=camera_down_tilt_deg,
+                )
+                predicted_arm_angle = self.mapper.arm_angle_deg(
+                    predicted_world,
+                    camera_down_tilt_deg=camera_down_tilt_deg,
                 )
                 targets[-1]["yaw_offset_deg"] = round(float(current_world[0]), 3)
                 targets[-1]["predicted_yaw_offset_deg"] = round(
                     float(predicted_world[0]), 3
                 )
-                targets[-1]["offset_angle_deg"] = round(current_axis_offset, 3)
+                targets[-1]["lateral_angle_deg"] = round(
+                    current_lateral_angle, 3
+                )
+                targets[-1]["predicted_lateral_angle_deg"] = round(
+                    float(predicted_lateral_angle), 3
+                )
+                targets[-1]["lateral_tolerance_deg"] = round(
+                    float(lateral_tolerance_deg), 3
+                )
+                targets[-1]["lateral_valid"] = (
+                    abs(current_lateral_angle) <= lateral_tolerance_deg
+                )
+                targets[-1]["predicted_lateral_valid"] = (
+                    predicted_lateral_valid
+                )
+                targets[-1]["camera_plane_angle_deg"] = round(
+                    current_camera_plane_angle, 3
+                )
+                targets[-1]["optical_axis_offset_deg"] = round(
+                    current_camera_plane_angle, 3
+                )
+                targets[-1]["predicted_camera_plane_angle_deg"] = round(
+                    predicted_camera_plane_angle, 3
+                )
+                targets[-1]["predicted_optical_axis_offset_deg"] = round(
+                    predicted_camera_plane_angle, 3
+                )
+                targets[-1]["camera_down_tilt_deg"] = round(
+                    float(camera_down_tilt_deg), 3
+                )
+                targets[-1]["arm_angle_deg"] = round(current_arm_angle, 3)
+                targets[-1]["legacy_mechanical_angle_deg"] = round(
+                    current_arm_angle, 3
+                )
+                targets[-1]["predicted_arm_angle_deg"] = round(
+                    predicted_arm_angle, 3
+                )
+                targets[-1]["predicted_legacy_mechanical_angle_deg"] = round(
+                    predicted_arm_angle, 3
+                )
+                targets[-1]["offset_angle_deg"] = round(current_arm_angle, 3)
                 targets[-1]["predicted_offset_angle_deg"] = round(
-                    predicted_axis_offset, 3
+                    predicted_arm_angle, 3
                 )
                 targets[-1]["offset_angle_convention"] = (
-                    "unsigned 3-D angle from camera optical axis"
+                    "signed angle from mechanical horizontal x-axis; "
+                    "positive downward"
                 )
+                targets[-1]["angle_mode"] = "legacy_geometric"
+                if self.servo_angle_calibration is not None:
+                    current_servo_command = (
+                        self.servo_angle_calibration.servo_from_optical_offset(
+                            current_camera_plane_angle
+                        )
+                    )
+                    predicted_servo_command = (
+                        self.servo_angle_calibration.servo_from_optical_offset(
+                            predicted_camera_plane_angle
+                        )
+                    )
+                    current_servo_valid = (
+                        self.servo_angle_calibration.is_servo_in_range(
+                            current_servo_command
+                        )
+                    )
+                    predicted_servo_valid = (
+                        self.servo_angle_calibration.is_servo_in_range(
+                            predicted_servo_command
+                        )
+                    )
+                    targets[-1]["angle_mode"] = "servo_calibrated"
+                    targets[-1]["servo_command_deg"] = round(
+                        current_servo_command, 3
+                    )
+                    targets[-1]["predicted_servo_command_deg"] = round(
+                        predicted_servo_command, 3
+                    )
+                    targets[-1]["servo_calibration_valid"] = (
+                        current_servo_valid
+                    )
+                    targets[-1]["predicted_servo_calibration_valid"] = (
+                        predicted_servo_valid
+                    )
+                    targets[-1]["servo_calibration_name"] = (
+                        self.servo_angle_calibration.name
+                    )
+                    targets[-1]["servo_calibration_version"] = (
+                        self.servo_angle_calibration.version
+                    )
+                    targets[-1]["servo_calibration_range_deg"] = [
+                        round(value, 3)
+                        for value in self.servo_angle_calibration.servo_range_deg
+                    ]
+                    targets[-1]["servo_calibration_boundary_tolerance_deg"] = round(
+                        self.servo_angle_calibration.boundary_tolerance_deg, 3
+                    )
+                    targets[-1]["prediction_valid"] = (
+                        targets[-1]["prediction_valid"]
+                        and predicted_servo_valid
+                    )
         return targets
 
 
@@ -750,11 +1060,17 @@ def draw_tracks(
 
         if track.age >= min_age:
             target = targets_by_id.get(track.track_id)
-            raw_path = (
-                target.get("trajectory_pixel", [])
-                if target is not None
-                else track.predict_trajectory(predict_seconds, trajectory_steps)
+            current_mode = (
+                target is not None and target.get("target_mode") == "current"
             )
+            if current_mode:
+                raw_path = []
+            elif target is not None:
+                raw_path = target.get("trajectory_pixel", [])
+            else:
+                raw_path = track.predict_trajectory(
+                    predict_seconds, trajectory_steps
+                )
             future_path = [
                 (float(point[0]), float(point[1]))
                 for point in raw_path
@@ -777,14 +1093,58 @@ def draw_tracks(
                     )
             if (
                 target is not None
+                and target.get("angle_mode") == "servo_calibrated"
+                and "predicted_servo_command_deg" in target
+            ):
+                valid_text = "OK" if target.get("prediction_valid") else "INVALID"
+                line1 = (
+                    f"optical={target['optical_axis_offset_deg']:+.1f}deg | "
+                    f"servo_g={target['servo_command_deg']:+.1f}deg"
+                )
+                line2 = (
+                    f"optical@+{predict_seconds:.1f}s="
+                    f"{target['predicted_optical_axis_offset_deg']:+.1f}deg | "
+                    f"servo_g={target['predicted_servo_command_deg']:+.1f}deg "
+                    f"{valid_text}"
+                )
+            elif (
+                current_mode
+                and target.get("angle_mode") == "servo_calibrated"
+            ):
+                axis_text = "CENTERED" if target.get("lateral_valid") else "OFF_AXIS"
+                range_text = (
+                    "CAL_OK"
+                    if target.get("servo_calibration_valid")
+                    else "OUT_OF_CAL_RANGE"
+                )
+                line1 = (
+                    f"optical={target['optical_axis_offset_deg']:+.1f}deg | "
+                    f"servo_g={target['servo_command_deg']:+.1f}deg"
+                )
+                line2 = (
+                    f"legacy={target['legacy_mechanical_angle_deg']:+.1f}deg | "
+                    f"lat={target['lateral_angle_deg']:+.1f}deg "
+                    f"{axis_text} {range_text}"
+                )
+            elif (
+                target is not None
                 and "offset_angle_deg" in target
                 and "predicted_offset_angle_deg" in target
             ):
                 valid_text = "OK" if target.get("prediction_valid") else "INVALID"
-                line1 = f"axis_offset={target['offset_angle_deg']:.1f}deg"
+                line1 = f"arm_angle={target['offset_angle_deg']:+.1f}deg"
                 line2 = (
-                    f"axis_offset@+{predict_seconds:.1f}s="
-                    f"{target['predicted_offset_angle_deg']:.1f}deg {valid_text}"
+                    f"arm_angle@+{predict_seconds:.1f}s="
+                    f"{target['predicted_offset_angle_deg']:+.1f}deg {valid_text}"
+                )
+            elif current_mode and "offset_angle_deg" in target:
+                valid_text = "CENTERED" if target.get("lateral_valid") else "OFF_AXIS"
+                line1 = (
+                    f"arm_angle={target['offset_angle_deg']:+.1f}deg LIVE"
+                )
+                line2 = (
+                    f"lateral={target['lateral_angle_deg']:+.1f}deg "
+                    f"{valid_text}"
                 )
             else:
                 line1 = "axis_offset=calculating..."
@@ -792,9 +1152,190 @@ def draw_tracks(
         else:
             line1 = "axis_offset=calculating..."
             line2 = f"axis_offset@+{predict_seconds:.1f}s=calculating..."
-        text_y = max(20, y1 - 25)
-        cv2.putText(image, line1, (x1, text_y), font, 0.55, text_color, 2)
-        cv2.putText(image, line2, (x1, text_y + 20), font, 0.55, text_color, 2)
+        # Keep target text away from the top status bar and inside the frame.
+        if target is not None and target.get("angle_mode") == "servo_calibrated":
+            # The calibrated mode is single-target. A fixed legend below the
+            # status bar is easier to read than text moving across angle ticks.
+            text_x, text_y = 5, 52
+        else:
+            text_x = max(5, min(x1, image.shape[1] - 470))
+            text_y = (
+                max(55, y1 - 25)
+                if y1 >= 80
+                else min(image.shape[0] - 35, y2 + 20)
+            )
+        for text, origin in (
+            (line1, (text_x, text_y)),
+            (line2, (text_x, text_y + 20)),
+        ):
+            cv2.putText(image, text, origin, font, 0.55, (0, 0, 0), 4)
+            cv2.putText(image, text, origin, font, 0.55, text_color, 2)
+    return image
+
+
+def draw_arm_angle_overlay(
+    image: np.ndarray,
+    mapper: PixelToWorldMapper,
+    camera_down_tilt_deg: float = 30.0,
+    tick_step_deg: float = 5.0,
+    servo_angle_calibration: Optional[ServoOpticalAngleCalibration] = None,
+) -> np.ndarray:
+    """Draw the single-axis centerline and the selected angle scale.
+
+    The vertical line is the arm motion plane (lateral angle = 0). The
+    horizontal line is the camera optical axis. Legacy mode labels ticks in
+    mechanical-horizontal degrees. Servo-calibrated mode labels empirical
+    ``g`` commands and keeps the optical and legacy definitions visible.
+    """
+    if (
+        mapper.unit != "deg"
+        or mapper.principal_point is None
+        or tick_step_deg <= 0.0
+    ):
+        return image
+
+    height, width = image.shape[:2]
+    principal_x, principal_y = mapper.principal_point
+    center_x = int(round(principal_x))
+    center_y = int(round(principal_y))
+    center_x = max(0, min(width - 1, center_x))
+    center_y = max(0, min(height - 1, center_y))
+
+    axis_color = (0, 220, 255)
+    optical_axis_color = (255, 180, 0)
+    tick_color = (0, 255, 255)
+    text_color = (255, 255, 255)
+    font = cv2.FONT_HERSHEY_SIMPLEX
+
+    # Crosshair: the vertical line is reachable arm plane; the horizontal
+    # line is the camera optical axis (mechanical angle = mounting tilt).
+    cv2.line(image, (center_x, 0), (center_x, height - 1), axis_color, 1)
+    cv2.line(
+        image,
+        (0, center_y),
+        (width - 1, center_y),
+        optical_axis_color,
+        1,
+    )
+
+    def put_label(text: str, origin: Tuple[int, int], scale: float = 0.42) -> None:
+        cv2.putText(image, text, origin, font, scale, (0, 0, 0), 3, cv2.LINE_AA)
+        cv2.putText(image, text, origin, font, scale, text_color, 1, cv2.LINE_AA)
+
+    # Keep this label away from the top status and target labels.
+    put_label("ARM PLANE  lateral=0deg", (center_x + 8, height - 10))
+
+    if servo_angle_calibration is not None:
+        optical_at_axis = 0.0
+        servo_at_axis = servo_angle_calibration.servo_from_optical_offset(
+            optical_at_axis
+        )
+        put_label(
+            f"OPTICAL AXIS  optical=0.0deg | servo_g={servo_at_axis:+.1f}deg",
+            (8, max(16, center_y - 8)),
+        )
+        put_label(
+            f"SERVO_CAL mode | legacy_axis={camera_down_tilt_deg:+.1f}deg",
+            (8, max(34, center_y + 18)),
+        )
+
+        minimum_servo, maximum_servo = (
+            servo_angle_calibration.servo_range_deg
+        )
+        first_tick = math.ceil(minimum_servo / tick_step_deg) * tick_step_deg
+        tick_count = int(
+            math.floor((maximum_servo - first_tick) / tick_step_deg)
+        ) + 1
+        tick_values = [
+            first_tick + index * tick_step_deg
+            for index in range(max(0, tick_count))
+        ]
+        for servo_command in tick_values:
+            optical_offset = (
+                servo_angle_calibration.optical_offset_from_servo(
+                    servo_command
+                )
+            )
+            # arm_angle_to_pixel subtracts camera tilt internally, so adding
+            # it here projects the requested optical-axis offset.
+            _, pixel_y = mapper.arm_angle_to_pixel(
+                optical_offset + camera_down_tilt_deg,
+                camera_down_tilt_deg=camera_down_tilt_deg,
+            )
+            if not math.isfinite(pixel_y):
+                continue
+            tick_y = int(round(pixel_y))
+            if tick_y < 0 or tick_y >= height:
+                continue
+            major_tick = math.isclose(
+                servo_command / 10.0,
+                round(servo_command / 10.0),
+                abs_tol=1e-6,
+            )
+            half_length = 13 if major_tick else 8
+            cv2.line(
+                image,
+                (center_x - half_length, tick_y),
+                (center_x + half_length, tick_y),
+                tick_color,
+                2 if major_tick else 1,
+            )
+            if major_tick:
+                put_label(
+                    f"g{servo_command:+.0f} / opt{optical_offset:+.1f}",
+                    (center_x + half_length + 5, max(12, tick_y + 4)),
+                    scale=0.36,
+                )
+    else:
+        put_label(
+            f"CAMERA AXIS  legacy_arm={camera_down_tilt_deg:+.1f}deg",
+            (8, max(16, center_y - 8)),
+        )
+        top_arm_angle = mapper.arm_angle_deg(
+            mapper.to_world((principal_x, 0.0)),
+            camera_down_tilt_deg=camera_down_tilt_deg,
+        )
+        bottom_arm_angle = mapper.arm_angle_deg(
+            mapper.to_world((principal_x, float(height - 1))),
+            camera_down_tilt_deg=camera_down_tilt_deg,
+        )
+        minimum_angle = min(top_arm_angle, bottom_arm_angle)
+        maximum_angle = max(top_arm_angle, bottom_arm_angle)
+        first_tick = math.ceil(minimum_angle / tick_step_deg) * tick_step_deg
+        tick_count = int(
+            math.floor((maximum_angle - first_tick) / tick_step_deg)
+        ) + 1
+
+        for index in range(max(0, tick_count)):
+            arm_angle = first_tick + index * tick_step_deg
+            _, pixel_y = mapper.arm_angle_to_pixel(
+                arm_angle,
+                camera_down_tilt_deg=camera_down_tilt_deg,
+            )
+            if not math.isfinite(pixel_y):
+                continue
+            tick_y = int(round(pixel_y))
+            if tick_y < 0 or tick_y >= height:
+                continue
+            major_tick = math.isclose(
+                arm_angle / 10.0,
+                round(arm_angle / 10.0),
+                abs_tol=1e-6,
+            )
+            half_length = 13 if major_tick else 8
+            cv2.line(
+                image,
+                (center_x - half_length, tick_y),
+                (center_x + half_length, tick_y),
+                tick_color,
+                2 if major_tick else 1,
+            )
+            put_label(
+                f"{arm_angle:+.0f}deg",
+                (center_x + half_length + 5, max(12, tick_y + 4)),
+                scale=0.38,
+            )
+
     return image
 
 

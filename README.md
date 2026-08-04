@@ -265,7 +265,13 @@ python scripts/run_foam_board.py --source 0
 python scripts/run_foam_board.py --source "datasets/foam_board_2p1mm_zaxis/raw/20260714_223253/foam_board_2p1mm_zaxis_trajectory_20260714_223351_701282.mp4"
 ```
 
-`scripts/run_foam_board.py` 是推荐入口；更底层的 YOLO 检测、跟踪和输出逻辑在 `scripts/yolo_track.py`。默认输出泡沫板未来 **0.4 s** 的预测轨迹和终点位置：`trajectory_pixel` 是原始画面坐标轨迹，`trajectory_world` / `predicted_world` 是使用鱼眼标定去畸变后的方向角轨迹（单位为 `deg`）。`predicted_angle_deg` 是 0.4 s 后相对相机光轴的 `[yaw, pitch]`，`predicted_angular_displacement_deg` 是相对当前帧的角位移。
+`scripts/run_foam_board.py` 是推荐入口；更底层的 YOLO 检测、跟踪和输出逻辑在 `scripts/yolo_track.py`。默认使用简化的 `current` 模式，只输出最新确认检测框的当前位置和方向角，不再预测未来 0.4 秒的位置。该模式允许目标静止，也适用于用手拿着目标以慢速或快速接近相机。
+
+默认输出包含 `pixel`、`bbox`、`bbox_size_px`、`bbox_area_ratio`、`arm_angle_deg`、`lateral_angle_deg` 和 `target_valid`。其中 `bbox_area_ratio` 可作为目标接近相机时的单目尺度变化参考，但不能直接换算成毫米距离。
+
+当前相机光轴相对机械水平轴向下安装 `30°`。`arm_angle_deg`（兼容字段 `offset_angle_deg`）定义为目标射线投影到机械臂运动平面后，相对机械水平 x 轴的有符号夹角：向下为正，向上为负。`lateral_angle_deg` 表示目标偏离相机中轴平面的左右角度，默认只有 `abs(lateral_angle_deg) <= 5°` 时 `target_valid` 才为 `true`。
+
+实时画面默认显示标定后的中轴线和机械角刻度：竖线表示 `lateral=0°` 的机械臂运动平面，横线表示相机光轴（机械角 `30°`），竖线上的刻度默认每 `5°` 一个。刻度经过鱼眼模型反投影，因此不会简单按像素等距排列。可用 `--angle-tick-step-deg 10` 修改间隔，或用 `--hide-angle-overlay` 隐藏标尺。
 
 ## 方向角预测和轨迹评估
 
@@ -432,10 +438,10 @@ datasets/foam_board_2p1mm/v7/foam_board_2p1mm.yaml
 
 ### 如果目标是接入机械臂控制
 
-1. 先不要直接使用 400 ms 外推。
-2. 优先验证 100 ms / 200 ms 短期预测。
-3. 使用独立人工标注数据验证。
-4. 只有超过保持角度基线后，再考虑接入运行时控制。
+1. 默认使用 `current` 模式，只跟随当前确认目标。
+2. 控制端检查 `target_valid`，并使用 `pixel` 或 `angle_deg`。
+3. 用手持目标分别进行静止、慢速接近和快速接近测试。
+4. 单目框大小只能作为接近趋势参考，毫米级距离需要深度、双目或 PnP。
 
 ## 参考文档
 
@@ -454,17 +460,24 @@ datasets/foam_board_2p1mm/v7/foam_board_2p1mm.yaml
 - 原始大视频、可再生成中间图、重复训练权重和缓存默认不上传。
 - 新模型进入 `models/` 后，要同步更新 `models/README.md` 和根 README。
 
-## 0.4 秒动态预测与偏移角
+## 可选的 0.4 秒预测实验
 
-实时输出中：
+0.4 秒预测不再是自动模式的默认行为。如需保留算法研究或离线对比，可以显式启用：
+
+```powershell
+python scripts/run_foam_board.py --source input.mp4 --target-mode predictive --predictor ensemble --predict-seconds 0.4
+```
+
+预测模式输出中：
 
 - `predicted_pixel` / `trajectory_pixel`：未来 0.4 秒的图像坐标终点与轨迹。
 - `predicted_angle_deg`：未来方向角 `[yaw, pitch]`；yaw 向右为正，pitch 向下为正。
-- `offset_angle_deg`：当前目标视线与相机光轴之间的三维夹角；光轴中心为 `0°`，向任意方向偏离时角度增大。
-- `predicted_offset_angle_deg`：预测 0.4 秒后目标视线与相机光轴之间的三维夹角。
-- `prediction_valid`：只有预测仍在视野内且估计不确定度没有超过阈值时才为 `true`。机械臂控制必须检查该字段。
+- `offset_angle_deg` / `arm_angle_deg`：目标投影到机械臂运动平面后，相对机械水平 x 轴的有符号单轴角度。
+- `predicted_offset_angle_deg` / `predicted_arm_angle_deg`：预测 0.4 秒后的单轴机械角。
+- `lateral_angle_deg`：目标偏离相机中轴平面的左右角度，只用于可抓取性判断，不参与单轴角度计算。
+- `prediction_valid`：只有预测仍在视野内、位于单轴运动平面容差内且估计不确定度没有超过阈值时才为 `true`。
 
-偏移角以相机自身光轴为基准，是非负标量，因此不受相机相对水平面的安装仰角影响。
+当前运行入口使用 `--camera-down-tilt-deg 30` 修正相机向下安装角，并使用 `--lateral-tolerance-deg 5` 设置中轴平面容差。
 
 保存一次完整上抛/下抛录像的逐帧结果并评估 400 ms 误差：
 
